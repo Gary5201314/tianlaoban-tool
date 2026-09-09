@@ -1,5 +1,5 @@
 /* 甜老板·私域助手 — PWA Service Worker (v5.1 自动更新版) */
-const CACHE = 'tianlaoban-v9-3-20260909';
+const CACHE = 'tianlaoban-v9-4-20260909';
 const SHELL = [
   './',
   './index.html',
