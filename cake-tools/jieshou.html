@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店接手转让避坑 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus{outline:none;border-color:var(--o);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.bignum{font-size:42px;font-weight:900;color:var(--o);line-height:1;margin:6px 0;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;border-left:5px solid var(--o);}
+.disc-g{background:#ecfdf5;border-color:#16a34a;color:#166534;}
+.disc-y{background:#fef9c3;border-color:#ca8a04;color:#854d0e;}
+.disc-r{background:#fef2f2;border-color:#dc2626;color:#991b1b;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.flow{margin:14px 0;counter-reset:step;}
+.flow .step{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px 14px 50px;margin:8px 0;position:relative;}
+.flow .step::before{counter-increment:step;content:counter(step);position:absolute;left:14px;top:14px;width:24px;height:24px;border-radius:50%;background:var(--o);color:#fff;font-weight:900;text-align:center;line-height:24px;font-size:13px;}
+.flow .step b{color:var(--slate);}
+ul.checklist{padding-left:0;list-style:none;}
+ul.checklist li{padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:14px;display:flex;gap:8px;}
+ul.checklist li::before{content:"✓";color:var(--g);font-weight:900;flex-shrink:0;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row{grid-template-columns:1fr;}.bignum{font-size:32px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>🔑 蛋糕店接手转让 · 避坑</h1>
+  <div class="sub">转让费给贵/钱付早——二手蛋糕店这两大坑先防住</div>
+</div>
+
+<div class="disclaimer">⚠️ <b>法律 / 财务细则以当地政策为准</b>，这工具只列要点。<br>🟢=框架 / 🟡=经验 / 🔴=单店案例</div>
+
+<h2>① 转让费值不值？</h2>
+
+<div class="block">
+<div class="row">
+  <div><label>对方要价（元）</label><input id="z_ask" type="number" value="50000"></div>
+  <div><label>剩余租期（月）</label><input id="z_period" type="number" value="12"></div>
+</div>
+<div class="row">
+  <div><label>店铺月营业额估值（元）</label><input id="z_rev" type="number" value="80000"></div>
+  <div><label>当地同类店转让费行情（元）</label><input id="z_mkt" type="number" value="30000"></div>
+</div>
+</div>
+
+<button class="btn" onclick="calcZf()">💰 算转让费是否合理</button>
+
+<div id="res1" style="display:none;">
+<div class="block">
+<h3>转让费评估</h3>
+<div class="bignum" id="o_score">--</div>
+<p style="margin:4px 0 0;font-size:14px;color:var(--ink2);" id="o_verdict1">--</p>
+</div>
+<div class="block">
+<h3>明细</h3>
+<table>
+<tr><th>项</th><th class="num">金额</th><th>评估</th></tr>
+<tbody id="o_tab1"></tbody>
+</table>
+</div>
+</div>
+
+<h2>② 资金主动权顺序（最关键）</h2>
+
+<div class="block">
+<div class="flow">
+
+<div class="step">
+<b>第一笔：见面诚意金（建议 ≤ 1000）</b><br>
+<span style="font-size:13.5px;color:var(--ink2);">目的：表示诚意，不是钱。给多了走不掉。</span><br>
+<span style="font-size:13px;">✅ 必签：意向金协议 + 退款条件</span>
+</div>
+
+<div class="step">
+<b>第二笔：见房东确认租赁（0 元 / 见面礼）</b><br>
+<span style="font-size:13.5px;color:var(--ink2);">不带房东的转让大部分有问题：房东可解除合同、新合同起签权归谁？</span><br>
+<span style="font-size:13px;">✅ 必查：房产证 + 房东本人到场 + 同意转租证明</span>
+</div>
+
+<div class="step">
+<b>第三笔：签新租赁合同（一般押 1 付 3）</b><br>
+<span style="font-size:13.5px;color:var(--ink2);">拿到白纸黑字（合同条款检 <a href="zulin.html" style="color:#d97706">租赁合同体检</a>）</span><br>
+<span style="font-size:13px;">✅ 必查：违约金、转租权、装修条款、停电停业赔偿</span>
+</div>
+
+<div class="step">
+<b>第四笔：付转让费（签转让协议时）</b><br>
+<span style="font-size:13.5px;color:var(--ink2);">上家拿到钱走人。转让费看清"含什么"——装修、设备、会员、原料、存货</span><br>
+<span style="font-size:13px;">⚠ 大坑：上家外债 / 偷税 / 社保欠缴可能跟着你</span>
+</div>
+
+<div class="step">
+<b>第五笔：营业款 + 会员卡余额核对</b><br>
+<span style="font-size:13.5px;color:var(--ink2);">上家如有挂单 / 预售卡 / 充值会员卡，要把清单全要过来</span><br>
+<span style="font-size:13px;">✅ 必做：调出系统后台，逐笔核对</span>
+</div>
+
+</div>
+</div>
+
+<h2>③ 接手日当天必查 8 件</h2>
+
+<div class="block">
+<ul class="checklist">
+<li><div><b>1. 上家水电燃气欠费</b><small>让上家当月结清，过户到你的名下才安心</small></div></li>
+<li><div><b>2. 工商执照过户</b><small>营业执照上是上家名字不放心，做个体户变更或新办</small></div></li>
+<li><div><b>3. 食品经营许可证</b><small>经营者和法人不一致的话要重新办，否则年检被卡</small></div></li>
+<li><div><b>4. 员工合同 / 社保</b><small>老员工留下的，要重新签合同、确认工龄是否带过来</small></div></li>
+<li><div><b>5. 上家外卖平台商户</b><small>美团/饿了么商户主体变更或重新开店，否则评分带不过来还会被锁号</small></div></li>
+<li><div><b>6. 蛋糕设备清单 + 状态</b><small>列清单走盘点——烤箱温控准不准、冷柜是否结霜、模具是否齐</small></div></li>
+<li><div><b>7. 原料库存盘点</b><small>临期/过期原料上家应折价，不能让你接盘亏本货</small></div></li>
+<li><div><b>8. 门头 / 招牌</b><small>换招牌前要房东同意，避免"擅自改装"违约</small></div></li>
+</ul>
+</div>
+
+<h2>④ 交接清单</h2>
+
+<div class="block">
+<table>
+<thead><tr><th>类别</th><th>项目</th><th class="num">金额</th></tr></thead>
+<tbody>
+<tr><td rowspan="4">钱</td><td>上家要价</td><td class="num" id="x_ask">--</td></tr>
+<tr><td>押付房租</td><td class="num" id="x_dep">--</td></tr>
+<tr><td>预计装修</td><td class="num" id="x_dec">--</td></tr>
+<tr><th>总现金需求</th><th class="num" id="x_total">--</th></tr>
+</tbody>
+</table>
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+function F(id){return +(document.getElementById(id).value||0);}
+
+function calcZf(){
+  var ask=F('z_ask');
+  var period=F('z_period');
+  var rev=F('z_rev');
+  var mkt=F('z_mkt');
+  // 转让费可接受上限 = 月营业额 / 12（月转让费承受回本期上限12个月）
+  var maxAccept=rev/12;
+  var diff=ask-mkt;
+  // 综合分 0~100
+  var score=0;
+  if(ask<=mkt)score+=50;else if(ask<=mkt*1.2)score+=30;else if(ask<=mkt*1.5)score+=10;
+  if(ask<=maxAccept)score+=50;else if(ask<=maxAccept*1.3)score+=25;else if(ask<=maxAccept*1.5)score+=10;
+  document.getElementById('o_score').textContent=score+' 分';
+  document.getElementById('o_score').className='bignum '+(score>=80?'g':score>=50?'y':'r');
+  document.getElementById('o_score').style.color=(score>=80?'#16a34a':score>=50?'#ca8a04':'#dc2626');
+  var v='';
+  if(score>=80)v='<span class="tag tag-g">合理</span> 在可接受范围内，议价空间小';
+  else if(score>=50)v='<span class="tag tag-y">偏高</span> 砍 20% 后再考虑';
+  else v='<span class="tag tag-r">极贵</span> 建议放弃或大砍';
+  document.getElementById('o_verdict1').innerHTML=v;
+  document.getElementById('o_tab1').innerHTML=
+    '<tr><td>对方要价</td><td class="num">¥'+ask.toLocaleString()+'</td><td>--</td></tr>'+
+    '<tr><td>当地行情</td><td class="num">¥'+mkt.toLocaleString()+'</td><td>'+(ask<=mkt?'<span class="tag tag-g">OK</span>':(ask-mkt).toFixed(0)+' 元高于行情</td></tr>')+
+    '<tr><td>可承受上限（月营÷12）</td><td class="num">¥'+maxAccept.toFixed(0).toLocaleString()+'</td><td>'+(ask<=maxAccept?'<span class="tag tag-g">OK</span>':'超 '+((ask-maxAccept)).toFixed(0)+' 元</td></tr>')+
+    '<tr><td>建议还价</td><td class="num" style="color:#dc2626;">¥'+Math.round(mkt*0.7).toLocaleString()+'</td><td>从行情 70% 砍起</td></tr>';
+  // 交接清单预算
+  document.getElementById('x_ask').textContent='¥ '+ask.toLocaleString();
+  document.getElementById('x_dep').textContent='¥ '+(period>0?(ask*0.3).toFixed(0):'-');
+  document.getElementById('x_dec').textContent='¥ '+Math.round(ask*0.4).toLocaleString();
+  document.getElementById('x_total').textContent='¥ '+(ask+ask*0.3+ask*0.4).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('res1').style.display='block';
+}
+
+// load
+try{var s=JSON.parse(localStorage.getItem('jieshou_state_v1')||'{}');Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el&&s[k]!==undefined)el.value=s[k];});}catch(e){}
+window.addEventListener('beforeunload',function(){
+  var s={};
+  document.querySelectorAll('input').forEach(function(el){if(el.id)s[el.id]=el.value;});
+  try{localStorage.setItem('jieshou_state_v1',JSON.stringify(s));}catch(e){}
+});
+</script>
+</body>
+</html>
