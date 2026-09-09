@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛋糕店定价算账 · 真实毛利率 + 建议售价区间</title>
+<meta name="description" content="蛋糕店定价算账:填原料/人工/房租/损耗,算出真实毛利率和健康售价区间。">
+<style>
+:root{
+  --ink:#0f172a;--ink2:#475569;--muted:#7c8aa0;
+  --brand:#d97706;--brand2:#92400e;
+  --ok:#15803d;--okbg:#dcfce7;--warn:#d97706;--warnbg:#fef3c7;--bad:#b91c1c;--badbg:#fee2e2;
+  --bg:#fffbeb;--card:#ffffff;--line:#fed7aa;--slate:#1e293b;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+body{background:linear-gradient(180deg,#fffbeb 0%,#fef3c7 100%);color:var(--ink);font-family:"PingFang SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.75;min-height:100vh;}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px 60px;}
+a{color:var(--brand);}
+b,strong{font-weight:800;}
+.hero{position:relative;background:linear-gradient(150deg,#92400e 0%,#b45309 50%,#d97706 100%);color:#fffbeb;border-radius:0 0 22px 22px;margin:0 -14px 20px;padding:30px 24px 26px;overflow:hidden;}
+.hero::after{content:"💰";position:absolute;right:18px;bottom:-30px;font-size:160px;line-height:1;opacity:.14;}
+.hero .kicker{font-size:12px;letter-spacing:2px;color:#fde68a;font-weight:800;margin-bottom:9px;}
+.hero h1{font-size:25px;font-weight:900;line-height:1.4;position:relative;z-index:2;}
+.hero .sub{margin-top:11px;font-size:14px;color:#fde68a;line-height:1.85;position:relative;z-index:2;}
+.hero .sub b{color:#fff;}
+.hero-back{display:inline-flex;align-items:center;gap:6px;position:absolute;top:16px;left:16px;padding:8px 16px 8px 12px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.45);border-radius:999px;backdrop-filter:blur(6px);text-decoration:none;z-index:3;}
+.hero{padding-top:64px !important;}
+.sec{margin:26px 0 8px;display:flex;align-items:center;gap:10px;}
+.sec .t{font-size:17px;font-weight:900;color:var(--slate);}
+.sec .bar{flex:1;height:1px;background:var(--line);}
+.lead{font-size:13.5px;color:var(--ink2);line-height:1.8;margin:6px 0 13px;}
+.lead b{color:var(--brand2);}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 14px rgba(146,64,14,.07);margin-bottom:13px;}
+.frow{display:flex;align-items:center;gap:8px;padding:9px 0;border-top:1px dashed #fef3c7;}
+.frow:first-of-type{border-top:none;}
+.frow label{flex:1;font-size:13.5px;color:var(--ink);font-weight:700;}
+.frow label b{color:var(--brand2);}
+.frow input,.frow select{width:90px;font-size:15px;font-weight:800;color:var(--ink);background:#fffbeb;border:1.2px solid var(--line);border-radius:8px;padding:7px 9px;font-family:inherit;-moz-appearance:textfield;text-align:center;}
+.frow input:focus,.frow select:focus{outline:none;border-color:var(--brand);background:#fff;}
+.frow .unit{font-size:11px;color:var(--muted);min-width:30px;text-align:left;}
+.preset-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;padding:8px;background:#fef3c7;border-radius:10px;border:1px dashed var(--line);}
+.preset-row span{font-size:12px;color:var(--ink2);font-weight:800;align-self:center;margin-right:4px;}
+.preset-row button{flex:1;min-width:80px;padding:6px 10px;font-size:12px;background:#fff;border:1.2px solid var(--line);border-radius:7px;color:var(--ink);cursor:pointer;font-weight:800;}
+.preset-row button:hover{background:#fffbeb;border-color:var(--brand);}
+.result{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:20px 16px;box-shadow:0 4px 18px rgba(146,64,14,.10);margin-bottom:14px;}
+.metric{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.metric .m{background:#fffbeb;border-radius:12px;padding:11px 12px;border:1.2px solid var(--line);}
+.metric .m .ml{font-size:11.5px;font-weight:800;color:var(--ink2);}
+.metric .m .mv{font-size:22px;font-weight:900;color:var(--slate);margin-top:2px;}
+.metric .m.g .mv{color:var(--ok);}
+.metric .m.y .mv{color:#b45309;}
+.metric .m.r .mv{color:var(--bad);}
+.verdict{border-radius:13px;padding:14px 16px;font-size:14px;line-height:1.85;border:2px solid;margin-bottom:13px;}
+.verdict.g{background:var(--okbg);border-color:#86efac;color:#14532d;}
+.verdict.y{background:var(--warnbg);border-color:#fcd34d;color:#78350f;}
+.verdict.r{background:var(--badbg);border-color:#fca5a5;color:#7f1d1d;}
+.verdict .vh{font-size:16px;font-weight:900;display:block;margin-bottom:4px;}
+.warn-line{background:#fffbeb;border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:10px 13px;font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:7px;}
+.warn-line b{color:var(--brand2);}
+.fix{margin-top:13px;background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:14px 15px;}
+.fix .ft{font-size:14.5px;font-weight:900;color:var(--slate);margin-bottom:8px;}
+.fix .fc{font-size:13px;color:var(--ink2);line-height:1.65;padding:5px 0;border-top:1px solid #fde68a;}
+.fix .fc:first-of-type{border-top:none;}
+.fix .fc b{color:var(--brand2);}
+.disc{font-size:12px;color:var(--muted);line-height:1.7;background:#fffbeb;border:1px dashed var(--line);border-radius:12px;padding:13px 15px;margin-top:16px;}
+.disc b{color:var(--ink2);}
+.backhome{margin-top:24px;text-align:center;}
+.backhome a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);color:#fff;font-size:14.5px;font-weight:800;border-radius:999px;text-decoration:none;}
+.foot{margin-top:18px;text-align:center;}
+.foot .tiny{font-size:12px;color:var(--muted);line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <a class="hero-back" href="index.html"><span>←</span> 工具箱</a>
+  <div class="kicker">蛋糕店经营中 · 定价算账</div>
+  <h1>这个蛋糕,你<span style="color:#fbbf24;">真的赚</span>到了吗?</h1>
+  <div class="sub">很多蛋糕店老板凭感觉定价,<b>卖得很火但不赚钱</b>。下面填真实数据,告诉你<b>实际毛利率</b>、和你的目标价比、和同街竞品价比,以及<b>建议售价区间</b>。</div>
+</div>
+
+<p class="lead">蛋糕店合理毛利率区间:<b>鲜奶蛋糕 55%~70%</b>,<b>面包下午茶 60%~75%</b>,<b>节日礼盒 50%~65%</b>(高毛利 + 集中产能)。低于 40% 一定亏,高于 80% 可能定高了被竞品咬。</p>
+
+<div class="card">
+  <div class="preset-row">
+    <span>📋 选品类:</span>
+    <button onclick="loadPreset('cake_6',this)">鲜奶 6 寸</button>
+    <button onclick="loadPreset('cake_8',this)">鲜奶 8 寸</button>
+    <button onclick="loadPreset('bread',this)">面包</button>
+    <button onclick="loadPreset('pastry',this)">西点</button>
+    <button onclick="loadPreset('fest',this)">节日礼盒</button>
+  </div>
+
+  <div class="frow">
+    <label>① 原料成本(元)<b>:</b>鸡蛋 / 面粉 / 奶油 / 糖 / 坚果 / 水果 / 包装费合计</label>
+    <input type="number" id="cost_mat" value="0" step="0.1" oninput="calc()">
+    <span class="unit">元</span>
+  </div>
+  <div class="frow">
+    <label>② 制作耗时(分钟)<b>:</b>从备料到成品出炉/装饰完成的实际时长</label>
+    <input type="number" id="time_make" value="0" oninput="calc()">
+    <span class="unit">分钟</span>
+  </div>
+  <div class="frow">
+    <label>③ 房租水电摊(元/小时)<b>:</b>月租+水电 ÷ 30 ÷ 营业小时</label>
+    <input type="number" id="rent_hr" value="0" step="0.1" oninput="calc()">
+    <span class="unit">元/时</span>
+  </div>
+  <div class="frow">
+    <label>④ 人工时薪(元/小时)<b>:</b>店员 + 裱花师加权平均</label>
+    <input type="number" id="labor_hr" value="0" oninput="calc()">
+    <span class="unit">元/时</span>
+  </div>
+  <div class="frow">
+    <label>⑤ 损耗率(%)<b>:</b>这块蛋糕合理的坏损+试吃+赠送比例</label>
+    <input type="number" id="waste" value="0" oninput="calc()">
+    <span class="unit">%</span>
+  </div>
+  <div class="frow">
+    <label>⑥ 包装 + 一次性辅料(元)<b>:</b>盒子 / 卡片 / 蜡烛 / 刀叉</label>
+    <input type="number" id="cost_pkg" value="0" step="0.1" oninput="calc()">
+    <span class="unit">元</span>
+  </div>
+  <div class="frow" style="background:#fef3c7;border-radius:8px;margin-top:6px;padding-top:11px;border-top:none;">
+    <label>🎯 你想卖的目标价(元)<b>:</b>贴出来 / 写在外卖平台上的售价</label>
+    <input type="number" id="price_target" value="0" step="1" oninput="calc()">
+    <span class="unit">元</span>
+  </div>
+  <div class="frow">
+    <label>📊 同款竞品均价(元)<b>:</b>同街 / 同平台 / 同款搜一搜</label>
+    <input type="number" id="price_peer" value="0" step="1" oninput="calc()">
+    <span class="unit">元</span>
+  </div>
+</div>
+
+<div class="sec"><span class="t">💰 算账结果</span><div class="bar"></div></div>
+<div class="result">
+  <div class="metric" id="metric">
+    <div class="m"><div class="ml">真实总成本</div><div class="mv">— 元</div></div>
+    <div class="m"><div class="ml">实际毛利率</div><div class="mv">— %</div></div>
+    <div class="m"><div class="ml">建议售价下限</div><div class="mv">— 元</div></div>
+    <div class="m"><div class="ml">建议售价上限</div><div class="mv">— 元</div></div>
+  </div>
+
+  <div class="verdict g" id="verdict">填好上表数据,这里告诉你这个售价健不健康。</div>
+
+  <div id="warns"></div>
+
+  <div class="fix" id="fixBox" style="display:none;">
+    <div class="ft">💡 调价思路</div>
+    <div id="fixList"></div>
+  </div>
+
+  <div style="text-align:center;margin-top:16px;"><a href="javascript:void(0)" onclick="resetAll()" style="font-size:13px;color:var(--muted);text-decoration:underline;">🔄 重置</a></div>
+</div>
+
+<div class="disc"><b>说明:</b>免费工具,数据仅你浏览器可见(localStorage)。<b>毛利率不等于净利率</b>——还没扣月租、推广费、税,所以毛利率要够高(55%+)才安全。原料成本/人工时薪因店而异,数字不填全结果就失真。</div>
+
+<div class="backhome"><a href="index.html">← 回工具箱首页</a></div>
+<div class="foot"><div class="tiny">蛋糕店定价算账 · 仅供自查参考</div></div>
+
+</div>
+
+<script>
+var STORE='dgs_dingjia_v1';
+// 品类预设值(常见蛋糕店经验值,仅参考)
+var PRESETS={
+  cake_6:{cost_mat:35,time_make:90,rent_hr:25,labor_hr:30,waste:5,cost_pkg:8,label:'鲜奶 6 寸'},
+  cake_8:{cost_mat:55,time_make:120,rent_hr:25,labor_hr:30,waste:5,cost_pkg:10,label:'鲜奶 8 寸'},
+  bread:{cost_mat:3,time_make:180/12,rent_hr:25,labor_hr:30,waste:3,cost_pkg:1,label:'面包'},
+  pastry:{cost_mat:5,time_make:15,rent_hr:25,labor_hr:30,waste:4,cost_pkg:2,label:'西点'},
+  fest:{cost_mat:60,time_make:60,rent_hr:25,labor_hr:30,waste:8,cost_pkg:25,label:'节日礼盒'}
+};
+
+function num(id){var v=parseFloat(document.getElementById(id).value);return(isNaN(v)||v<0)?0:v;}
+function n2(v){return Math.round(v);}
+
+// 核心算法
+function compute(inp){
+  var mat=inp.cost_mat, t=inp.time_make, rent=inp.rent_hr, lab=inp.labor_hr,
+      waste=inp.waste, pkg=inp.cost_pkg,
+      tgt=inp.price_target, peer=inp.price_peer;
+  var direct = mat + pkg;
+  var laborCost = (t/60)*(lab);
+  var rentCost = (t/60)*rent;
+  var subTotal = direct + laborCost + rentCost;
+  var wasteCost = subTotal * (waste/100);
+  var realCost = subTotal + wasteCost;
+  // 目标毛利率
+  var margin = tgt>0?((tgt-realCost)/tgt)*100:0;
+  // 建议售价区间(目标毛利率 55%~70%)
+  var lowSuggest = realCost/0.45;// 55% 毛利率
+  var highSuggest = realCost/0.30;// 70% 毛利率
+  // 警示
+  var warns=[];
+  if(tgt>0 && margin<0) warns.push({lv:'r',tgt:'❌ 当前售价 <b>'+n2(tgt)+' 元</b> < 真实成本 <b>'+n2(realCost)+' 元</b>——每卖一单亏 <b>'+n2(realCost-tgt)+' 元</b>。卖得越火亏得越多。'});
+  else if(tgt>0 && margin<25) warns.push({lv:'r',tgt:'⚠️ 毛利率仅 <b>'+Math.round(margin)+'%</b>(<40% 都算危险)。蛋糕店安全线 <b>≥40%</b>,健康线 <b>55%+</b>。'});
+  else if(tgt>0 && margin<40) warns.push({lv:'y',tgt:'毛利率 <b>'+Math.round(margin)+'%</b>,生存可以但别想扩张。<b>先算月租/人工/推广前的"营业利润"</b>够不够覆盖。'});
+  if(peer>0 && tgt>0){
+    var diff=(tgt-peer)/peer*100;
+    if(diff<-30) warns.push({lv:'y',tgt:'你比竞品便宜 <b>'+Math.round(-diff)+'%</b>——价格领导力不足,顾客会想"是不是用料差"。'});
+    else if(diff>40) warns.push({lv:'y',tgt:'你比竞品贵 <b>'+Math.round(diff)+'%</b>——需要有差异化(动物奶油 / 现做 / 配送)撑得起差价。'});
+  }
+  if(t>120 && tgt>0 && margin<40) warns.push({lv:'y',tgt:'制作耗时 <b>'+n2(t)+' 分钟</b>(>2 小时),把人工+房租摊高拉爆毛利率。<b>这款一天别超 8 单</b>。'});
+  if(waste>10) warns.push({lv:'y',tgt:'损耗率 <b>'+n2(waste)+'%</b> 偏高——可能是裱花返工 / 当天没卖掉。建议每日限量制作。'});
+
+  // 整体判定
+  var tier='g';
+  if(tgt<=0 || margin<25) tier='r';
+  else if(margin<40) tier='y';
+  else if(margin<=70) tier='g';
+  else if(margin<=85) tier='y';
+  else tier='y';// 高于 85% 也警(可能定高了)
+
+  return {realCost:realCost, margin:margin, lowSuggest:lowSuggest, highSuggest:highSuggest, tier:tier, warns:warns};
+}
+
+function calc(){
+  save();
+  var inp={
+    cost_mat:num('cost_mat'),
+    time_make:num('time_make'),
+    rent_hr:num('rent_hr'),
+    labor_hr:num('labor_hr'),
+    waste:num('waste'),
+    cost_pkg:num('cost_pkg'),
+    price_target:num('price_target'),
+    price_peer:num('price_peer')
+  };
+  var r=compute(inp);
+  // 4 metric
+  var ms=document.querySelectorAll('#metric .m');
+  ms[0].querySelector('.mv').textContent=n2(r.realCost)+' 元';
+  ms[0].className='m '+(r.tier==='r'?'r':(r.tier==='y'?'y':'g'));
+  ms[1].querySelector('.mv').textContent=inp.price_target>0?Math.round(r.margin)+'%':'—';
+  ms[1].className='m '+(r.tier==='r'?'r':(r.tier==='y'?'y':'g'));
+  ms[2].querySelector('.mv').textContent=n2(r.lowSuggest)+' 元';
+  ms[3].querySelector('.mv').textContent=n2(r.highSuggest)+' 元';
+  // verdict
+  var v=document.getElementById('verdict');
+  v.className='verdict '+r.tier;
+  if(inp.price_target<=0) v.innerHTML='填好上表数据,这里告诉你这个售价健不健康。';
+  else if(r.tier==='g') v.innerHTML='<span class="vh">✅ 这个价格健康</span>实际毛利率 <b>'+Math.round(r.margin)+'%</b>,在蛋糕店合理区间 40%~70% 内。建议售价 <b>'+n2(r.lowSuggest)+' ~ '+n2(r.highSuggest)+' 元</b> 之间都是安全线。';
+  else if(r.tier==='y') v.innerHTML='<span class="vh">⚠️ 这个售价边缘</span>实际毛利率 <b>'+Math.round(r.margin)+'%</b>,勉强能跑但利润空间薄。建议售价应当往 <b>'+n2(r.lowSuggest)+'~'+n2(r.highSuggest)+' 元</b> 区间校准。';
+  else v.innerHTML='<span class="vh">🛑 这个售价在亏钱</span>实际毛利率 <b>'+Math.round(r.margin)+'%</b>(低于 0 说明售价低于真实成本)。建议立刻调整,先提到 <b>'+n2(r.lowSuggest)+' 元</b> 以上,再做产品差异化。';
+  // warns
+  var wh='';
+  for(var i=0;i<r.warns.length;i++){
+    wh+='<div class="warn-line">'+r.warns[i].tgt+'</div>';
+  }
+  document.getElementById('warns').innerHTML=wh;
+  // fix
+  var fx=document.getElementById('fixBox');
+  if(r.tier!=='g'){
+    fx.style.display='block';
+    var fh='<div class="ft">💡 调价 / 降本 / 重新定位 三条路,看你选哪个</div>';
+    fh+='<div class="fc"><b>① 提价</b>:把售价往 <b>'+n2(r.lowSuggest)+' 元</b> 拉。每涨 5 元毛利率提一档。蛋糕店客单价 99→119 顾客感知小,但你单件毛利涨 20 元。</div>';
+    fh+='<div class="fc"><b>② 降本</b>:原料能不能集中采购?和本地蛋厂 / 奶油商谈月结价?损耗从 '+n2(inp.waste)+'% 压到 3% 可能省 30%。</div>';
+    fh+='<div class="fc"><b>③ 改定位</b>:竞品价 <b>'+(inp.price_peer>0?n2(inp.price_peer):'?')+' 元</b> 不必贴脸。你用更好的原料 / 更精细的裱花,提 30% 也能撑(动物奶油、高端水果、当日现做都是溢价点)。</div>';
+    fh+='<div class="fc"><b>④ 砍耗时</b>:制作 <b>'+n2(inp.time_make)+' 分钟</b> 偏长的话,想办法预制半成品(预烤胚 / 预调奶油),把单件时长压到 60 分钟内。</div>';
+    document.getElementById('fixList').innerHTML=fh;
+  } else fx.style.display='none';
+}
+
+function loadPreset(k,btn){
+  var p=PRESETS[k];if(!p)return;
+  document.getElementById('cost_mat').value=p.cost_mat;
+  document.getElementById('time_make').value=p.time_make;
+  document.getElementById('rent_hr').value=p.rent_hr;
+  document.getElementById('labor_hr').value=p.labor_hr;
+  document.getElementById('waste').value=p.waste;
+  document.getElementById('cost_pkg').value=p.cost_pkg;
+  // 视觉反馈
+  if(btn){
+    document.querySelectorAll('.preset-row button').forEach(b=>{b.style.background='';b.style.borderColor='';});
+    btn.style.background='#d97706';btn.style.color='#fff';
+  }
+  calc();
+}
+
+function save(){
+  try{
+    var s={};
+    ['cost_mat','time_make','rent_hr','labor_hr','waste','cost_pkg','price_target','price_peer'].forEach(function(id){
+      s[id]=document.getElementById(id).value;
+    });
+    localStorage.setItem(STORE,JSON.stringify(s));
+  }catch(e){}
+}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORE));if(!s)return;
+    Object.keys(s).forEach(function(id){if(document.getElementById(id))document.getElementById(id).value=s[id];});
+  }catch(e){}
+}
+function resetAll(){
+  try{localStorage.removeItem(STORE);}catch(e){}
+  ['cost_mat','time_make','rent_hr','labor_hr','waste','cost_pkg','price_target','price_peer'].forEach(function(id){
+    document.getElementById(id).value=0;
+  });
+  document.querySelectorAll('.preset-row button').forEach(b=>{b.style.background='';b.style.borderColor='';});
+  calc();
+}
+load();calc();
+</script>
+</body>
+</html>
