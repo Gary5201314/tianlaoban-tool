@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="G1SIt0oGnc8z5ooXE6LBV9">
+<head data-page-node-id="sNNEtJzrZyWCQDkb1TPCP4">
+<meta charset="UTF-8" data-page-node-id="6wMyIcOHvmUly1Psn2YQOt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="mbC0vz8BC22ZdnDpKoHZtj">
+<title>蛋糕店漏斗自查器 · 别急着投广告,先看看漏在哪一环</title>
+<meta name="description" content="蛋糕店老板自查工具:路过→进店→下单→加微信(复购),四关逐一对照,找出生意最可能漏在哪一环,再给对症的招。" data-page-node-id="egtLq2e6AwEHTvUw8t5ujK">
+<meta property="og:title" content="蛋糕店漏斗自查器 · 别急着投广告" data-page-node-id="cywfbV3GWeriLORAcN4QZK">
+<meta property="og:description" content="别一上来就砸钱投美团。先把四关自查一遍,看哪一关使的招最少——那关就是你该先补的。" data-page-node-id="tc2AIG2O0fxnTETkDynaDL">
+<meta property="og:type" content="website" data-page-node-id="Cu50ZF6FwaGKCoxRJkFVBY">
+<style>
+:root{
+  --ink:#0f172a;--ink2:#475569;--muted:#7c8aa0;
+  --brand:#d97706;--brand2:#92400e;
+  --ok:#15803d;--okbg:#dcfce7;--warn:#d97706;--warnbg:#fef3c7;--bad:#b91c1c;--badbg:#fee2e2;
+  --bg:#fff7ed;--card:#ffffff;--line:#fed7aa;--slate:#1e293b;
+  --c1:#ec4899;--c2:#a855f7;--c3:#ea580c;--c4:#15803d;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+body{background:linear-gradient(180deg,#fff7ed 0%,#fef3c7 100%);color:var(--ink);font-family:"PingFang SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.75;min-height:100vh;}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px 60px;}
+a{color:var(--brand);}
+b,strong{font-weight:800;}
+.hero{position:relative;background:linear-gradient(150deg,#7c2d12 0%,#9a3412 50%,#c2410c 100%);color:#fff7ed;border-radius:0 0 22px 22px;margin:0 -14px 20px;padding:30px 24px 26px;overflow:hidden;}
+.hero::after{content:"漏";position:absolute;right:18px;bottom:-44px;font-size:170px;font-weight:900;color:rgba(255,237,213,.16);line-height:1;font-style:italic;font-family:"STKaiti","KaiTi",serif;}
+.hero .kicker{font-size:12px;letter-spacing:2px;color:#fde68a;font-weight:800;margin-bottom:9px;}
+.hero h1{font-size:25px;font-weight:900;line-height:1.4;position:relative;z-index:2;}
+.hero h1 .o{color:#fbbf24;}
+.hero .sub{margin-top:11px;font-size:14px;color:#fed7aa;line-height:1.85;position:relative;z-index:2;}
+.hero .sub b{color:#fff;}
+.hero .myth{margin-top:13px;background:rgba(251,191,36,.18);border-left:3px solid #fbbf24;border-radius:0 8px 8px 0;padding:10px 13px;font-size:13px;color:#fef3c7;line-height:1.75;position:relative;z-index:2;}
+.hero .myth b{color:#fff;}
+.sec{margin:26px 0 8px;display:flex;align-items:center;gap:10px;}
+.sec .t{font-size:17px;font-weight:900;color:var(--slate);}
+.sec .bar{flex:1;height:1px;background:var(--line);}
+.lead{font-size:13.5px;color:var(--ink2);line-height:1.8;margin:6px 0 13px;}
+.lead b{color:var(--brand2);}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 14px rgba(124,45,18,.07);margin-bottom:13px;}
+.fhint{font-size:12.5px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+.fhint b{color:var(--brand2);}
+.flow4{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.flow4 .fcell .fl{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.4;}
+.flow4 .fcell .fl .em{font-size:11px;font-weight:800;color:#fff;border-radius:5px;padding:1px 6px;margin-right:5px;}
+.em.e1{background:var(--c1);}.em.e2{background:var(--c2);}.em.e3{background:var(--c3);}.em.e4{background:var(--c4);}
+.flow4 input{width:100%;font-size:17px;font-weight:800;color:var(--ink);background:#fffbeb;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font-family:inherit;-moz-appearance:textfield;}
+.flow4 input:focus{outline:none;border-color:var(--brand);background:#fff;}
+.flow4 input::-webkit-outer-spin-button,.flow4 input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.flow4 .fcell .fu{font-size:11px;color:var(--muted);margin-top:3px;}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 16px;box-shadow:0 3px 14px rgba(124,45,18,.06);margin-bottom:12px;border-left:5px solid var(--line);}
+.stage.s1{border-left-color:var(--c1);}.stage.s2{border-left-color:var(--c2);}.stage.s3{border-left-color:var(--c3);}.stage.s4{border-left-color:var(--c4);}
+.stage .sh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:3px;}
+.stage .sh .sn{font-size:16px;font-weight:900;color:var(--slate);}
+.stage .sh .sk{font-size:12px;font-weight:800;color:#fff;border-radius:6px;padding:1px 9px;}
+.stage.s1 .sk{background:var(--c1);}.stage.s2 .sk{background:var(--c2);}.stage.s3 .sk{background:var(--c3);}.stage.s4 .sk{background:var(--c4);}
+.stage .sd{font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:11px;}
+.stage .sd b{color:var(--ink2);}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-top:1px dashed #fef3c7;cursor:pointer;}
+.chk:first-of-type{border-top:none;}
+.chk input{margin-top:2px;width:18px;height:18px;flex-shrink:0;accent-color:var(--c3);}
+.chk .ct{font-size:13.5px;color:var(--ink);line-height:1.55;}
+.chk .ct b{color:var(--brand2);font-weight:800;}
+.result{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:20px 16px;box-shadow:0 4px 18px rgba(124,45,18,.10);margin-bottom:14px;}
+.funnel{margin:4px 0 6px;}
+.funnel .ftitle{font-size:13px;font-weight:800;color:var(--slate);margin-bottom:10px;}
+.funnel .frow{margin-bottom:9px;}
+.funnel .ftop{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--ink2);margin-bottom:3px;}
+.funnel .ftop .fname{font-weight:800;color:var(--slate);}
+.funnel .ftop .fname .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+.funnel .ftop .fnum{font-weight:800;}
+.funnel .fbarwrap{background:#fef3c7;border-radius:7px;overflow:hidden;height:30px;border:1px solid var(--line);}
+.funnel .fbar{height:100%;border-radius:7px;display:flex;align-items:center;padding-left:11px;color:#fff;font-size:12px;font-weight:800;white-space:nowrap;transition:width .4s;min-width:42px;}
+.funnel .conv{font-size:11.5px;color:var(--muted);text-align:right;margin-top:2px;}
+.funnel .conv b{color:var(--brand2);}
+.scorebar{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:7px;margin:14px 0 4px;}
+.scorebar .sc{border-radius:11px;padding:9px 3px;text-align:center;border:1.5px solid var(--line);}
+.scorebar .sc .scn{font-size:11px;font-weight:800;color:var(--ink2);}
+.scorebar .sc .scv{font-size:19px;font-weight:900;line-height:1.1;margin:2px 0 0;}
+.scorebar .sc.g{background:var(--okbg);border-color:#86efac;}.scorebar .sc.g .scv{color:var(--ok);}
+.scorebar .sc.y{background:var(--warnbg);border-color:#fcd34d;}.scorebar .sc.y .scv{color:#b45309;}
+.scorebar .sc.r{background:var(--badbg);border-color:#fca5a5;}.scorebar .sc.r .scv{color:var(--bad);}
+.verdict{border-radius:16px;padding:17px 18px;margin-top:15px;font-size:14px;line-height:1.85;border:2px solid;}
+.verdict.g{background:var(--okbg);border-color:#86efac;color:#14532d;}
+.verdict.y{background:var(--warnbg);border-color:#fcd34d;color:#78350f;}
+.verdict.r{background:var(--badbg);border-color:#fca5a5;color:#7f1d1d;}
+.verdict::before{content:"🩺 自查报告";display:block;font-size:11.5px;font-weight:800;letter-spacing:.5px;margin-bottom:10px;padding-bottom:9px;border-bottom:1px dashed currentColor;opacity:.7;}
+.verdict .vh{font-size:18px;font-weight:900;display:block;margin-bottom:6px;line-height:1.4;}
+.verdict b{font-weight:800;}
+.fix{margin-top:13px;background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:14px 15px;}
+.fix .ft{font-size:14.5px;font-weight:900;color:var(--slate);margin-bottom:4px;}
+.fix .fhh{font-size:12.5px;color:var(--ink2);margin-bottom:10px;line-height:1.7;font-style:italic;}
+.fix .fr{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-top:1px solid #fde68a;}
+.fix .fr:first-of-type{border-top:none;}
+.fix .fr .fi{font-size:15px;flex-shrink:0;}
+.fix .fr .fc{font-size:13px;color:var(--ink2);line-height:1.65;}
+.fix .fr .fc b{color:var(--brand2);}
+.cmp{background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin:14px 0;font-size:12.5px;color:var(--ink2);line-height:1.75;}
+.cmp b{color:var(--brand2);}
+.disc{font-size:12px;color:var(--muted);line-height:1.7;background:#fffbeb;border:1px dashed var(--line);border-radius:12px;padding:13px 15px;margin-top:16px;}
+.disc b{color:var(--ink2);}
+.sharebtn{text-align:center;margin-top:18px;}
+.sharebtn a{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#ec4899,#a855f7);color:#fff;font-size:14.5px;font-weight:800;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(236,72,153,.25);}
+.foot{margin-top:22px;text-align:center;}
+.foot .slogan{font-size:16px;font-weight:900;color:var(--slate);}
+.foot .tiny{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.8;}
+</style>
+</head>
+<body data-page-node-id="RKBEuHyTPGWyFaVRAgvroE">
+<div class="wrap" data-page-node-id="F1t53c7mGlCBEsZeIYZ40s">
+
+<div class="hero" data-page-node-id="L1OECGv2jZZNxVrHSVejdP">
+  <div class="kicker" data-page-node-id="gA618i11q1F0LklrqE04sG">蛋糕店老板自查工具 · v1</div>
+  <h1 data-page-node-id="AmKuAzI2mEHZLg2CayCVrB">蛋糕店生意不好,<span class="o" data-page-node-id="FrE9aizEhgx3A73J6H1ovP">别</span>急着上美团推广</h1>
+  <div class="sub" data-page-node-id="9aVwMW3LTYAeICg1PTtole">一家蛋糕店就是一个漏斗:门口路过 → 进店 → 下单 → 加微信复购,一层层把客人筛下来。<b data-page-node-id="8h0CVg0aOhXyuBOFSxM6jz">生意不好,一定是某一环漏了</b>。这工具帮你<b data-page-node-id="ndbVJvbv1vy6s4hLAErAIB">四关逐一对照</b>,找出漏在哪,再给对症的招。<b data-page-node-id="hl3k0HCkjiBBtCtPHgZjYR">别一上来就砸钱投广告。</b></div>
+  <div class="myth" data-page-node-id="nxAh1hiQwnlOlF5fWUPlTo">💡 老规矩:<b data-page-node-id="dGBQIZaWKSaVuKBSDJMhez">你存在,很多人未必知道你;知道你,未必感兴趣;感兴趣,未必下单;下单,未必加你的微信复购。</b>四道关,漏在哪一道,补哪一道。</div>
+</div>
+
+<p class="lead" data-page-node-id="AKZFUkKXz4G7SDOl3j7ngs">这工具专管一件事:<b data-page-node-id="7vorrK7D9FBaCvlSAaDGEZ">你的蛋糕店漏在哪一环</b>。下面<b data-page-node-id="HbTjSfaO7FXNFFcRkTUTjR">四关逐一对照</b>,该做的招你使了几样?<b data-page-node-id="yMMk3J87jYXUsAEkc9nnRK">哪关使得最少,那关就是你该先补的。</b>有蹲点数过客流,把流量也填上,漏斗更直观;<b data-page-node-id="oG9ViUOirJwEmJ10HqrU0e">没蹲过也没关系,光勾四关也照样能看出短板。</b></p>
+
+<div class="sec" data-page-node-id="MDgqkmyTuI6yumGX6Syfex"><span class="t" data-page-node-id="41xiyNiK2IHNjkbt3T2DxR">①📊 填流量(都选填,蹲点能数就填)</span><div class="bar" data-page-node-id="F1Uoy9WNFxhJ5nnhuX6LP1"></div></div>
+<div class="card" data-page-node-id="utmMGDKxj216esrTiDU2a6">
+  <div class="fhint" data-page-node-id="LIjwp1vM1uFQ6oIDh5agms">蛋糕店"每天多少人看到我"也没人数得清,所以这里只填<b data-page-node-id="vdpNRhwovrqEpqxM5PqvTJ">能数得出的</b>:门口路过、进店、下单、加微信——蹲点能数就填,数不出来就<b data-page-node-id="74BKwB3Q6kqy7F2NjsMEA4">全空着,直接做下面四关自查</b>也行。</div>
+  <div class="flow4" data-page-node-id="UbCGLMGj0gajJ6INm9LnQH">
+    <div class="fcell" data-page-node-id="tfoJ1fr5NAuzDI6DfTbPkh"><div class="fl" data-page-node-id="slLRD4kkvCzWegs8DUDCiD"><span class="em e1" data-page-node-id="IFUmm5BxEGK4bcAc2pj7LD">路过</span>店门口路过多少人</div><input type="number" id="f_pass" inputmode="decimal" placeholder="如 800" oninput="calc()" data-page-node-id="sPIHEPBTnKcxr1GuljdN7Z"><div class="fu" data-page-node-id="0OKaTIzeet3Oo9pAlrPsbJ">目标顾客,蹲点数</div></div>
+    <div class="fcell" data-page-node-id="ME1E2jXS7oqbOEQzrC1IN5"><div class="fl" data-page-node-id="QQESjiHQi6rpfK4KtAmjJ8"><span class="em e2" data-page-node-id="RtTRKmzrEyZMP96ve2LKyQ">进店</span>每天多少人进店</div><input type="number" id="f_in" inputmode="decimal" placeholder="如 50" oninput="calc()" data-page-node-id="QHclLoyiMpOBAVSNqEH5y0"><div class="fu" data-page-node-id="Jw4cA1JojgBZKbK8KYPljG">真正走进店的</div></div>
+    <div class="fcell" data-page-node-id="HdSryYdBryW0lMB8fUITT0"><div class="fl" data-page-node-id="9XOqVnOqMhYrY6mrfn4yOK"><span class="em e3" data-page-node-id="CTwhpICfVBKzNBJpOHPYSv">下单</span>每天多少单成交</div><input type="number" id="f_buy" inputmode="decimal" placeholder="如 18" oninput="calc()" data-page-node-id="1hsGZmpG7vDwLVlxm2lWDi"><div class="fu" data-page-node-id="OexBHrDoiAo0MeEttOvEi5">进店真掏钱的</div></div>
+    <div class="fcell" data-page-node-id="BQKDW6ZZUpBDbUDp9AKUuN"><div class="fl" data-page-node-id="EfHA6IurHrzabcmtZTSx0H"><span class="em e4" data-page-node-id="Yl4kgIpnDH8g1pGtRnia5d">加微信</span>下单里加了微信的占几成</div><input type="number" id="f_wechat" inputmode="decimal" placeholder="如 40" oninput="calc()" data-page-node-id="nMH1EgmIhOw5tiRiDhuj6H"><div class="fu" data-page-node-id="u8YqnWU2VM3asWo1C6prpJ">% · 加了微信能再触达的</div></div>
+  </div>
+</div>
+
+<div class="sec" data-page-node-id="GiPrn0E51gxSLJVkjC92LO"><span class="t" data-page-node-id="XjUKjMOfgHDhGqrERREkzO">②✅ 四关自查:该做的招,你使了几样</span><div class="bar" data-page-node-id="cVMeCI5xjiAMbhe8e3k1Jj"></div></div>
+<p class="lead" style="margin-top:0;" data-page-node-id="IVLERpp0IdwBGClc5TbK3q">勾上你<b data-page-node-id="XHGGH01wgGCfcEH4DPIVAh">已经做到的</b>。哪一关勾得最少,那关就是你的短板。</p>
+
+<div class="stage s1" id="st1" data-page-node-id="f4EXmmQIrOWQSCqect6M9m">
+  <div class="sh" data-page-node-id="HkzxziKVMm0jg3dwxR3Glp"><span class="sn" data-page-node-id="YB7NdV3bRaqcHloPa6icyZ">第一关 · 同款曝光</span><span class="sk" data-page-node-id="Q3KGalJXheqW5JPx9cmra2">让附近人知道你</span></div>
+  <div class="sd" data-page-node-id="g5WZeLooOwVU36O3plqDHk">"你存在,很多人未必知道你。"蛋糕有强地域性——<b data-page-node-id="lga0fcuoEgzWwdtLenyY9W">3 公里内的目标顾客刷到你才算数</b>。(这关靠动作,不靠数字)</div>
+  <label class="chk" data-page-node-id="TY8v0BHQIqY0yeGdWWyePK"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="WqVqBXXeoEcZ2GR7RzWh7u"><span class="ct" data-page-node-id="HTz6U4MvZkHBxF7YrF5gOn"><b data-page-node-id="hiiCc4rHAsNZHvctuAIsOe">店名带品类</b>,不是"XX 烘焙工作室"而是"XX 鲜奶蛋糕"——路人一眼知道你是卖蛋糕的</span></label>
+  <label class="chk" data-page-node-id="fqp950QC4JoR5SPA0eWjuI"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="Q65D5KukosiO5rHb4nqfYT"><span class="ct" data-page-node-id="cyfbJLFaUPMDCrKCGZkWb2">橱窗摆<b data-page-node-id="Ztc9eDxWoej8wNwKEnQ5zA">当日新鲜成品实拍图</b>每天换(卡通/寿桃/婚庆款),路过的人看得见"你今天做了啥"</span></label>
+  <label class="chk" data-page-node-id="hIyrgsS4PDnDn2jsbKEYHa"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="AWLKElnbOA6ez65gfB0z8U"><span class="ct" data-page-node-id="YDGeYCXGsAKOWWSEz8IdZT">抖音 / 小红书发<b data-page-node-id="jdF2nubHA60dqkACG8sjkB">挂定位的探店/制作过程视频</b>,让附近 3 公里的人刷到(定位别忘)</span></label>
+  <label class="chk" data-page-node-id="Mtea5D4k7E6Hrc8O5vFyZp"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="10XCYaSEN0lS4PrAeamIvf"><span class="ct" data-page-node-id="o5Lck83mFTihcoLfyLNwUs"><b data-page-node-id="x4eOOTzmYR5rZoxkNcw7BU">美团 / 大众点评认真养评分和好评</b>(生日蛋糕顾客最看评论;评分每涨 0.1,流量约多 15%)</span></label>
+  <label class="chk" data-page-node-id="eBOvElcnqH8mwGuB3DITs2"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="8yFNn58DJd7CFYxhIHd7tv"><span class="ct" data-page-node-id="arwaKEcoP1SOvVVrbEHqhA">有<b data-page-node-id="WgZt86DmgWFdEgXFO8aG25">"低价引流款 + 利润款"</b>组合(比如 6 寸小蛋糕 99 引流,大蛋糕 / 月饼礼盒赚利润)</span></label>
+  <label class="chk" data-page-node-id="j1CQhRYAW7KLQ0GavIhxHl"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="fFbgFWcNsLDWcg4DBfhXH2"><span class="ct" data-page-node-id="WFlBOcvnNNS0tdBxdjnT0Q">进店 / 下单顾客都<b data-page-node-id="fW8edQ7tfYimJ22uut4Cn8">引导加微信</b>,告诉ta"提前一周提醒生日蛋糕",把一次性顾客沉成长期客户</span></label>
+  <label class="chk" data-page-node-id="dypjAYB9tpnaOdYpSLGgzy"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="RpKn85xvA88NEpDW1IfTrK"><span class="ct" data-page-node-id="xyYf97cIAekeEPcruKCzhF"><b data-page-node-id="SWvOzN8A7QSkAFSoH8lAEm">老带新给真奖励</b>(推荐一个新客,双方各得 20 元券),不只靠顾客自觉发圈——老客带人成本只有投广告的两成</span></label>
+  <label class="chk" data-page-node-id="cwFG04pHt3EeFZYPfFB838"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="ZICmTVzyccEF5q6fwu1ZKz"><span class="ct" data-page-node-id="AJnmFhFbEXh9I2SvHdlHFx">找<b data-page-node-id="HNXLHza0zOOzRRpyx81nBR">隔壁不竞争的店</b>(花店 / 婚纱店 / 月子中心)互送券,把他们客户引过来——几乎零成本</span></label>
+</div>
+
+<div class="stage s2" id="st2" data-page-node-id="GFMtoOySWYnxlOvrvuuVLm">
+  <div class="sh" data-page-node-id="FzRnDPa0xf3Ey6zWzAMBhW"><span class="sn" data-page-node-id="CBGSfbKEwjKxXJTZ5WUCOl">第二关 · 路过进店</span><span class="sk" data-page-node-id="NqdB7TBI2upVSAf4nHKuow">让路人走进来</span></div>
+  <div class="sd" data-page-node-id="It2pXQJCEmXPeuKWNtDOSf">"知道你,未必就感兴趣。"路人路过蛋糕店只给你 <b data-page-node-id="nlSMLGgtOFhYhbhapRGuTe">3 秒</b>——门头、橱窗、香味,决定要不要进。</div>
+  <label class="chk" data-page-node-id="sDRbc9TQGK1d3Av5T3gnqM"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="SzcJiA0VYctf7HRHkEzEcS"><span class="ct" data-page-node-id="2FTNuijoQHKz8mkkJMWt9m"><b data-page-node-id="u00faVWv9sGHus6l7kZBFQ">店招带品类名、字够大</b>(30 米外能看清)、用粗体不用花体字</span></label>
+  <label class="chk" data-page-node-id="7PJ8Ui9uJPSKuaE0GspsTe"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="qtxPJ7OGznhdsS4iFeNE0O"><span class="ct" data-page-node-id="r6PioJDqtdFkttXf24GFiq">门头<b data-page-node-id="1TCGwKBgMeBXihQcBqASZz">只留店名 + 1 句卖点</b>("每日鲜奶现做 / 24 小时预订"),别堆满开业信息</span></label>
+  <label class="chk" data-page-node-id="BLIsD1ZbFbGjMUGtvNMoG0"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="etd26PvNZm7y0eLWSFzfCN"><span class="ct" data-page-node-id="Oc0kLQzth2gNEuyDrausXq">门口有<b data-page-node-id="sRbGWXCd9GObqEK3knwZC5">冲击力海报 + 小黑板</b>(今日特价 / 当日现做款),每天换内容,撤了海报进店率就降</span></label>
+  <label class="chk" data-page-node-id="se72Hy5b3Pl8VOzVyAPyjC"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="eDRnQ4indVfzK09s04GLK9"><span class="ct" data-page-node-id="Y2iEtVzqPBnxsJDTzz9dbW"><b data-page-node-id="hgzibRMxjJYVxJIJT7Ogpg">蛋糕柜射灯亮、店面干净</b>;晚上别全关灯——暖光透出来更勾人</span></label>
+  <label class="chk" data-page-node-id="bViuB8haiWpxvcjjlicXxa"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="ac0Uu46ujVFCssN47fmXrQ"><span class="ct" data-page-node-id="NU8kUQiA4WSnG8XOhx5rry"><b data-page-node-id="lHT1mkfDnJD8YuotTjfg27">真奶油香味飘到门口</b>(裱花间门常开一点点)+ 门口摆刚出炉的试吃小方块,勾路人停步</span></label>
+  <label class="chk" data-page-node-id="4KbhOIyjABZSs6SChGDXhC"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="tKlHFvtJ4uSngiFTnywlu0"><span class="ct" data-page-node-id="3PfAK1vJB3elzBGF1NSeCC"><b data-page-node-id="Rzb4oLpebHeo8O8hIPbXSj">橱窗通透,看得见店里蛋糕柜和裱花师傅</b>;小桌椅先坐几个人显得人气旺(人都爱往热闹的店钻)</span></label>
+  <label class="chk" data-page-node-id="SDvKNUxmDS4AhKzmVMVhMe"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="xpmqqM8EL3n2Ub8NLADnZR"><span class="ct" data-page-node-id="BuHP6lmMzXdeRLha7aVqns">门口摆<b data-page-node-id="Zv3dEnf668ZrIY2BJe4fqk">招牌爆款实拍大图 + 价签</b>(写"生日 6 寸鲜奶 99 元起"比写个"欢迎光临"强)</span></label>
+</div>
+
+<div class="stage s3" id="st3" data-page-node-id="9YqiXPKOLqnWiHU1BSvewY">
+  <div class="sh" data-page-node-id="ANu0zOGlnxprvNhsnVUDZV"><span class="sn" data-page-node-id="7VlXf49y11z8JUvtj6RsCU">第三关 · 试吃下单</span><span class="sk" data-page-node-id="x6x1QYk9CT38urlmGFBPIS">让进店的人掏钱</span></div>
+  <div class="sd" data-page-node-id="FoYASAdFb5S0iuQatgVpcn">"感兴趣,未必下单购买。"蛋糕是<b data-page-node-id="rjAPM7DDCDpV5jR3zCdvET">计划性消费</b>(生日 / 纪念日),机会要现场握住,别等顾客回家想。</div>
+  <label class="chk" data-page-node-id="37LfH4kdcA6VmCjbVFEFrY"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="4MB6gPgmWKq1eVaJ9xuZzR"><span class="ct" data-page-node-id="nzZdcOU4s9wq0oP4nCObfE"><b data-page-node-id="Mt6hGJAtz0WqD1AoaN5Shw">柜台摆试吃小方块</b>(小杯装,牙签取),顾客试了再决定买啥——比看图决定快 3 倍</span></label>
+  <label class="chk" data-page-node-id="FZ0BM3NNioGXIsRi1QNgyO"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="6iMjswwN7wqZElt4O9qzu1"><span class="ct" data-page-node-id="AYmdZLouyDhZPn8foz1dix">店员介绍<b data-page-node-id="I6wKL2umqctlKmKIiOI19M">只讲 3 个最戳的卖点</b>("鲜奶油 / 当日做 / 配送到家"),讲透,别一口气甩 10 个品类让人挑花眼</span></label>
+  <label class="chk" data-page-node-id="alwtBtYnc5PoNbKFcuF28K"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="BxGdBSF5ol8dEFykKlulNI"><span class="ct" data-page-node-id="2hUcQYfsfqqDIGDphjpXzL"><b data-page-node-id="FOdVWPGLN7C9prbuDXNNWT">真实买家秀图册</b>(朋友圈截图 / 小红书晒单打印出来装订),打动人比干巴巴报参数强</span></label>
+  <label class="chk" data-page-node-id="VgWr4uIxkdnmEDV7IDrc2o"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="mKzGnxeShcr1HnBFOHYYjg"><span class="ct" data-page-node-id="mAZ6wfLapZe8yXPNj3oaKp">有<b data-page-node-id="0tdSaKMYVQNdk50tGGrYLi">款式 + 价 + 提前 X 天预订</b>的明确单页,让顾客不用开口问也能下单——打破犹豫的最好办法是给路径</span></label>
+  <label class="chk" data-page-node-id="8LcPX6qFdapK7GzI8BMDZd"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="su1uk5oIHLlLwTIDt431wo"><span class="ct" data-page-node-id="zFrwUO6mGj9PAifN5ATbQ9"><b data-page-node-id="V9SoStDAEufhZw1eVReLl7">生日蛋糕提前一周预订享 9 折</b>(也有助于锁原料),让顾客当场订下,把"回家想想"的犹豫砍掉</span></label>
+  <label class="chk" data-page-node-id="H2DrFpi9PCQEFOC4ogIVJF"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="zePSdQLz1sU1gbdGus9rBB"><span class="ct" data-page-node-id="79YPbQ3ULPev6bExHVj8oP">收银台摆<b data-page-node-id="mzp4iOIG8WO6IETMkGFXZB">蜡烛 / 卡片 / 蛋糕刀 / 配件</b>(5~30 元小件),顾客结账顺手加一件,客单价涨 1/4</span></label>
+  <label class="chk" data-page-node-id="VykVN5p78mV8Xaj5s4GCsK"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="FOGweigSMpHmUAt1J25yB3"><span class="ct" data-page-node-id="HdqDkCbkIXfOUbXFWm5dNb">加急费 / 节日加价 / 配送范围<b data-page-node-id="c84XqEMd51O8mpjL6JD79G">明码标价写在显眼处</b>,顾客不用"问价就心里慌"——心理安全感提了下单率</span></label>
+</div>
+
+<div class="stage s4" id="st4" data-page-node-id="PfOksdQTm5CUUg5TpRKu5A">
+  <div class="sh" data-page-node-id="La7D9KT0ZsuOvxUdd2LRiu"><span class="sn" data-page-node-id="hI9j4AB48mdEkXhiOvAWLD">第四关 · 加微信复购</span><span class="sk" data-page-node-id="inKrOQGOme20PeiWGQeKY0">让买过的人回来</span></div>
+  <div class="sd" data-page-node-id="PpOlSwYXZ7gMCAPjaq3cNI">"下单,未必加你微信复购。"蛋糕是<b data-page-node-id="tkjHM3gyRyAVoKOUIGj7AG">一年多次复购</b>的事——生日、纪念日、家长会、节日。<b data-page-node-id="Sf88Mi7ETfB7p35YpgYdy5">留住一个老客成本是拉新客的几分之一</b>。</div>
+  <label class="chk" data-page-node-id="JMmpuYTfEjaOziLEgvaYLG"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="2Gz6n2gI8cqQAc99180Isu"><span class="ct" data-page-node-id="ZZ2snsTQcXRHXgRQYHyuQK"><b data-page-node-id="GSiYg2UJ83nY6HrHlNZwCd">柜台必须加顾客微信</b>(用企业微信,能打标签,客户跑不掉),下单送"生日提前 7 天提醒"</span></label>
+  <label class="chk" data-page-node-id="YtM51x7bdPxk1Sg7uEsqKz"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="XOrasHycRFbtmSvJLDhX3A"><span class="ct" data-page-node-id="FC7M0C2QRsHZWGYcyfoBW4">给客户<b data-page-node-id="xEkSN7U3HbGq2gtTXywnf5">分个类</b>:生日蛋糕客户 / 面包下午茶客户 / 公司团购客户——不同类客户发不同内容</span></label>
+  <label class="chk" data-page-node-id="SiCsVFSnhDeljIJzklakue"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="icJGQDq8n7HoG5oGpgNRDs"><span class="ct" data-page-node-id="BhB8yfv1l4v5qlFbzGBtTe"><b data-page-node-id="whQzc0d9VyjBBWw3iehD0f">朋友圈一周 3 条以内</b>(成品实拍 / 客户晒单 / 提前预订优惠),别刷屏——刷多了被屏蔽就白费</span></label>
+  <label class="chk" data-page-node-id="lFtoNXuYSnB4kzRPdLGY6a"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="ZLyPKofROHKRQTWeO89Qvz"><span class="ct" data-page-node-id="r4EiJR5pj1DIdrD7ZXivUB">结账时给<b data-page-node-id="gvhHWQrZ2DizFnW7C0hh4o">"下次可用 8 折券"(短期有效,3 周内)</b>——把下一次先锁住,客流才有节奏</span></label>
+  <label class="chk" data-page-node-id="9BqYqVZUODX5J3Zwi8zS85"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="xat4MGZFwl9KBXzD4lAtEO"><span class="ct" data-page-node-id="t6aq0R5s6MEBlU1WAp55h9">有<b data-page-node-id="tNLZEPDcDNJbY1rF8zPm3b">集卡 / 储值钩子</b>(买 9 个蛋糕送 1 个 / 充 500 送 50)——蛋糕复购天然适合这套</span></label>
+  <label class="chk" data-page-node-id="6BWpWgW5cfUD6HlTBndR80"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="qAG03grv62Nem9U3xc9EzW"><span class="ct" data-page-node-id="t3PEYaiqLzWDPGarVlObCd"><b data-page-node-id="Boyv4CaXvwGUNseGr0tcFm">超 60 天没来的老客,主动发"专属 8 折 + 一句生日祝福"</b>召回——成本只要拉新的几分之一</span></label>
+  <label class="chk" data-page-node-id="KJj3rIRChoX40WWSID10kS"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="ElHg6Th2Coxzh31SkRw3jC"><span class="ct" data-page-node-id="iS3oCNrmwrgtySSFKyTFJU">节日提前 1~2 周发"圣诞 / 元旦 / 春节预订"群发——蛋糕是节日刚需,不提醒就漏单</span></label>
+  <label class="chk" data-page-node-id="XaoQL7eNhkItf5YINEIw59"><input type="checkbox" data-s="4" onchange="calc()" data-page-node-id="O5E0Q0XSvTCivdfunrovZ2"><span class="ct" data-page-node-id="24FI1CAEPx3cUWJahfbks7">给老客制造<b data-page-node-id="5royfGHl8fA3MWh0vjzMiw">小惊喜</b>(送试吃小方块 / 加个额外装饰),换一条主动晒单朋友圈——口碑最便宜</span></label>
+</div>
+
+<div class="sec" data-page-node-id="Nuk5riorTPgiGEtBk66GRw"><span class="t" data-page-node-id="4CmRYMlIrHSmNDYbk8FhmS">🩺 自查报告</span><div class="bar" data-page-node-id="pGXKHN0l9sHvlywyWjrEoB"></div></div>
+<div class="result" data-page-node-id="ZvXYRHp2uTG8ijcjIN9fXx">
+  <div class="funnel" id="funnelBox" style="display:none;" data-page-node-id="mXELvnBXUFoGwKaG56NZF6"></div>
+  <div class="scorebar" id="scoreBox" data-page-node-id="O1Ti6nzMqPH74uj1RZ9xCj">
+    <div class="sc" data-page-node-id="cwyIG91y6lwk5Rmd8BvWRU"><div class="scn" data-page-node-id="lOEetzHrab1mC0iYMYsJiS">同款曝光</div><div class="scv" data-page-node-id="kpyFryMVlOYoGt6KOJ7v4u">—</div></div>
+    <div class="sc" data-page-node-id="7oCZxW0ObWQOmNNjCWqAME"><div class="scn" data-page-node-id="ATOzxiMdR0vsklhMYO0rHd">路过进店</div><div class="scv" data-page-node-id="hIwdSrFgL3HZ4ocQWMtToP">—</div></div>
+    <div class="sc" data-page-node-id="7hrsBbhD6a4AA3SNxRpELP"><div class="scn" data-page-node-id="CCneOilGWM6anptG802Hvi">试吃下单</div><div class="scv" data-page-node-id="UGH3kPlJ0XwgoSsBjdF2PO">—</div></div>
+    <div class="sc" data-page-node-id="dMEoeJ9dLAGcQPUi5kWZD2"><div class="scn" data-page-node-id="RkoKnHafQ89mueE92CmnlK">加微信</div><div class="scv" data-page-node-id="c47cqGn7Mfg63U4HA5DvZy">—</div></div>
+  </div>
+  <div class="verdict g" id="verdict" data-page-node-id="OOtSL6TAj3WG0tRLkimBU8">四关勾完(填上流量更准),这里告诉你<b data-page-node-id="cQASEgD0pjYi0XErqPRMwu">生意最可能漏在哪一环</b>,以及那一关怎么补。</div>
+  <div class="fix" id="fixBox" style="display:none;" data-page-node-id="8hyJrPYVH3geNVDb82W79Z"></div>
+  <div style="text-align:center;margin-top:16px;" data-page-node-id="r8f25keafzj6Wv2pUnGahc"><a href="javascript:void(0)" onclick="resetAll()" style="font-size:13px;color:var(--muted);text-decoration:underline;" data-page-node-id="OTlyUHkdgmFoANi93AEE6C">🔄 清空重新测</a></div>
+</div>
+
+<div class="cmp" data-page-node-id="UD8owZXW9Zn8IcnQs9fZd3">🆚 <b data-page-node-id="NGdvnRByJIqHg3qujNWSSe">为啥不直接告诉我"进店率该多少、复购率该多少"?</b>因为<b data-page-node-id="apBSP7kZVpHJb8pnkzUPO2">这些数没绝对标准</b>——同一条街做得好做得差能差几倍,它是做出来的不是测出来的。所以这工具不跟你比假标准,只帮你看<b data-page-node-id="AJDfH8ORdzqQ9iA8cYGqyh">你自己这四关、哪关的招使得最少</b>——那关就是你该先下手的地方。</div>
+
+<div class="disc" data-page-node-id="B0v4r2zof3VHA8Z4BEpxQH"><b data-page-node-id="drL2o0L5R3NKe1TGyNmySm">说明:</b>本工具<b data-page-node-id="PpD8eHfWhPyw7bcHSBWdaZ">免费</b>,你填的数字和勾选<b data-page-node-id="0Fpg23FQ96NrpSPSvXcqGi">只存在你自己的浏览器里</b>(localStorage),我们看不到。<b data-page-node-id="It1lcGIP0WlhcaYf9JJ5kj">每家蛋糕店情况不同,这是给你指方向,真正补哪一环、怎么补,还得结合你的店实际去做。</b></div>
+
+<div class="foot" data-page-node-id="GA1JAPXl8EAFcEC3XQN5n2">
+  <div class="slogan" data-page-node-id="DbAp0LMp6aHIhUqhUoDWuD">先找漏在哪一环,别急着上美团</div>
+  <div class="tiny" data-page-node-id="bYkEUFn12lqjdvKZCbE5mD">蛋糕店漏斗自查器 · demo · 工具免费,仅供自查</div>
+</div>
+
+</div>
+
+<script>
+var STORE='dgs_loudou_v1';
+// 4 关：颜色 / 名称(对应到层级)
+var STAGES={
+  1:{name:'同款曝光',color:'#ec4899'},
+  2:{name:'路过进店',color:'#a855f7'},
+  3:{name:'试吃下单',color:'#ea580c'},
+  4:{name:'加微信复购',color:'#15803d'}
+};
+// 每关漏了该补什么 - 蛋糕店版,实操导向
+var FIXTIPS={
+  1:{title:'同款曝光这关漏了:附近人压根不知道你这家蛋糕店',
+     quote:'蛋糕有强地域性,3 公里外的人不是你的客户,把 3 公里内的人伺候好就够了。',
+     tips:['🏷️ <b>店名带品类</b>:「XX 鲜奶蛋糕」比「XX 烘焙工作室」好——路人一眼就知道你是卖蛋糕的,要不要进是下一步的事。',
+           '📱 <b>抖音 / 小红书挂定位发探店/制作视频</b>:定位别忘挂,这是让附近 3 公里刷到你的关键。',
+           '⭐ <b>美团 / 大众点评认真养评分好评</b>:生日蛋糕顾客最看评论;评分每涨 0.1,流量约多 15%。',
+           '🎁 <b>进店 / 下单顾客必须加微信</b>(送"生日提前一周提醒"),把一次性顾客沉成长期客户——这是蛋糕店最值钱的资产。',
+           '🤝 <b>老带新给真奖励 + 异业互送券</b>:老客带人成本只有投广告的两成;找花店 / 婚纱 / 月子中心互送券,几乎零成本。']},
+  2:{title:'路过进店这关漏了:门口有人,就是不停下来',
+     quote:'路过蛋糕店的人只给你 3 秒,门头、香味、橱窗,决定要不要停下来进店。',
+     tips:['🏷️ <b>店招品类名 + 字够大</b>(30 米外看得清),用粗体不用花体;门头只留店名 + 1 句卖点,别堆满。',
+           '🪟 <b>橱窗通透 + 摆当日新鲜成品实拍图</b>,每天换——路过的人看见"今天又做了啥",就想进来。',
+           '👃 <b>真奶油香味飘到门口</b>(裱花间门开一点点 + 门口试吃小方块),香味是最便宜的引流。',
+           '💡 <b>蛋糕柜射灯亮、店面干净</b>;晚上别全关灯,暖光透出来更勾人。',
+           '🪧 <b>门口小黑板写当日现做款 + 价</b>("生日 6 寸鲜奶 99 元起"),比写"欢迎光临"强 10 倍。']},
+  3:{title:'试吃下单这关漏了:进来了,只看不掏钱',
+     quote:'蛋糕是计划性消费(生日 / 纪念日),机会要在顾客离开前握住,别等顾客回家想。',
+     tips:['🍰 <b>柜台摆试吃小方块</b>:用小杯 + 牙签,试了的人下单率比看图高 3 倍。',
+           '🎯 <b>只讲 3 个最戳的卖点</b>(「鲜奶油 / 当日做 / 配送到家」),讲透,别甩 10 个品类让人挑花眼。',
+           '📖 <b>真实买家秀图册</b>(朋友圈晒单截图打印装订),打动人比干巴巴报参数强 10 倍。',
+           '📋 <b>款式 + 价 + 提前 X 天预订</b>的明确单页,顾客不用开口问也能下单——打破犹豫的最好办法是给路径。',
+           '🎂 <b>生日蛋糕提前一周订享 9 折</b>(也帮你锁原料):让顾客当场订下,把"回家想想"的犹豫砍掉。',
+           '🛒 <b>收银台摆蜡烛 / 卡片 / 蛋糕刀</b>(5~30 元小件),结账顺手加一件,客单价涨 1/4。']},
+  4:{title:'加微信这关漏了:买过一次,再没见过',
+     quote:'蛋糕是一年多次复购的事(生日 / 纪念日 / 节日),加了微信的客户才是你的资产。',
+     tips:['💚 <b>柜台必须加顾客微信(用企业微信)</b>:下单送"生日提前 7 天提醒"——这是蛋糕店最强的留存钩子。',
+           '🏷️ <b>客户分个类</b>(生日蛋糕 / 面包下午茶 / 公司团购),不同类发不同内容,别群发一样的链接。',
+           '📷 <b>朋友圈一周 3 条以内</b>(成品实拍 / 客户晒单 / 预订优惠),别刷屏——刷多了被屏蔽就白费。',
+           '🎟️ <b>结账给"下次 8 折券"(3 周有效)</b>,把下一次先锁住,客流才能有节奏。',
+           '📞 <b>超 60 天没来的老客主动召回</b>:发"专属 8 折 + 一句关怀",成本只要拉新的几分之一。',
+           '🎉 <b>节日提前 1~2 周群发预订</b>(圣诞 / 元旦 / 春节):蛋糕是节日刚需,不提醒就漏单。']}
+};
+
+// ===== 工具函数 =====
+function num(id){var el=document.getElementById(id);if(!el)return 0;var v=parseFloat(el.value);return(isNaN(v)||v<0)?0:v;}
+function val(id){var el=document.getElementById(id);return el?el.value:'';}
+function fmtnum(n){return Math.round(n).toLocaleString('en-US');}
+
+// ===== 存档(only 本地浏览器) =====
+function save(){
+  try{
+    var s={pass:val('f_pass'),in:val('f_in'),buy:val('f_buy'),wechat:val('f_wechat'),
+      chk:Array.from(document.querySelectorAll('.chk input')).map(function(c){return c.checked?1:0;})};
+    localStorage.setItem(STORE,JSON.stringify(s));
+  }catch(e){}
+}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORE));if(!s)return;
+    ['pass','in','buy','wechat'].forEach(function(k){if(s[k]!==undefined&&s[k]!==''){var el=document.getElementById('f_'+k);if(el)el.value=s[k];}});
+    if(s.chk){var cs=document.querySelectorAll('.chk input');s.chk.forEach(function(v,i){if(cs[i])cs[i].checked=!!v;});}
+  }catch(e){}
+}
+function resetAll(){
+  try{localStorage.removeItem(STORE);}catch(e){}
+  ['f_pass','f_in','f_buy','f_wechat'].forEach(function(k){var el=document.getElementById(k);if(el)el.value='';});
+  document.querySelectorAll('.chk input').forEach(function(c){c.checked=false;});
+  window.scrollTo({top:0,behavior:'smooth'});calc();
+}
+
+// ===== 评分(只算 checkbox 各关的勾选百分比) =====
+function stageScores(){
+  var sc={1:{done:0,tot:0},2:{done:0,tot:0},3:{done:0,tot:0},4:{done:0,tot:0}};
+  document.querySelectorAll('.chk input').forEach(function(c){
+    var s=parseInt(c.getAttribute('data-s'));
+    sc[s].tot++; if(c.checked) sc[s].done++;
+  });
+  return sc;
+}
+
+// ===== 核心算法:纯函数 =====
+function compute(inp){
+  var pct={};
+  for(var s=1;s<=4;s++){ pct[s]= inp.sc[s].tot>0? inp.sc[s].done/inp.sc[s].tot*100 : 0; }
+  // 流量转化率(填了才算)
+  var hasFlow = inp.pass>0 && inp.in>0;
+  var rIn  = inp.pass>0? inp.in/inp.pass*100 : null;
+  var rBuy = inp.in>0?  inp.buy/inp.in*100 : null;
+  var rWc  = inp.wechat>0? inp.wechat : null;
+  // 找最弱:pct 最低,并列取最前一关(前面漏后面白搭)
+  var weak=1, weakPct=pct[1];
+  for(var s=2;s<=4;s++){ if(pct[s] < weakPct - 0.001){ weak=s; weakPct=pct[s]; } }
+  var allFull = (pct[1]>=100&&pct[2]>=100&&pct[3]>=100&&pct[4]>=100);
+  var anyChk = (inp.sc[1].done+inp.sc[2].done+inp.sc[3].done+inp.sc[4].done)>0;
+  return {pct:pct,hasFlow:hasFlow,rIn:rIn,rBuy:rBuy,rWc:rWc,weak:weak,weakPct:weakPct,allFull:allFull,anyChk:anyChk};
+}
+function lvl(p){ return p>=70?'g':(p>=40?'y':'r'); }
+
+// ===== 主计算 + 渲染 =====
+function calc(){
+  save();
+  var inp={pass:num('f_pass'),in:num('f_in'),buy:num('f_buy'),wechat:num('f_wechat'),sc:stageScores()};
+  var r=compute(inp);
+  // 1. 四关得分条
+  var scCells=document.querySelectorAll('#scoreBox .sc');
+  for(var s=1;s<=4;s++){
+    var cell=scCells[s-1];
+    cell.className='sc '+lvl(r.pct[s]);
+    cell.querySelector('.scv').textContent=Math.round(r.pct[s])+'%';
+  }
+  // 2. 漏斗图(仅流量填了才显示)
+  var fb=document.getElementById('funnelBox');
+  if(r.hasFlow){
+    fb.style.display='block';
+    var pass=inp.pass, ins=inp.in, buy=inp.buy, wechat=Math.round(buy*(inp.wechat/100));
+    var base=Math.max(pass,1);
+    var rows=[
+      {n:'门口路过',v:pass,c:'#ec4899',conv:null},
+      {n:'进店',v:ins,c:'#a855f7',conv:r.rIn},
+      {n:'下单',v:buy,c:'#ea580c',conv:r.rBuy},
+      {n:'加微信',v:wechat,c:'#15803d',conv:r.rWc}
+    ];
+    var html='<div class="ftitle">📉 你的客流漏斗(每天)</div>';
+    rows.forEach(function(row){
+      var w=Math.max(8,Math.min(100,row.v/base*100));
+      html+='<div class="frow"><div class="ftop"><span class="fname"><span class="dot" style="background:'+row.c+'"></span>'+row.n+'</span><span class="fnum">'+fmtnum(row.v)+(row.n==='加微信'?'%':' 人/天')+'</span></div>'
+        +'<div class="fbarwrap"><div class="fbar" style="width:'+w+'%;background:'+row.c+'">'+fmtnum(row.v)+(row.n==='加微信'?'%':'')+'</div></div>'
+        +(row.conv!==null?'<div class="conv">上一层的 <b>'+row.conv.toFixed(1)+'%</b> 走到了这一层</div>':'')+'</div>';
+    });
+    fb.innerHTML=html;
+  } else { fb.style.display='none'; }
+
+  // 3. 诊断与整改
+  var vd=document.getElementById('verdict'),fx=document.getElementById('fixBox');
+
+  // 3a. 一个都没勾
+  if(!r.anyChk){
+    vd.className='verdict g';
+    vd.innerHTML='四关勾完(填上流量更准),这里告诉你<b>生意最可能漏在哪一关</b>,以及那一关怎么补。';
+    fx.style.display='none';
+    return;
+  }
+  // 3b. 全满分
+  if(r.allFull){
+    vd.className='verdict g';
+    vd.innerHTML='<span class="vh">✅ 四关的招你基本都使上了,底子很扎实</span>同款曝光、路过进店、试吃下单、加微信复购,招你都做到位了——这是<b>很难得的</b>。'+(r.hasFlow?'对照上面漏斗,看看哪一层人数掉得最多,就在那一层继续抠细节、做测试。':'接下来把流量数(路过/进店/下单/加微信)填上,画出漏斗,就能更精准看出哪一层还能再提一提。')+'生意是一点点抠出来的,继续保持。';
+    fx.style.display='none';
+    return;
+  }
+  // 3c. 找最弱 + 给对症清单
+  var w=r.weak, st=STAGES[w], tip=FIXTIPS[w];
+  vd.className='verdict '+(r.weakPct<40?'r':'y');
+  var headline=tip.title.replace(/^.*?漏了:/,'');
+  vd.innerHTML='<span class="vh">🛑 你的蛋糕店,最可能漏在「'+st.name+'」这一关</span>四关里,<b>'+st.name+'</b>这关的招你只使了 <b>'+Math.round(r.pct[w])+'%</b>(做到 '+inp.sc[w].done+'/'+inp.sc[w].tot+' 项),是四关里最弱的。'+(r.hasFlow&&w>=2&&w<=4?'对照上面漏斗,这一层的客流很可能掉得不少。':'')+'<b>'+headline+'</b>——别急着投广告、做团购砸钱,先把这一关该做的补上,往往最省钱、最见效。';
+  // 整改清单
+  fx.style.display='block';
+  var fh='<div class="ft">🔧 「'+st.name+'」这一关,这么补</div><div class="fhh">'+tip.quote+'</div>';
+  tip.tips.forEach(function(t){ fh+='<div class="fr"><span class="fi">▸</span><span class="fc">'+t+'</span></div>'; });
+  // 次弱提醒
+  var second=0,secondPct=101;
+  for(var s=1;s<=4;s++){ if(s!==w && r.pct[s]<secondPct){ second=s; secondPct=r.pct[s]; } }
+  if(second && r.pct[second]<70){
+    fh+='<div class="fr" style="border-top:1px dashed #fdba74;margin-top:4px;"><span class="fi">📍</span><span class="fc">补完这关,<b>「'+STAGES[second].name+'」</b>(做到 '+inp.sc[second].done+'/'+inp.sc[second].tot+')也偏弱,接着补它。</span></div>';
+  }
+  fx.innerHTML=fh;
+}
+
+load();calc();
+</script>
+</body>
+</html>
