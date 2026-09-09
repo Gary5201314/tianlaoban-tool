@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店开店四账必算 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;--p:#a21caf;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;color:var(--slate);font-weight:900;}
+h3{font-size:15px;margin:14px 0 8px;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.tabs{display:flex;gap:4px;margin:14px 0 0;flex-wrap:wrap;}
+.tab{flex:1;min-width:80px;padding:11px 4px;background:rgba(255,255,255,.15);color:#fff;text-align:center;border-radius:8px 8px 0 0;font-weight:700;font-size:13px;cursor:pointer;border:none;font:inherit;}
+.tab.on{background:#fff;color:var(--slate);}
+.panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:18px;}
+.panel.on{display:block;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus{outline:none;border-color:var(--o);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin-top:14px;}
+.btn:hover{background:#b45309;}
+.btn-ghost{background:#fff;color:var(--ink2);border:1px solid var(--line);}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.bignum{font-size:38px;font-weight:900;color:var(--o);line-height:1.1;margin:6px 0;}
+.bignum.r{color:var(--red);} .bignum.g{color:var(--g);}
+.legend{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.bar{height:14px;border-radius:7px;background:#f1f5f9;overflow:hidden;margin:10px 0;}
+.bar>div{height:100%;transition:width .4s;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{background:#fef9c3;border-color:#fde047;border-radius:10px;padding:13px 16px;margin:14px 0;font-size:14px;}
+.disc-hi b{color:#854d0e;}
+.checklist{list-style:none;padding:0;margin:10px 0;}
+.checklist li{padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:14px;display:flex;gap:8px;}
+.checklist li::before{content:"✓";color:var(--g);font-weight:900;flex-shrink:0;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row,.row3{grid-template-columns:1fr;}.bignum{font-size:30px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>蛋糕店开店四账必算</h1>
+  <div class="sub">① 要准备多少钱 ② 卖多少才不亏 ③ 一年赚多少钱 ④ 现金流够撑几个月</div>
+  <div class="tabs">
+    <button class="tab on" data-i="0" onclick="switchTab(0)">① 投资</button>
+    <button class="tab" data-i="1" onclick="switchTab(1)">② 保本</button>
+    <button class="tab" data-i="2" onclick="switchTab(2)">③ 利润</button>
+    <button class="tab" data-i="3" onclick="switchTab(3)">④ 现金流</button>
+  </div>
+</div>
+
+<div class="disclaimer">⚠️ 每家店实际成本不同（选址、装修标准、原料渠道差很多）。这工具是<b>结构化估算 prompt</b>，不是会计报告。<br>🟢=框架（成本结构）/ 🟡=行业经验 / 🔴=单店数字</div>
+
+<!-- ① 投资 -->
+<div class="panel on" id="p0">
+<h2>① 要准备多少钱（总投资预算）</h2>
+<p style="font-size:13.5px;color:var(--ink2);margin-top:0;">蛋糕店总投资 = 装修 + 设备 + 原料铺货 + 证照 + 押金 + 3 个月周转</p>
+
+<div class="block">
+<h3>店型选择</h3>
+<select id="shopType" onchange="applyDefaults()">
+  <option value="street">街边店（30~50㎡，主力店型）</option>
+  <option value="mall">商场店（10~20㎡，高密度人流）</option>
+  <option value="wj">外卖档口（10~20㎡，纯外卖出餐）</option>
+  <option value="tuogou">托管 / 加盟（30~50㎡，付加盟费）</option>
+</select>
+</div>
+
+<div class="block">
+<h3>一次性投入</h3>
+<div class="row">
+  <div><label>转让费 / 进场费（元）</label><input id="v_zhuanrang" type="number" value="0"></div>
+  <div><label>装修 + 门头（元）</label><input id="v_zhuangxiu" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>设备（烤箱/冰柜/打蛋器，元）</label><input id="v_shebei" type="number" value="0"></div>
+  <div><label>前 2 周原料铺货（元）</label><input id="v_yuanliao" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>证照 + 许可证（元）</label><input id="v_zhengzhao" type="number" value="0"></div>
+  <div><label>押金（押付几个月？）</label><input id="v_yajin" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>加盟费（如有，元）</label><input id="v_jiameng" type="number" value="0"></div>
+  <div><label>其他（围裙/收银等，元）</label><input id="v_qita" type="number" value="0"></div>
+</div>
+</div>
+
+<div class="block">
+<h3>月固定成本（用来算月营业额）</h3>
+<div class="row">
+  <div><label>月房租</label><input id="v_fangzu" type="number" value="0"></div>
+  <div><label>人工（总人数，月薪）</label><input id="v_rengong" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>水电燃气 / 月</label><input id="v_shuidian" type="number" value="0"></div>
+  <div><label>包装 + 杂项 / 月</label><input id="v_zaxiang" type="number" value="0"></div>
+</div>
+</div>
+
+<button class="btn" onclick="calcInvest()">💰 算总投资 + 月固定成本</button>
+
+<div id="r0" style="display:none;">
+<div class="block">
+<h3>总投入</h3>
+<div class="bignum" id="r0Total">--</div>
+<p style="margin:4px 0 0;font-size:13px;color:var(--ink2);">一次性 + 3 个月周转 = 实际需准备的现金</p>
+</div>
+<div class="block">
+<h3>明细</h3>
+<table id="r0Table"></table>
+</div>
+<div class="disc-hi" id="r0Hint">--</div>
+</div>
+</div>
+
+<!-- ② 保本 -->
+<div class="panel" id="p1">
+<h2>② 卖多少才不亏（月保本营业额）</h2>
+<p style="font-size:13.5px;color:var(--ink2);margin-top:0;">填上你的月固定成本 + 食材率，毛估一个月要卖多少才回本</p>
+
+<div class="block">
+<div class="row">
+  <div><label>月固定成本（元）</label><input id="b_fc" type="number" value="0"></div>
+  <div><label>食材成本占比 %</label><input id="b_food" type="number" value="35" min="20" max="50"></div>
+</div>
+<div class="row">
+  <div><label>平均客单价（元）</label><input id="b_aov" type="number" value="60"></div>
+  <div><label>目标月利润（元）</label><input id="b_profit" type="number" value="10000"></div>
+</div>
+<div class="hint" style="font-size:12.5px;color:var(--muted);margin-top:6px;">🟡 蛋糕店食材占 32~38%；慕斯/奶油比面包高，定制蛋糕比甜点高</div>
+</div>
+
+<button class="btn" onclick="calcBreakEven()">⚖️ 算保本 + 订单量</button>
+
+<div id="r1" style="display:none;">
+<div class="block">
+<h3>月保本营业额</h3>
+<div class="bignum" id="r1Break">--</div>
+<p style="margin:4px 0 0;font-size:13px;color:var(--ink2);">卖到这个数字不赚不赔（含你想要的利润看下面）</p>
+</div>
+<div class="block">
+<h3>含目标利润需做到</h3>
+<div class="bignum g" id="r1Target">--</div>
+</div>
+<div class="block">
+<h3>拆解到日</h3>
+<table>
+<tr><th>项目</th><th class="num">月</th><th class="num">日（30天）</th><th class="num">单/天</th></tr>
+<tbody id="r1Day"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- ③ 一年利润 -->
+<div class="panel" id="p2">
+<h2>③ 一年能赚多少钱（利润快算）</h2>
+
+<div class="block">
+<div class="row">
+  <div><label>预计月营业额（元）</label><input id="p_rev" type="number" value="0"></div>
+  <div><label>食材成本占比 %</label><input id="p_food" type="number" value="35"></div>
+</div>
+<div class="row">
+  <div><label>月固定成本（元）</label><input id="p_fc" type="number" value="0"></div>
+  <div><label>月损耗率 %（建议填 5~10）</label><input id="p_loss" type="number" value="6"></div>
+</div>
+</div>
+
+<button class="btn" onclick="calcProfit()">📈 算一年利润</button>
+
+<div id="r2" style="display:none;">
+<div class="block">
+<h3>月净利润</h3>
+<div class="bignum g" id="r2Month">--</div>
+<p style="margin:4px 0 0;font-size:13px;">净利率 <b id="r2Rate"></b></p>
+</div>
+<div class="block">
+<h3>一年净利润（保守 10 个月正常，2 个月差）</h3>
+<div class="bignum g" id="r2Year">--</div>
+<p style="margin:4px 0 0;font-size:13px;color:var(--ink2);">回本周期：<b id="r2Cpb"></b></p>
+</div>
+<div class="block">
+<h3>成本结构</h3>
+<div class="bar"><div id="r2BarFood" style="background:#ea580c"></div></div>
+<div class="bar"><div id="r2BarLoss" style="background:#ca8a04;margin-top:-2px"></div></div>
+<div class="bar"><div id="r2BarFix" style="background:#a21caf;margin-top:-2px"></div></div>
+<div class="bar"><div id="r2BarProfit" style="background:#16a34a;margin-top:-2px"></div></div>
+<p style="margin:6px 0 0;font-size:13px;">
+<span style="color:#ea580c">■食材</span>
+<span style="color:#ca8a04;margin-left:14px;">■损耗</span>
+<span style="color:#a21caf;margin-left:14px;">■固定成本</span>
+<span style="color:#16a34a;margin-left:14px;">■净利润</span>
+</p>
+</div>
+</div>
+</div>
+
+<!-- ④ 现金流 -->
+<div class="panel" id="p3">
+<h2>④ 现金够撑几个月（抗风险线）</h2>
+<p style="font-size:13.5px;color:var(--ink2);margin-top:0;">开业前最重要的账：把亏损最大月份估出来，看你手上的现金能不能扛</p>
+
+<div class="block">
+<div class="row">
+  <div><label>手上有现金（元）</label><input id="c_cash" type="number" value="0"></div>
+  <div><label>月固定成本（元）</label><input id="c_fc" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>预计初期月营业额（元）</label><input id="c_rev" type="number" value="0"></div>
+  <div><label>预计食材成本占比 %</label><input id="c_food" type="number" value="35"></div>
+</div>
+</div>
+
+<button class="btn" onclick="calcCash()">💧 算存活月数</button>
+
+<div id="r3" style="display:none;">
+<div class="block">
+<h3>月亏损（最坏情况）</h3>
+<div class="bignum r" id="r3Loss">--</div>
+</div>
+<div class="block">
+<h3>你的现金够烧几个月</h3>
+<div class="bignum" id="r3Months">--</div>
+</div>
+<div class="block">
+<h3>健康建议</h3>
+<div id="r3Hint"></div>
+</div>
+</div>
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+/* tab 切换 */
+function switchTab(i){
+  document.querySelectorAll('.tab').forEach(function(t,i2){t.classList.toggle('on',i2===i);});
+  document.querySelectorAll('.panel').forEach(function(p,i2){p.classList.toggle('on',i2===i);});
+  // 切到新 tab 自动同步数据（用户上次填的）
+  syncFill();
+}
+
+/* 默认值（按店型） */
+var defaults={
+  street:{zr:40000,zx:90000,sb:60000,yl:6000,zz:2000,yj:12000,xz:30000,jm:0,shui:3500,za:1500},
+  mall:{zr:0,zx:180000,sb:50000,yl:6000,zz:2000,yj:30000,xz:0,jm:80000,shui:4500,za:1500},
+  wj:{zr:20000,zx:60000,sb:30000,yl:4000,zz:2000,yj:8000,xz:0,jm:0,shui:2000,za:1000},
+  tuogou:{zr:30000,zx:120000,sb:80000,yl:6000,zz:2000,yj:10000,xz:20000,jm:100000,shui:3500,za:1500}
+};
+function applyDefaults(){
+  var k=document.getElementById('shopType').value;
+  var d=defaults[k];
+  Object.keys(d).forEach(function(k2){
+    var el=document.getElementById('v_'+({zr:'zhuanrang',zx:'zhuangxiu',sb:'shebei',yl:'yuanliao',zz:'zhengzhao',yj:'yajin',xz:'jiameng',shui:'shuidian',za:'zaxiang',jm:'jiameng'})[k2]);
+    if(el) el.value=d[k2];
+  });
+}
+applyDefaults();
+
+/* 同步固定成本到各 tab */
+function syncFill(){
+  var fc=(+document.getElementById('v_fangzu').value||0)+(+document.getElementById('v_rengong').value||0)+
+         (+document.getElementById('v_shuidian').value||0)+(+document.getElementById('v_zaxiang').value||0);
+  var el=document.getElementById('b_fc'); if(el) el.value=fc;
+  var pfc=document.getElementById('p_fc'); if(pfc) pfc.value=fc;
+  var cfc=document.getElementById('c_fc'); if(cfc) cfc.value=fc;
+}
+['v_fangzu','v_rengong','v_shuidian','v_zaxiang'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.addEventListener('input',syncFill);
+});
+
+/* ① 投资 */
+function calcInvest(){
+  var kv={zhuanrang:'转让费',zhuangxiu:'装修+门头',shebei:'设备',yuanliao:'原料铺货',zhengzhao:'证照',yajin:'押金',
+         jiameng:'加盟费',qita:'其他'};
+  var one=0;var rows='';
+  Object.keys(kv).forEach(function(k){
+    var v=+(document.getElementById('v_'+k).value||0);
+    if(v>0){rows+='<tr><td>'+kv[k]+'</td><td class="num">¥'+v.toLocaleString()+'</td></tr>';}
+    one+=v;
+  });
+  var fc=(+document.getElementById('v_fangzu').value||0)+(+document.getElementById('v_rengong').value||0)+
+         (+document.getElementById('v_shuidian').value||0)+(+document.getElementById('v_zaxiang').value||0);
+  var turnover=fc*3;
+  var total=one+turnover;
+  document.getElementById('r0Total').textContent='¥ '+total.toLocaleString();
+  document.getElementById('r0Table').innerHTML=rows+
+    '<tr><th>一次性合计</th><th class="num">¥'+one.toLocaleString()+'</th></tr>'+
+    '<tr><td>+ 3 个月周转金</td><td class="num">¥'+turnover.toLocaleString()+'</td></tr>'+
+    '<tr><th>实际需准备</th><th class="num" style="color:#dc2626;">¥'+total.toLocaleString()+'</th></tr>'+
+    '<tr><th>月固定成本</th><th class="num">¥'+fc.toLocaleString()+'</th></tr>';
+  var tag=total<100000?'<span class="tag tag-g">轻量</span>':total<300000?'<span class="tag tag-y">中等</span>':'<span class="tag tag-r">重投入</span>';
+  document.getElementById('r0Hint').innerHTML=tag+' <b>投入规模</b>：'+total.toLocaleString()+' 元。建议留<b>总投资 1.2 倍</b>的现金储备，应对延期开业、生意爬坡期超支。';
+  document.getElementById('r0').style.display='block';
+  try{localStorage.setItem('suanzhang_inv',JSON.stringify(Object.fromEntries(Object.keys(kv).map(function(k){return ['v_'+k,document.getElementById('v_'+k).value]}))))}catch(e){}
+}
+
+/* ② 保本 */
+function calcBreakEven(){
+  var fc=+(document.getElementById('b_fc').value||0);
+  var food=+(document.getElementById('b_food').value||35)/100;
+  var aov=+(document.getElementById('b_aov').value||60);
+  var profit=+(document.getElementById('b_profit').value||0);
+  // 保本 = 固定成本 / (1 - 食材率)
+  var brk=fc/(1-food);
+  var target=(fc+profit)/(1-food);
+  document.getElementById('r1Break').textContent='¥ '+brk.toLocaleString();
+  document.getElementById('r1Target').textContent='¥ '+target.toLocaleString();
+  var day=target/30;
+  var ord=Math.ceil(day/aov);
+  document.getElementById('r1Day').innerHTML=
+    '<tr><td>营业额</td><td class="num">¥'+target.toFixed(0)+'</td><td class="num">¥'+day.toFixed(0)+'</td><td class="num">'+ord+' 单/天</td></tr>'+
+    '<tr><td>食材成本</td><td class="num">¥'+(target*food).toFixed(0)+'</td><td class="num">¥'+(day*food).toFixed(0)+'</td><td class="num">-</td></tr>'+
+    '<tr><td>毛利</td><td class="num">¥'+(target*(1-food)).toFixed(0)+'</td><td class="num">¥'+(day*(1-food)).toFixed(0)+'</td><td class="num">-</td></tr>';
+  document.getElementById('r1').style.display='block';
+}
+
+/* ③ 利润 */
+function calcProfit(){
+  var rev=+(document.getElementById('p_rev').value||0);
+  var food=+(document.getElementById('p_food').value||35)/100;
+  var fc=+(document.getElementById('p_fc').value||0);
+  var loss=+(document.getElementById('p_loss').value||6)/100;
+  var grFood=rev*food;  // 食材成本
+  var grLoss=rev*loss;  // 损耗成本
+  var profit=rev-grFood-grLoss-fc;
+  var rate=rev>0?profit/rev*100:0;
+  document.getElementById('r2Month').textContent='¥ '+profit.toLocaleString();
+  document.getElementById('r2Rate').textContent=rate.toFixed(1)+'%';
+  var year=profit*10; // 保守 10 个月正常
+  document.getElementById('r2Year').textContent='¥ '+year.toLocaleString();
+  // 回本周期（用总投资粗算）
+  var totalInv=+(document.getElementById('v_zhuanrang').value||0)+(+document.getElementById('v_zhuangxiu').value||0)+
+              (+document.getElementById('v_shebei').value||0)+(+document.getElementById('v_yuanliao').value||0)+
+              (+document.getElementById('v_zhengzhao').value||0)+(+document.getElementById('v_yajin').value||0)+
+              (+document.getElementById('v_jiameng').value||0)+(+document.getElementById('v_qita').value||0);
+  var cpb=totalInv>0&&profit>0?(totalInv/profit/12).toFixed(1):'-';
+  document.getElementById('r2Cpb').textContent=cpb+=' 年';
+  // 比例条
+  ['r2BarFood','r2BarLoss','r2BarFix','r2BarProfit'].forEach(function(id){
+    document.getElementById(id).style.width='0%';
+  });
+  if(rev>0){
+    document.getElementById('r2BarFood').style.width=(grFood/rev*100).toFixed(1)+'%';
+    document.getElementById('r2BarLoss').style.width=(grLoss/rev*100).toFixed(1)+'%';
+    document.getElementById('r2BarFix').style.width=(fc/rev*100).toFixed(1)+'%';
+    document.getElementById('r2BarProfit').style.width=Math.max(0,profit/rev*100).toFixed(1)+'%';
+  }
+  document.getElementById('r2').style.display='block';
+}
+
+/* ④ 现金流 */
+function calcCash(){
+  var cash=+(document.getElementById('c_cash').value||0);
+  var fc=+(document.getElementById('c_fc').value||0);
+  var rev=+(document.getElementById('c_rev').value||0);
+  var food=+(document.getElementById('c_food').value||35)/100;
+  var monthlyLoss=fc+rev*food-rev;
+  if(monthlyLoss<=0){document.getElementById('r3').innerHTML='<h3>👍 初始月就能收支平衡</h3><p>注意：开张头 3 个月通常会低预算 30~50%，要预留这部分现金</p>';return;}
+  var months=cash/monthlyLoss;
+  document.getElementById('r3Loss').textContent='¥ '+monthlyLoss.toLocaleString()+' /月';
+  document.getElementById('r3Months').textContent=months.toFixed(1)+' 个月';
+  var h='';
+  if(months<3){h='<div class="disc-hi" style="background:#fef2f2;border-color:#fca5a5;"><b>⚠️ 危险</b>：你的现金撑不过 3 个月，新店爬坡期风险极高。建议压缩店铺面积或加家人合伙出资再开业。</div>';}
+  else if(months<6){h='<div class="disc-hi"><b>🟡 紧张</b>：刚好够爬坡期，但容错空间小。第 4~6 个月必须见起色。</div>';}
+  else if(months<12){h='<div class="disc-hi" style="background:#ecfdf5;border-color:#86efac;"><b>✅ 健康</b>：有 6~12 个月缓冲，是最舒服的开业储备。</div>';}
+  else{h='<div class="disc-hi" style="background:#ecfdf5;border-color:#86efac;"><b>✅ 充裕</b>：你可以慢慢打磨产品，不必急于冲量。</div>';}
+  document.getElementById('r3Hint').innerHTML=h;
+  document.getElementById('r3').style.display='block';
+}
+
+/* 加载存档 */
+function loadAll(){
+  try{
+    var s=JSON.parse(localStorage.getItem('suanzhang_state_v1')||'{}');
+    Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el&&s[k]!==undefined)el.value=s[k];});
+    syncFill();
+  }catch(e){}
+}
+loadAll();
+// 离开页前存档
+window.addEventListener('beforeunload',function(){
+  var s={};
+  document.querySelectorAll('input,select').forEach(function(el){
+    if(el.id&&el.value)s[el.id]=el.value;
+  });
+  try{localStorage.setItem('suanzhang_state_v1',JSON.stringify(s));}catch(e){}
+});
+</script>
+</body>
+</html>
