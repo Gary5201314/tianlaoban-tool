@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="gh3xyRBFET7CgOelBc0kQV">
+<head data-page-node-id="c6jvvGY2tYjOpQLQWCXBri">
+<meta charset="UTF-8" data-page-node-id="7QyVki5GVc9EEd183t8nWV">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="tpCxjp4fOchiZDov1sHoQF">
+<title>蛋糕店下滑急救 · 营业额下滑按顺序排查 14 步</title>
+<meta name="description" content="蛋糕店营业额下滑:按"先流量→再产品→后人员/复购"14 步排查,定位卡哪了。" data-page-node-id="XqLviHGVdvx2RvGCLlMO4r">
+<style>
+:root{
+  --ink:#0f172a;--ink2:#475569;--muted:#7c8aa0;
+  --brand:#b91c1c;--brand2:#7f1d1d;
+  --ok:#15803d;--okbg:#dcfce7;--warn:#d97706;--warnbg:#fef3c7;--bad:#b91c1c;--badbg:#fee2e2;
+  --bg:#fef2f2;--card:#ffffff;--line:#fecaca;--slate:#1e293b;
+  --c1:#0ea5e9;--c2:#ea580c;--c3:#6366f1;--c4:#15803d;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+body{background:linear-gradient(180deg,#fef2f2 0%,#fef3c7 100%);color:var(--ink);font-family:"PingFang SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.75;min-height:100vh;}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px 60px;}
+a{color:var(--brand);}
+b,strong{font-weight:800;}
+.hero{position:relative;background:linear-gradient(150deg,#7f1d1d 0%,#991b1b 50%,#b91c1c 100%);color:#fef2f2;border-radius:0 0 22px 22px;margin:0 -14px 20px;padding:30px 24px 26px;overflow:hidden;}
+.hero::after{content:"📉";position:absolute;right:18px;bottom:-30px;font-size:160px;line-height:1;opacity:.14;}
+.hero .kicker{font-size:12px;letter-spacing:2px;color:#fecaca;font-weight:800;margin-bottom:9px;}
+.hero h1{font-size:25px;font-weight:900;line-height:1.4;position:relative;z-index:2;}
+.hero .sub{margin-top:11px;font-size:14px;color:#fecaca;line-height:1.85;position:relative;z-index:2;}
+.hero .sub b{color:#fff;}
+.hero-back{display:inline-flex;align-items:center;gap:6px;position:absolute;top:16px;left:16px;padding:8px 16px 8px 12px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.45);border-radius:999px;backdrop-filter:blur(6px);text-decoration:none;z-index:3;}
+.hero{padding-top:64px !important;}
+.urgent{background:#fef3c7;border:1.5px solid #fbbf24;border-radius:12px;padding:11px 14px;margin-bottom:14px;font-size:13px;color:#92400e;line-height:1.7;}
+.urgent b{color:#7f1d1d;}
+.sec{margin:22px 0 8px;display:flex;align-items:center;gap:10px;}
+.sec .t{font-size:17px;font-weight:900;color:var(--slate);}
+.sec .bar{flex:1;height:1px;background:var(--line);}
+.lead{font-size:13.5px;color:var(--ink2);line-height:1.8;margin:6px 0 13px;}
+.lead b{color:var(--brand2);}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 3px 14px rgba(127,29,29,.07);margin-bottom:12px;border-left:5px solid var(--line);}
+.card.d1{border-left-color:var(--c1);}.card.d2{border-left-color:var(--c2);}.card.d3{border-left-color:var(--c3);}.card.d4{border-left-color:var(--c4);}
+.dh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:3px;}
+.dh .dn{font-size:15px;font-weight:900;color:var(--slate);}
+.dh .dk{font-size:12px;font-weight:800;color:#fff;border-radius:6px;padding:1px 9px;}
+.card.d1 .dk{background:var(--c1);}.card.d2 .dk{background:var(--c2);}.card.d3 .dk{background:var(--c3);}.card.d4 .dk{background:var(--c4);}
+.dsd{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:9px;}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-top:1px dashed #fef2f2;cursor:pointer;}
+.chk:first-of-type{border-top:none;}
+.chk input{margin-top:2px;width:18px;height:18px;flex-shrink:0;accent-color:var(--brand);}
+.chk .ct{font-size:13.5px;color:var(--ink);line-height:1.55;}
+.chk .ct b{color:var(--brand2);}
+.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.frow{margin-bottom:10px;}
+.frow label{font-size:12.5px;font-weight:800;color:var(--slate);display:block;margin-bottom:4px;}
+.frow input{width:100%;font-size:15px;font-weight:800;color:var(--ink);background:#fff;border:1.2px solid var(--line);border-radius:8px;padding:8px 10px;font-family:inherit;-moz-appearance:textfield;}
+.frow input:focus{outline:none;border-color:var(--brand);}
+.frow input::-webkit-outer-spin-button,.frow input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.result{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:18px 16px;box-shadow:0 4px 18px rgba(127,29,29,.10);margin-bottom:14px;}
+.flow-chart{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:7px;margin:12px 0;}
+.flow-chart .fc{border-radius:10px;padding:9px 5px;text-align:center;border:1.5px solid var(--line);cursor:pointer;}
+.flow-chart .fc .fct{font-size:11.5px;font-weight:900;color:var(--ink2);}
+.flow-chart .fc .fcn{font-size:20px;font-weight:900;line-height:1;margin:3px 0 0;}
+.flow-chart .fc.n{background:#fff;}
+.flow-chart .fc.hot{background:#fee2e2;border-color:#fca5a5;}
+.flow-chart .fc.hot .fcn{color:var(--bad);}
+.flow-chart .fc .fc-arrow{display:none;}
+.verdict{border-radius:13px;padding:14px 16px;font-size:14px;line-height:1.85;border:2px solid;}
+.verdict.g{background:var(--okbg);border-color:#86efac;color:#14532d;}
+.verdict.y{background:var(--warnbg);border-color:#fcd34d;color:#78350f;}
+.verdict.r{background:var(--badbg);border-color:#fca5a5;color:#7f1d1d;}
+.verdict .vh{font-size:16px;font-weight:900;display:block;margin-bottom:4px;}
+.fix{margin-top:13px;background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:14px 15px;}
+.fix .ft{font-size:14.5px;font-weight:900;color:var(--slate);margin-bottom:4px;}
+.fix .fhh{font-size:12.5px;color:var(--ink2);margin-bottom:9px;font-style:italic;}
+.fix .fr{display:flex;gap:9px;padding:7px 0;border-top:1px solid #fde68a;font-size:13px;color:var(--ink2);line-height:1.65;}
+.fix .fr:first-of-type{border-top:none;}
+.fix .fr b{color:var(--brand2);}
+.fix .fr .fi{flex-shrink:0;}
+.disc{font-size:12px;color:var(--muted);line-height:1.7;background:#fffbeb;border:1px dashed var(--line);border-radius:12px;padding:13px 15px;margin-top:16px;}
+.disc b{color:var(--ink2);}
+.backhome{margin-top:24px;text-align:center;}
+.backhome a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);color:#fff;font-size:14.5px;font-weight:800;border-radius:999px;text-decoration:none;}
+.foot{margin-top:18px;text-align:center;}
+.foot .tiny{font-size:12px;color:var(--muted);line-height:1.8;}
+</style>
+</head>
+<body data-page-node-id="gmL2tcJCZQYDrZgXstdQ8w">
+<div class="wrap" data-page-node-id="FiEStH43ainXLo7Hdqk1fB">
+
+<div class="hero" data-page-node-id="PKG0FjaQdUDsdvLBNOLklW">
+  <a class="hero-back" href="index.html" data-page-node-id="zUh1GTwd8B7NDY0MhSVeGA"><span data-page-node-id="19ZYjOpgjv25pT1KaVbLN4">←</span> 工具箱</a>
+  <div class="kicker" data-page-node-id="XTS7BBxI66RVxJn6D71oSt">蛋糕店救命用 · 下滑急救</div>
+  <h1 data-page-node-id="ZvPRXFQqTRuWpq5NFpWO5w">营业额<span style="color:#fbbf24;" data-page-node-id="cNNrBINX4Dg4CqAyeAv4mP">下滑 2 周</span>还没起来?</h1>
+  <div class="sub" data-page-node-id="7Krv5noTeuHhzLJTtoVyGk">下滑别慌,<b data-page-node-id="OfYECOaSt83PHyrExmVmYg">先定位卡哪、再说怎么救</b>。下面按 <b data-page-node-id="DNQawYx0lAvMMiF4oJRNdI">流量 → 产品 → 人员 → 复购</b> 四顺序逐条勾选,工具会告诉你<b data-page-node-id="ClnDpiiH0Wiafj2h4JdYAu">最可能卡在哪</b>,以及<b data-page-node-id="kLmIkZ8GSkHlVbCbRAFOde">对症的具体动作</b>。</div>
+</div>
+
+<div class="urgent" data-page-node-id="uGxmJB6UKk0uGvMNFnNCme">⏰ <b data-page-node-id="AQ4QeV0VkoHHsyeGrUTwSQ">前提:</b>下滑 <b data-page-node-id="l4Kj3S8ZA6Y01FNk2pUnzB">2~4 周</b>再查。如果只是 1 周波动,可能是节假日 / 天气 / 一次活动抢客流,正常。<b data-page-node-id="Hd8RrLGhp4JSQqeBNEnbYZ">持续下滑才是信号</b>,用来定位问题。</div>
+
+<div class="sec" data-page-node-id="p5eNA9xiGHwsGamGUENcMu"><span class="t" data-page-node-id="9uwhGWDRzReW5w3etjArO9">①📊 上月数据对照(填数字看趋势)</span><div class="bar" data-page-node-id="y7SEy5gJcNqMFHZSZeRWHN"></div></div>
+<div class="card" data-page-node-id="XfYFV3IVDtet08jU40NXWH">
+  <div class="metric-row" data-page-node-id="aX8ZCZIX3oAfkEPfaDCZty">
+    <div class="frow" data-page-node-id="almdIEDnaLWthNwc5iXr35"><label data-page-node-id="8qlKwjIrfdmO7NecddxOH1">本月营业额(元)</label><input type="number" id="rev_now" value="0" oninput="calc()" data-page-node-id="4DW9a9hA7MmFdeHeyVQ3rX"></div>
+    <div class="frow" data-page-node-id="vExbqaMHNdqsxuGtj0ehB8"><label data-page-node-id="LzHb1xY8ReGMW7NlfOuYZF">上月营业额(元)</label><input type="number" id="rev_last" value="0" oninput="calc()" data-page-node-id="V2vyJI42JgYBYgBlnkVsFu"></div>
+    <div class="frow" data-page-node-id="PYEsJADUrd3kgbScGxh1C4"><label data-page-node-id="LRFAmnonqdGPhxUjEw9H3X">本月客流(人/周均)</label><input type="number" id="traffic_now" value="0" oninput="calc()" data-page-node-id="ak1eQdOIkjxEOCKnhsZSqw"></div>
+    <div class="frow" data-page-node-id="hVsgGTO7BsOkSCNIdemLD1"><label data-page-node-id="GEGgbrAIQ9ywrwuH8b8E9R">上月客流(人/周均)</label><input type="number" id="traffic_last" value="0" oninput="calc()" data-page-node-id="26WyO3jxzLWXSA8cdpWQTq"></div>
+    <div class="frow" data-page-node-id="jA1hKZlrQaDOypg8trHOJd"><label data-page-node-id="hCvnszR0KE0empPgtDIPM6">本月客单价(元)</label><input type="number" id="arpu_now" value="0" oninput="calc()" data-page-node-id="OahkqoXsdXJD9woJbzgnFv"></div>
+    <div class="frow" data-page-node-id="HZ7btD7hw2rIQD3fc4453X"><label data-page-node-id="jyj0c5ij01nlt3vGsFHJUw">上月客单价(元)</label><input type="number" id="arpu_last" value="0" oninput="calc()" data-page-node-id="HjzF4A2RyDmpKo3ITLZtJe"></div>
+  </div>
+</div>
+
+<div class="sec" data-page-node-id="1XXoh9zELACze5XRScSjDO"><span class="t" data-page-node-id="ciC5QkxTiTnISabREJmdSj">②✅ 勾选你遇到的具体情况(可多选)</span><div class="bar" data-page-node-id="hKuUKUvZECxatULvsciR9e"></div></div>
+
+<div class="card d1" data-page-node-id="zLwDqjyI7tM9EEc1beCUpd">
+  <div class="dh" data-page-node-id="CrDWaPf0mqFaPD5UtsZQgX"><span class="dn" data-page-node-id="VpRHTXWEOHHsb6wZBcqW9L">维度一 · 流量下滑</span><span class="dk" data-page-node-id="UEjK96E6s7O7FhEucgP0ft">客人少了</span></div>
+  <div class="dsd" data-page-node-id="sX1etbdFdlxnkCja7zPdE1">客人没进店,生意就归零。先排除"流量被截"——周边发生了什么。</div>
+  <label class="chk" data-page-node-id="wClkAUw2JnWkPRmGG66aMS"><input type="checkbox" data-d="1" onchange="calc()" data-page-node-id="JMHerIk3kLtwpihrevDqJy"><span class="ct" data-page-node-id="Q5oUCXHxVbiCRLk3ujjLFj">路过客人变少了——可能整条街客流掉了(地铁改造 / 围挡 / 商户关门潮)</span></label>
+  <label class="chk" data-page-node-id="F02FSvuY8VGbqB6zEFoNPf"><input type="checkbox" data-d="1" onchange="calc()" data-page-node-id="bvRUBLiP3b0qitIh4kKK6x"><span class="ct" data-page-node-id="j8rnciOJheuBExP6aXq9Qa">进店人数也降——自然客流 + 转介绍都掉了</span></label>
+  <label class="chk" data-page-node-id="FKVpr10Xd3Siq1UsVMF3kw"><input type="checkbox" data-d="1" onchange="calc()" data-page-node-id="fjhMN4yq95Yd7zDVA9lppz"><span class="ct" data-page-node-id="YCyuKpq3czWwxiccmBqsQH"><b data-page-node-id="GoSA1VFjPG5TLmchSMB9gh">美团 / 点评曝光降</b>(评分掉到 4.3 以下或被降权)</span></label>
+  <label class="chk" data-page-node-id="eEIXDjUXUF0actTrO4jauF"><input type="checkbox" data-d="1" onchange="calc()" data-page-node-id="BSBz98fstVS7iDnz5NT0hu"><span class="ct" data-page-node-id="eEAL8LCtwTITVZns98CA0a">抖音 / 小红书的视频流量也降了(没新内容,平台不给推)</span></label>
+</div>
+
+<div class="card d2" data-page-node-id="fERkELK9l24VrC9uGVpOkc">
+  <div class="dh" data-page-node-id="iqWvVWfzCzdEjBxF0l9DMj"><span class="dn" data-page-node-id="7oanNajhlmAsB7EBv3MmQC">维度二 · 产品问题</span><span class="dk" data-page-node-id="vifgegKd75Q63HAF0Dfz6r">客人进了不掏钱</span></div>
+  <div class="dsd" data-page-node-id="dJXS40AqF0uoIQexnJGKS9">客人还在,但吃了就走——产品力掉了的信号。</div>
+  <label class="chk" data-page-node-id="eWuCFOoju3FJksridXL05m"><input type="checkbox" data-d="2" onchange="calc()" data-page-node-id="fH9zkxlgGDfjxnAZfM19Q0"><span class="ct" data-page-node-id="Jbo83qDzFgLimBWeUbY5Df"><b data-page-node-id="kZXRfRfosNjfSmEWoFaZqa">收到差评</b>(奶油口感 / 水果不新鲜 / 蛋糕尺寸缩水)</span></label>
+  <label class="chk" data-page-node-id="d8xaIvG3cU4bMAQA8Y6f0g"><input type="checkbox" data-d="2" onchange="calc()" data-page-node-id="LW0ru4iROZGPpnj3VzvKht"><span class="ct" data-page-node-id="A2VHnolNJsZ3IijFtdYhEn"><b data-page-node-id="Vcoz7HYqueBWAFpzKnA6PG">招牌款下架</b>了(师傅离职 / 原料短缺 / 季节过季)</span></label>
+  <label class="chk" data-page-node-id="ZZvonb1GkCSKGlrtlYUdfu"><input type="checkbox" data-d="2" onchange="calc()" data-page-node-id="jFmO6yeoSKdwvDqOMwFMP2"><span class="ct" data-page-node-id="mCuyNOHA1t1dhnGCBG0XZA"><b data-page-node-id="5YxJtOqrSFzKpZnQG9nOMM">没跟上季节</b>新品(情人节 / 520 / 母亲节没动作)</span></label>
+  <label class="chk" data-page-node-id="sn9NfJeSw6fwFX6ghyK97J"><input type="checkbox" data-d="2" onchange="calc()" data-page-node-id="4XSyxj8NOFkWZFBMTHpgxJ"><span class="ct" data-page-node-id="oWA0gua8j7v7pdzsb6fC2M">竞品出了<b data-page-node-id="zgRloTtQe00OLkO281G2ea">新爆款</b>(动物奶油 / 跨界联名 / 网红款),你的产品老旧</span></label>
+</div>
+
+<div class="card d3" data-page-node-id="5aeBTilpVwsIC0esDvHY3m">
+  <div class="dh" data-page-node-id="DiaBa7pc708AFsYRNUXwIv"><span class="dn" data-page-node-id="5eHWvEq4q0p2dOmiNRSc6t">维度三 · 人员问题</span><span class="dk" data-page-node-id="7D4wAkgWRpCwOcGYDrdTFZ">店里出问题了</span></div>
+  <div class="dsd" data-page-node-id="EJwYDBiJcZp2hbVLD6qONK">蛋糕是手艺活,人员一变,产品力立刻掉。</div>
+  <label class="chk" data-page-node-id="ej1JqFfZAyex7jdDmlLgFr"><input type="checkbox" data-d="3" onchange="calc()" data-page-node-id="U6O8PnxJ2Av50A0Kp3FqFV"><span class="ct" data-page-node-id="GzBRodV81mFIvH94YHOzbu"><b data-page-node-id="DkzPEoQDy9RhRchqr2UQ7W">关键师傅离职</b>(裱花师 / 主厨),出品不稳定</span></label>
+  <label class="chk" data-page-node-id="pGYfV38VGlW0mHlNMEKN7a"><input type="checkbox" data-d="3" onchange="calc()" data-page-node-id="hWKB44isXvLUP3rmggmyXc"><span class="ct" data-page-node-id="z9QQevHxOF3TGXTnNVIDuE"><b data-page-node-id="tNhZfrTeVj0ohrg49lFDoe">服务投诉上升</b>——顾客反馈"店员冷漠 / 不专业"</span></label>
+  <label class="chk" data-page-node-id="3ECE3ftWvM9X71J5udLhJM"><input type="checkbox" data-d="3" onchange="calc()" data-page-node-id="y6vebDM5MJirUtwgJ7ziDF"><span class="ct" data-page-node-id="cxIAhnyFQt7c0qYBS9JFwe"><b data-page-node-id="EoOI5nOq4W0osYjXDMco50">出餐变慢</b>——顾客等候超 30 分钟,生日蛋糕赶不上时间</span></label>
+</div>
+
+<div class="card d4" data-page-node-id="cdvxYNfhO2ED8zFDAVWpAK">
+  <div class="dh" data-page-node-id="RrdSs3Y7ASFEpCgfugCNWd"><span class="dn" data-page-node-id="0YrAgiS3u9HJgCbbnDXXZU">维度四 · 复购断了</span><span class="dk" data-page-node-id="9k82BUIbfJR0HhJWGT39WC">老客不回来</span></div>
+  <div class="dsd" data-page-node-id="j8dGxz1AiYBOTKsbSVO7xI">蛋糕是高频复购品类,老客停了你损失 > 拉新成本的几倍。</div>
+  <label class="chk" data-page-node-id="WlDMDRg8aJyg65r1GNuHWu"><input type="checkbox" data-d="4" onchange="calc()" data-page-node-id="dk0Q2IcaFLhXtR7FY0r9xy"><span class="ct" data-page-node-id="FuQtclzzYxyfV10X7bqHjb"><b data-page-node-id="BUpXSODlph5FXCVx3Tur3B">加微信率掉了</b>——线下没引导扫码,顾客没留下来</span></label>
+  <label class="chk" data-page-node-id="MW7jNhq8DG1BrM4TfugJgU"><input type="checkbox" data-d="4" onchange="calc()" data-page-node-id="wXH1pCKdcx15YgZMmkKNeJ"><span class="ct" data-page-node-id="QwY01m5D3PI7yVWaCcCsZs"><b data-page-node-id="MPEvikc4iLKGmzv29ENwrc">超 60 天没来的老客</b>变多,但你没主动召回</span></label>
+  <label class="chk" data-page-node-id="GHJ7MbuGbpocrJIk1g1Jd7"><input type="checkbox" data-d="4" onchange="calc()" data-page-node-id="zNfKoZZ2cQW47vZoNjgHrd"><span class="ct" data-page-node-id="mkacO1l7IsWb8NhjAuF2AS"><b data-page-node-id="eK3lDEDJbDLvPUDTU2LYVH">节日营销没触达</b>——母亲节 / 520 / 端午没提醒老客预订</span></label>
+</div>
+
+<div class="sec" data-page-node-id="0YeVHoCWoICmZ6AmQ0aVi6"><span class="t" data-page-node-id="GyyeSHIwBID2K86s2hmgSF">🩺 急救报告</span><div class="bar" data-page-node-id="AxmahRK5TkNmoPjSTjMSxH"></div></div>
+<div class="result" data-page-node-id="TGsaCrwt1Qg2aXHchIHMHC">
+  <div style="font-size:13px;font-weight:900;color:var(--slate);margin-bottom:6px;" data-page-node-id="kfA2RCfOQZnLacDz3eAiLb">📊 数值对照</div>
+  <div class="flow-chart" id="metricFlow" data-page-node-id="0imCr6CVrhAkrdBuFqMuYM">
+    <div class="fc n" data-page-node-id="rX1FvRQnBBQiNLdk1EcKVh"><div class="fct" data-page-node-id="SoM7muCTRzusc3HBJlfyN4">营业额</div><div class="fcn" data-page-node-id="jJrs0DeRy2tkbtSC5wRij1">—</div></div>
+    <div class="fc n" data-page-node-id="cVDwvdUjxTaGKdlFIEELDs"><div class="fct" data-page-node-id="IaLZrn6PZcdZfiGZKpVoR1">客流</div><div class="fcn" data-page-node-id="xIfTGm4jbpWjhCamWWgcUz">—</div></div>
+    <div class="fc n" data-page-node-id="VfOdraTEykA3R5JXacwm18"><div class="fct" data-page-node-id="l2MXfcqbOGPeHc6jZ4EyaU">客单价</div><div class="fcn" data-page-node-id="oBfcZu8o9GTURZohuvoRpt">—</div></div>
+    <div class="fc n" data-page-node-id="LnGV4LEfjGuZdgI4CpHrYr"><div class="fct" data-page-node-id="f7Tc5EMB5nUeb4YS0y974N">综合</div><div class="fcn" data-page-node-id="EZEuqO5QTjaNhXOnUCm9f4">—</div></div>
+  </div>
+
+  <div class="verdict r" id="verdict" data-page-node-id="VrdfeRglCknJUTplDPpM2D">勾选完你遇到的情况,这里告诉你<b data-page-node-id="FmHI7O40qyiatxNL4L38h5">最可能卡在哪一环</b>,以及<b data-page-node-id="yMXvgRSsTIFrehdNHwytcS">怎么救</b>。</div>
+
+  <div class="fix" id="fixBox" style="display:none;" data-page-node-id="K3Bd3NdWvQLd9jLaFpg7Oz"></div>
+
+  <div style="text-align:center;margin-top:16px;" data-page-node-id="WwKl1eDl798xSXatKD834o"><a href="javascript:void(0)" onclick="resetAll()" style="font-size:13px;color:var(--muted);text-decoration:underline;" data-page-node-id="Iv7yEtfzjHlMriyrL9oEFw">🔄 重置</a></div>
+</div>
+
+<div class="disc" data-page-node-id="shvXwsTTjpF0cwc7O4mGKe"><b data-page-node-id="TyNwpa5CJKfK73R2SsNuAB">说明:</b>免费工具,数据存你浏览器里(localStorage),我们看不到。<b data-page-node-id="iMG9EZEBFsklDAbdaVjowj">下滑急救是定位工具,不是预言家</b>——最终还得靠你去现场看、去蹲点数。算法按"流量最先掉 → 产品力 → 服务 → 复购"顺序诊断。</div>
+
+<div class="backhome" data-page-node-id="xDRIHHihapFzUaXTHgqTJI"><a href="index.html" data-page-node-id="Kir114c9icHKhmNBoExVIF">← 回工具箱首页</a></div>
+<div class="foot" data-page-node-id="e0BW9TpQixw5e1RHPpd9FW"><div class="tiny" data-page-node-id="f9r9kht0WHOR4Yj69mdrbz">蛋糕店下滑急救 · 仅供自查参考</div></div>
+
+</div>
+
+<script>
+var STORE='dgs_xiahua_v1';
+var DIM={
+  1:{name:'流量下滑',color:'#0ea5e9',quote:'客人没进门,后面环节再好也白搭。先把客人搞进来。'},
+  2:{name:'产品掉队',color:'#ea580c',quote:'进来不掏钱,说明产品力掉了。客人有,产品差。'},
+  3:{name:'服务掉队',color:'#6366f1',quote:'蛋糕是手艺活,人一变,产品立刻走样。人员的稳定性是命根。'},
+  4:{name:'复购断了',color:'#15803d',quote:'蛋糕是一年多次复购的事,老客停了你损失 > 拉新成本的几倍。'}
+};
+// 每维度的修复招
+var FIX={
+  1:{title:'流量该怎么救',
+     tips:['🚶 <b>看周边</b>:整条街客流掉了没?如果有,主动出击:门口立牌、地图标注"营业中"、小红书挂定位发探店引流。',
+           '⭐ <b>美团评分救命</b>:评分掉到 4.5 以下立刻下大单优惠邀请好评,把评分冲到 4.7+。',
+           '📱 <b>抖音日更</b>:下滑期每天发 1 条制作 / 成品短视频,蹭平台流量池。',
+           '🚪 <b>路过截流</b>:门口 A 字立牌小黑板写当日现做款 + 价,加一句"加微信送试吃"。',
+           '🏷️ <b>异业互送</b>:找花店 / 婚纱店 / 月子中心互推,几乎零成本把人家客户引过来。']},
+  2:{title:'产品该怎么救',
+     tips:['📋 <b>查差评</b>:把最近 30 天差评全列出来,挑出最多的 2 类问题,2 周内闭眼改完。',
+           '🎂 <b>招牌款不能断</b>:招牌款下架等于"门脸塌了",立刻研制替代款(同类不同配方)。',
+           '🆕 <b>追季节品</b>:情人节 / 520 / 母亲节 / 端午——节前 2 周上限定款 + 群发预订。',
+           '🥇 <b>对标竞品</b>:搜本街竞品最近 1 个月新上的爆款,快速跟风 1~2 款(不抄袭,换口味)。',
+           '🍓 <b>试吃小方块</b>:把差评指向的款切小块免费试,让新客直接吃到,比任何图都管用。']},
+  3:{title:'人员该怎么救',
+     tips:['👨‍🍳 <b>裱花师是核心资产</b>:流失前先加 30% 薪资稳住;实在留不住,外面裱花师兼职 2 周撑过去。',
+           '📜 <b>产品 SOP 化</b>:把每款蛋糕的配方 / 时长 / 装饰拍成视频 / 文档,降低对单个人的依赖。',
+           '🎓 <b>新人培训</b>:新裱花师入职 2 周专人带教,考核 3 个招牌款出师再放手。',
+           '💬 <b>服务 SOP</b>:进店招呼话术 / 推荐话术 / 投诉处理话术打印贴在裱花间。',
+           '😴 <b>看排班</b>:新员工排晚班 + 老员工排早班高峰,关键时段别放新手独当。']},
+  4:{title:'复购该怎么救',
+     tips:['💚 <b>100% 引导加微信</b>:不靠"愿不愿意",靠 SOP——每单结账前一句"加我们微信,生日提前 7 天送 9 折券"。',
+           '📂 <b>客户分标签</b>:老客 vs 高频 vs 沉睡,不同标签推不同内容,别群发一样的链接。',
+           '⏰ <b>沉睡召回</b>:超 60 天没来的发"专属 8 折 + 关怀话术",送一个当周小蛋糕。',
+           '🎉 <b>节日提前群发</b>:节前 2 周朋友圈 + 群发"提前预订享 9 折 + 当日送货上门"。',
+           '🎁 <b>老客专属</b>:每周 1 款"老客专属款"(限时 + 限量 + 折扣),制造每周来一次的理由。']}
+};
+
+function num(id){var v=parseFloat(document.getElementById(id).value);return(isNaN(v)||v<0)?0:v;}
+function pct(now,last){if(last<=0)return 0;return((now-last)/last*100);}
+
+function compute(inp){
+  // 维度得分:每个维度勾上几个
+  var dim={1:0,2:0,3:0,4:0};
+  for(var i=0;i<inp.chk.length;i++){
+    if(inp.chk[i]) dim[inp['d'+i]]++;
+  }
+  var hasAny=(dim[1]+dim[2]+dim[3]+dim[4])>0;
+  // 找最严重的维度
+  var worst=0,maxN=0;
+  for(var i=1;i<=4;i++){if(dim[i]>maxN){maxN=dim[i];worst=i;}}
+  // 数值变化
+  var revP = pct(inp.rev_now, inp.rev_last);
+  var trafP = pct(inp.traffic_now, inp.traffic_last);
+  var arpuP = pct(inp.arpu_now, inp.arpu_last);
+  return {dim:dim, worst:worst, maxN:maxN, revP:revP, trafP:trafP, arpuP:arpuP, hasAny:hasAny};
+}
+
+function calc(){
+  save();
+  var chk={};
+  var d={};
+  document.querySelectorAll('.chk input').forEach(function(c,i){
+    chk[i]=c.checked;
+    d[i]=parseInt(c.getAttribute('data-d'));
+  });
+  var inp={
+    rev_now:num('rev_now'), rev_last:num('rev_last'),
+    traffic_now:num('traffic_now'), traffic_last:num('traffic_last'),
+    arpu_now:num('arpu_now'), arpu_last:num('arpu_last'),
+    chk:chk, d:d
+  };
+  var r=compute(inp);
+  // 数值对照图表
+  var cells=document.querySelectorAll('#metricFlow .fc');
+  function setM(idx,val){ cells[idx].className='fc '+(val<-10?'hot':'n'); cells[idx].querySelector('.fcn').textContent=(val>0?'+':'')+Math.round(val)+'%'; }
+  if(inp.rev_last>0) setM(0,r.revP); else cells[0].querySelector('.fcn').textContent='—';
+  if(inp.traffic_last>0) setM(1,r.trafP); else cells[1].querySelector('.fcn').textContent='—';
+  if(inp.arpu_last>0) setM(2,r.arpuP); else cells[2].querySelector('.fcn').textContent='—';
+  // 综合 = 各下滑幅度均值
+  var arr=[r.revP, r.trafP, r.arpuP].filter(function(v){return v!==0;});
+  if(arr.length>0){
+    var avg=arr.reduce(function(a,b){return a+b;},0)/arr.length;
+    setM(3,avg);
+  } else cells[3].querySelector('.fcn').textContent='—';
+
+  // 诊断
+  var v=document.getElementById('verdict');
+  var fx=document.getElementById('fixBox');
+  if(!r.hasAny){
+    v.className='verdict g';
+    v.innerHTML='勾选完你遇到的情况,这里告诉你<b>最可能卡在哪一环</b>,以及<b>怎么救</b>。';
+    fx.style.display='none';
+    return;
+  }
+  var w=r.worst, dim=DIM[w], tip=FIX[w];
+  // tier
+  var severity = arr.length>0 ? Math.max.apply(null,arr.map(function(v){return Math.abs(v);})) : 0;
+  // tier:综合下滑 >20% r, >10% y, 否则 g(温和下降)
+  if(arr.length>0 && severity>=20) v.className='verdict r';
+  else if(arr.length>0 && severity>=10) v.className='verdict y';
+  else v.className='verdict g';
+  v.innerHTML='<span class="vh">🛑 你的卡点最可能在「'+dim.name+'」</span>四个维度里,<b>'+dim.name+'</b>勾了最多(<b>'+r.dim[1]+'/'+dim[1]+'</b> 个症状),这是当前最该优先救的环节。<b>'+dim.quote+'</b>——先集中火力补这一环,2 周看变化。';
+
+  fx.style.display='block';
+  var fh='<div class="ft">🔧 「'+dim.name+'」这一环这么救</div><div class="fhh">'+dim.quote+'</div>';
+  for(var i=0;i<tip.tips.length;i++){
+    fh+='<div class="fr"><span class="fi">▸</span><span>'+tip.tips[i]+'</span></div>';
+  }
+  // 次级提醒
+  var second=0;
+  for(var i=1;i<=4;i++){if(i!==w && r.dim[i]>0 && (second===0 || r.dim[i]>=r.dim[second])) second=i;}
+  if(second && r.dim[second]>=2){
+    fh+='<div class="fr" style="border-top:1px dashed #fdba74;margin-top:4px;"><span class="fi">📍</span><span>补完这环,<b>「'+DIM[second].name+'」</b>(勾了 '+r.dim[second]+' 个)也别松,可能一起在拖。</span></div>';
+  }
+  fx.innerHTML=fh;
+}
+
+function save(){
+  try{
+    var s={};
+    ['rev_now','rev_last','traffic_now','traffic_last','arpu_now','arpu_last'].forEach(function(id){s[id]=document.getElementById(id).value;});
+    s.chk=Array.from(document.querySelectorAll('.chk input')).map(function(c){return c.checked?1:0;});
+    localStorage.setItem(STORE,JSON.stringify(s));
+  }catch(e){}
+}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORE));if(!s)return;
+    ['rev_now','rev_last','traffic_now','traffic_last','arpu_now','arpu_last'].forEach(function(id){if(s[id]!==undefined) document.getElementById(id).value=s[id];});
+    if(s.chk){var cs=document.querySelectorAll('.chk input');s.chk.forEach(function(v,i){if(cs[i])cs[i].checked=!!v;});}
+  }catch(e){}
+}
+function resetAll(){
+  try{localStorage.removeItem(STORE);}catch(e){}
+  ['rev_now','rev_last','traffic_now','traffic_last','arpu_now','arpu_last'].forEach(function(id){document.getElementById(id).value=0;});
+  document.querySelectorAll('.chk input').forEach(function(c){c.checked=false;});
+  calc();
+}
+load();calc();
+</script>
+</body>
+</html>
