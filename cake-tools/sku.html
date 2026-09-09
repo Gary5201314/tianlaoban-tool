@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛋糕店 SKU 结构诊断 · 蛋糕/面包/西点/饮品组合健康度</title>
+<meta name="description" content="蛋糕店 SKU 组合诊断:蛋糕/面包/西点/饮品/节日限定比例,告诉你该砍什么补什么。">
+<style>
+:root{
+  --ink:#0f172a;--ink2:#475569;--muted:#7c8aa0;
+  --brand:#a855f7;--brand2:#7e22ce;
+  --ok:#15803d;--okbg:#dcfce7;--warn:#d97706;--warnbg:#fef3c7;--bad:#b91c1c;--badbg:#fee2e2;
+  --bg:#faf5ff;--card:#ffffff;--line:#e9d5ff;--slate:#1e293b;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+body{background:linear-gradient(180deg,#faf5ff 0%,#fef3c7 100%);color:var(--ink);font-family:"PingFang SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.75;min-height:100vh;}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px 60px;}
+a{color:var(--brand);}
+b,strong{font-weight:800;}
+.hero{position:relative;background:linear-gradient(150deg,#581c87 0%,#7e22ce 50%,#a855f7 100%);color:#faf5ff;border-radius:0 0 22px 22px;margin:0 -14px 20px;padding:30px 24px 26px;overflow:hidden;}
+.hero::after{content:"🎂";position:absolute;right:18px;bottom:-30px;font-size:160px;line-height:1;opacity:.14;}
+.hero .kicker{font-size:12px;letter-spacing:2px;color:#e9d5ff;font-weight:800;margin-bottom:9px;}
+.hero h1{font-size:25px;font-weight:900;line-height:1.4;position:relative;z-index:2;}
+.hero .sub{margin-top:11px;font-size:14px;color:#f3e8ff;line-height:1.85;position:relative;z-index:2;}
+.hero .sub b{color:#fff;}
+.hero-back{display:inline-flex;align-items:center;gap:6px;position:absolute;top:16px;left:16px;padding:8px 16px 8px 12px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.45);border-radius:999px;backdrop-filter:blur(6px);text-decoration:none;z-index:3;}
+.hero{padding-top:64px !important;}
+.sec{margin:26px 0 8px;display:flex;align-items:center;gap:10px;}
+.sec .t{font-size:17px;font-weight:900;color:var(--slate);}
+.sec .bar{flex:1;height:1px;background:var(--line);}
+.lead{font-size:13.5px;color:var(--ink2);line-height:1.8;margin:6px 0 13px;}
+.lead b{color:var(--brand2);}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 14px rgba(126,34,206,.06);margin-bottom:13px;}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th{font-size:12px;color:var(--muted);font-weight:800;text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);}
+.tbl td{padding:7px 4px;border-bottom:1px dashed #f3e8ff;}
+.tbl td input{width:100%;font-size:14px;font-weight:800;color:var(--ink);background:#faf5ff;border:1.2px solid var(--line);border-radius:7px;padding:6px 8px;font-family:inherit;-moz-appearance:textfield;text-align:center;}
+.tbl td input:focus{outline:none;border-color:var(--brand);background:#fff;}
+.tbl td input::-webkit-outer-spin-button,.tbl td input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.tbl .cat{font-weight:900;color:var(--slate);font-size:13px;}
+.note{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.7;}
+.note b{color:var(--brand2);}
+.scorebar{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0;}
+.scorebar .sc{border-radius:11px;padding:9px 3px;text-align:center;border:1.5px solid var(--line);}
+.scorebar .sc .scn{font-size:11px;font-weight:800;color:var(--ink2);}
+.scorebar .sc .scv{font-size:18px;font-weight:900;line-height:1.1;margin:2px 0 0;}
+.scorebar .sc.g{background:var(--okbg);border-color:#86efac;}.scorebar .sc.g .scv{color:var(--ok);}
+.scorebar .sc.y{background:var(--warnbg);border-color:#fcd34d;}.scorebar .sc.y .scv{color:#b45309;}
+.scorebar .sc.r{background:var(--badbg);border-color:#fca5a5;}.scorebar .sc.r .scv{color:var(--bad);}
+.result{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:20px 16px;box-shadow:0 4px 18px rgba(126,34,206,.10);margin-bottom:14px;}
+.find{border-left:4px solid var(--line);border-radius:0 12px 12px 0;padding:13px 14px;margin-bottom:10px;}
+.find.g{background:#f0fdf4;border-color:#86efac;}
+.find.y{background:#fef3c7;border-color:#fcd34d;}
+.find.r{background:#fee2e2;border-color:#fca5a5;}
+.find .fh{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:900;color:var(--slate);margin-bottom:4px;}
+.find .fd{font-size:13px;color:var(--ink2);line-height:1.7;}
+.find .fd b{color:var(--brand2);}
+.find .fa{font-size:12.5px;background:rgba(255,255,255,.6);border-radius:8px;padding:7px 10px;margin-top:7px;line-height:1.6;color:var(--ink2);}
+.find .fa b{color:var(--brand2);}
+.summary{border-radius:13px;padding:14px 16px;font-size:14px;line-height:1.85;border:2px solid;}
+.summary.g{background:var(--okbg);border-color:#86efac;color:#14532d;}
+.summary.y{background:var(--warnbg);border-color:#fcd34d;color:#78350f;}
+.summary.r{background:var(--badbg);border-color:#fca5a5;color:#7f1d1d;}
+.summary .sh{font-size:16px;font-weight:900;display:block;margin-bottom:4px;}
+.summary b{font-weight:800;}
+.disc{font-size:12px;color:var(--muted);line-height:1.7;background:#fffbeb;border:1px dashed var(--line);border-radius:12px;padding:13px 15px;margin-top:16px;}
+.disc b{color:var(--ink2);}
+.backhome{margin-top:24px;text-align:center;}
+.backhome a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);color:#fff;font-size:14.5px;font-weight:800;border-radius:999px;text-decoration:none;}
+.foot{margin-top:18px;text-align:center;}
+.foot .tiny{font-size:12px;color:var(--muted);line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <a class="hero-back" href="index.html"><span>←</span> 工具箱</a>
+  <div class="kicker">蛋糕店经营中 · SKU 结构诊断</div>
+  <h1>你的<span style="color:#fbbf24;">产品组合</span>,健康吗?</h1>
+  <div class="sub">蛋糕店最常见的隐形亏损是 <b>SKU 不对</b>——一半产能被拖给低毛利品类,利润款没排满。下面的诊断告诉你 <b>该砍什么、补什么、提什么</b>。</div>
+</div>
+
+<p class="lead">填过去 30 天的数据(销售收入 / 毛利额 / SKU 数量),诊断引擎会从 <b>5 个角度</b> 帮你看:<b>利润结构、价格带、引流款配比、季节品风险、单品类过载</b>。每条都标出"问题在哪、怎么改"。</p>
+
+<div class="sec"><span class="t">①📊 填你过去 30 天的产品数据</span><div class="bar"></div></div>
+
+<div class="card">
+<table class="tbl">
+<thead>
+<tr><th>品类</th><th>SKU 数</th><th>销售占比%</th><th>毛利占比%</th><th>主售价区间(元)</th></tr>
+</thead>
+<tbody>
+<tr><td class="cat">🎂 蛋糕</td><td><input type="number" id="sku_cake"  value="0" oninput="calc()"></td><td><input type="number" id="rev_cake"  value="0" oninput="calc()"></td><td><input type="number" id="mar_cake"  value="0" oninput="calc()"></td><td><input type="text"   id="pri_cake"  placeholder="如 99-499"></td></tr>
+<tr><td class="cat">🍞 面包</td><td><input type="number" id="sku_bread" value="0" oninput="calc()"></td><td><input type="number" id="rev_bread" value="0" oninput="calc()"></td><td><input type="number" id="mar_bread" value="0" oninput="calc()"></td><td><input type="text"   id="pri_bread" placeholder="如 8-25"></td></tr>
+<tr><td class="cat">🍰 西点</td><td><input type="number" id="sku_pastry" value="0" oninput="calc()"></td><td><input type="number" id="rev_pastry" value="0" oninput="calc()"></td><td><input type="number" id="mar_pastry" value="0" oninput="calc()"></td><td><input type="text"   id="pri_pastry" placeholder="如 12-35"></td></tr>
+<tr><td class="cat">🥤 饮品</td><td><input type="number" id="sku_drink" value="0" oninput="calc()"></td><td><input type="number" id="rev_drink" value="0" oninput="calc()"></td><td><input type="number" id="mar_drink" value="0" oninput="calc()"></td><td><input type="text"   id="pri_drink" placeholder="如 12-30"></td></tr>
+<tr><td class="cat">🎉 节日限定</td><td><input type="number" id="sku_fest"  value="0" oninput="calc()"></td><td><input type="number" id="rev_fest"  value="0" oninput="calc()"></td><td><input type="number" id="mar_fest"  value="0" oninput="calc()"></td><td><input type="text"   id="pri_fest"  placeholder="如 39-199"></td></tr>
+</tbody>
+</table>
+<div class="note">销售占比和毛利占比加起来都得接近 <b>100</b>(品类的"贡献比例",不是金额)。SKU 数是当前在售款数。售价区间是顾客能看到的价格带(决定你覆盖哪类客群)。</div>
+</div>
+
+<div class="sec"><span class="t">🩺 诊断结果</span><div class="bar"></div></div>
+<div class="result">
+  <div class="scorebar" id="scoreBar">
+    <div class="sc"><div class="scn">利润结构</div><div class="scv">—</div></div>
+    <div class="sc"><div class="scn">价格带</div><div class="scv">—</div></div>
+    <div class="sc"><div class="scn">引流配比</div><div class="scv">—</div></div>
+    <div class="sc"><div class="scn">SKU 数量</div><div class="scv">—</div></div>
+  </div>
+  <div id="findings"></div>
+  <div class="summary g" id="summary">填好上表数据,这里告诉你哪里亏损、哪里潜力。</div>
+  <div style="text-align:center;margin-top:16px;"><a href="javascript:void(0)" onclick="resetAll()" style="font-size:13px;color:var(--muted);text-decoration:underline;">🔄 重置</a></div>
+</div>
+
+<div class="disc"><b>说明:</b>免费工具,数据存在你浏览器里(localStorage),我们看不到。<b>SKU 结构是诊断,不是处方</b>。具体哪款该砍哪款该上,结合你的房租、人工、目标客群综合判断。</div>
+
+<div class="backhome"><a href="index.html">← 回工具箱首页</a></div>
+<div class="foot"><div class="tiny">蛋糕店 SKU 结构诊断 · 仅供自查参考</div></div>
+
+</div>
+
+<script>
+var STORE='dgs_sku_v1';
+var CATS=[
+  {id:'cake',  name:'蛋糕'},
+  {id:'bread', name:'面包'},
+  {id:'pastry',name:'西点'},
+  {id:'drink', name:'饮品'},
+  {id:'fest',  name:'节日限定'}
+];
+
+function num(id){var v=parseFloat(document.getElementById(id).value);return(isNaN(v)||v<0)?0:v;}
+function lvl(p){return p>=70?'g':(p>=40?'y':'r');}
+
+// 核心算法:返回 4 个维度评分 + 发现
+function compute(inp){
+  // 总 SKU
+  var totSku=0;
+  for(var i=0;i<CATS.length;i++) totSku+=inp.sku[CATS[i].id];
+  // 总营收占比和 (理论上应=100)
+  var totRev=0,totMar=0;
+  for(var i=0;i<CATS.length;i++){totRev+=inp.rev[CATS[i].id];totMar+=inp.mar[CATS[i].id];}
+
+  // 维度 1:利润结构 — 各品类"销售 vs 毛利"偏离度均值,偏离越小结构越健康
+  var devSum=0, devN=0;
+  for(var i=0;i<CATS.length;i++){
+    var c=CATS[i];
+    if(inp.rev[c.id]<=0 || inp.mar[c.id]<=0) continue;
+    var eff = inp.mar[c.id]/inp.rev[c.id]; // 毛利 / 销售 = 单品贡献率比,理想 1
+    devSum += Math.abs(eff-1); devN++;
+  }
+  var dev = devN>0?devSum/devN:0;
+  var dimProfit = Math.max(0, Math.round(100 - dev*100));
+
+  // 维度 2:价格带 — 通过 sku 数量与售价覆盖评估
+  //  简化:计算"低中高"覆盖——有 <20、20-99、≥100 三档覆盖就 100,缺一档扣 30
+  var bandScore=100;
+  var hasLow=false,hasMid=false,hasHigh=false;
+  for(var i=0;i<CATS.length;i++){
+    var p=inp.pri[CATS[i].id];
+    if(!p) continue;
+    if(/\d+\s*-\s*\d+/.test(p)){
+      var mm=p.match(/(\d+)\s*-\s*(\d+)/);
+      if(mm){
+        var lo=parseInt(mm[1]),hi=parseInt(mm[2]);
+        if(lo<20) hasLow=true;
+        if(lo<=99 && hi>=20) hasMid=true;
+        if(hi>=100) hasHigh=true;
+      }
+    } else if(/^\d+$/.test(p.trim())){
+      var v=parseInt(p); if(v<20)hasLow=true; else if(v<100)hasMid=true; else hasHigh=true;
+    }
+  }
+  if(!hasLow) bandScore-=30;
+  if(!hasMid) bandScore-=40;
+  if(!hasHigh) bandScore-=30;
+  if(bandScore<0) bandScore=0;
+  var dimBand=bandScore;
+
+  // 维度 3:引流款配比 — 估算面包/西点(单价<35,毛利 < 50%)的销售占比
+  var lowPriceShare = (inp.rev.bread + inp.rev.pastry + inp.rev.drink);
+  if(lowPriceShare>60) var dimInf=20;// 太多引流
+  else if(lowPriceShare<10) var dimInf=40;// 引流不够
+  else if(lowPriceShare>=20 && lowPriceShare<=45) var dimInf=100;
+  else var dimInf=70;
+
+  // 维度 4:SKU 数量 — 蛋糕店合理 SKU 总数 30~60
+  var dimSku;
+  if(totSku==0) dimSku=0;
+  else if(totSku<15) dimSku=40;// 过少
+  else if(totSku<=80) dimSku=100;
+  else if(totSku<=120) dimSku=60;
+  else dimSku=30;// 过多
+
+  // 发现 — 按异常阈值触发
+  var finds=[];
+  // F1: 单一品类销售占比 >70%
+  for(var i=0;i<CATS.length;i++){
+    var c=CATS[i];
+    if(inp.rev[c.id]>70){
+      finds.push({lv:'r',title:'单品类过载:'+c.name+'占 '+Math.round(inp.rev[c.id])+'% 营收', desc:'鸡蛋放一个篮子里,这一类一波动你就完蛋;通常 <b>>70%</b> 是警戒线。', act:'<b>补</b>一到两个能担当的品类(比如节日限定 + 饮品),把单品类占比降到 50% 以下。'});
+    }
+  }
+  // F2: 节日限定>40%
+  if(inp.rev.fest>40){
+    finds.push({lv:'y',title:'节日限定占比偏高('+Math.round(inp.rev.fest)+'%)', desc:'节日品爆发期猛,但平时卖不动,经济下行时尤其危险——客户礼品预算先砍的就是节日礼盒。', act:'把节日限定当<b>"利润冲"</b>,不能当主菜;日常品类至少占 50% 营收。'});
+  }
+  // F3: 利润结构失衡 — 某品类毛利/销售比偏离 >0.5
+  for(var i=0;i<CATS.length;i++){
+    var c=CATS[i];
+    if(inp.rev[c.id]<5 || inp.mar[c.id]<5) continue;
+    var eff=inp.mar[c.id]/inp.rev[c.id];
+    if(eff<0.4){
+      finds.push({lv:'r',title:c.name+'效率偏低(毛利/销售 = '+eff.toFixed(2)+')', desc:'这一品类贡献了 '+Math.round(inp.rev[c.id])+'% 的营收,但只贡献 '+Math.round(inp.mar[c.id])+'% 的毛利——<b>卖得多赚得少</b>。', act:'分析原因(原料涨价?制作耗时?损耗高?),考虑<b>提价 / 减款 / 换工艺</b>其中之一。'});
+    } else if(eff>1.8 && inp.rev[c.id]>15){
+      finds.push({lv:'y',title:c.name+'效率超高但占比少', desc:'这一品类毛利率碾压(效率 >1.8),说明是隐形金矿。但占比太低,没让全部产能跑满。', act:'扩大供给(做更多 SKU、堆位、做团购引流),让这一品类贡献更多毛利。'});
+    }
+  }
+  // F4: 引流款失衡
+  if(lowPriceShare>60){
+    finds.push({lv:'r',title:'引流款偏多,利润款被压(低单价类共 '+Math.round(lowPriceShare)+'%)', desc:'面包 + 西点 + 饮品 + 节日的低单价品类占了 60% 以上营收,但通常不是利润主菜。', act:'把<b>蛋糕</b>作为利润款主推(生日蛋糕毛利高);用面包引流、蛋糕赚钱。'});
+  } else if(lowPriceShare<10 && lowPriceShare>=0){
+    finds.push({lv:'y',title:'引流款不足(<10% 营收)', desc:'没有低单价产品勾引新客进门,流量进来后接不住。', act:'加 1~2 款面包 / 切片蛋糕 / 试吃小方块(< 20 元),作为"进门钩子"。'});
+  }
+  // F5: SKU 过多
+  if(totSku>100){
+    finds.push({lv:'y',title:'SKU 过多('+totSku+' 款)', desc:'SKU 多 = 制作效率低 + 备料复杂 + 损耗高。蛋糕店合理总 SKU 是 30~60 款。', act:'砍掉每月销量 < 5 件 / 毛利率 < 30% 的"僵尸 SKU"——给热门款让出生产能。'});
+  } else if(totSku>0 && totSku<15){
+    finds.push({lv:'y',title:'SKU 过少('+totSku+' 款)', desc:'选择太少,顾客"找不到想买的"就走了。', act:'补足蛋糕 / 面包 / 西点 / 节日各 3~5 款,SKU 总数冲到 25+。'});
+  }
+  // F6: 价格带断档
+  if(hasMid==false && (hasLow||hasHigh)){
+    finds.push({lv:'y',title:'价格带断档', desc:'要么全低(街边店定位)、要么全高(精品店定位)。中间 20~99 元关键单价的"周销品"缺位,顾客想"日常解馋"找不到。', act:'在 20~99 元补 2~3 款(切片蛋糕 / 小蛋糕 / 下午茶组合),覆盖周销和节庆两端。'});
+  }
+  // F7: 利润集中度
+  // 找到毛利占比最大品类
+  var maxMar=-1,maxCat=null;
+  for(var i=0;i<CATS.length;i++){ if(inp.mar[CATS[i].id]>maxMar){maxMar=inp.mar[CATS[i].id];maxCat=CATS[i];} }
+  if(maxCat && totMar>0 && maxMar/totMar>0.7){
+    finds.push({lv:'y',title:'毛利高度集中在 '+maxCat.name+'('+Math.round(maxMar/totMar*100)+'%)', desc:'这一品类一旦出问题(原料涨 / 季节淡 / 翻车)你就归零。', act:'分散毛利来源——比如把蛋糕利润分一部分给面包下午茶组合。'});
+  }
+
+  var overall;
+  var worst = [dimProfit, dimBand, dimInf, dimSku];
+  worst.sort(function(a,b){return a-b;});
+  var min=worst[0];
+  if(min>=70) overall='g';
+  else if(min>=40) overall='y';
+  else overall='r';
+
+  return {dimProfit:dimProfit, dimBand:dimBand, dimInf:dimInf, dimSku:dimSku,
+          finds:finds, overall:overall, totSku:totSku, totRev:totRev, totMar:totMar};
+}
+
+function calc(){
+  save();
+  var inp={sku:{},rev:{},mar:{},pri:{}};
+  for(var i=0;i<CATS.length;i++){
+    var c=CATS[i];
+    inp.sku[c.id]=num('sku_'+c.id);
+    inp.rev[c.id]=num('rev_'+c.id);
+    inp.mar[c.id]=num('mar_'+c.id);
+    inp.pri[c.id]=document.getElementById('pri_'+c.id).value;
+  }
+  var r=compute(inp);
+  // 评分条
+  var labs=['利润结构','价格带','引流配比','SKU 数量'];
+  var vals=[r.dimProfit,r.dimBand,r.dimInf,r.dimSku];
+  var cells=document.querySelectorAll('#scoreBar .sc');
+  for(var i=0;i<4;i++){
+    var cell=cells[i];
+    var c=lvl(vals[i]);
+    cell.className='sc '+c;
+    cell.querySelector('.scn').textContent=labs[i];
+    cell.querySelector('.scv').textContent=vals[i]+'%';
+  }
+  // 发现
+  var fh='';
+  if(r.finds.length===0){
+    fh='<div class="find g"><div class="fh">✅ 没发现明显问题</div><div class="fd">你的产品组合看起来挺健康——销售比例与毛利贡献匹配、价格带完整、SKU 数量合理。<b>继续盯月数据,3 个月跑一次这个工具</b>。</div></div>';
+  } else {
+    for(var i=0;i<r.finds.length;i++){
+      var f=r.finds[i];
+      fh+='<div class="find '+f.lv+'"><div class="fh">'+(f.lv==='r'?'🛑':(f.lv==='y'?'⚠️':'✅'))+' '+f.title+'</div><div class="fd">'+f.desc+'</div><div class="fa">💡 <b>怎么改:</b>'+f.act+'</div></div>';
+    }
+  }
+  document.getElementById('findings').innerHTML=fh;
+  // 总结
+  var sum=document.getElementById('summary');
+  sum.className='summary '+r.overall;
+  if(r.overall==='g') sum.innerHTML='<span class="sh">✅ 你的产品组合整体健康</span>4 个维度都跑得不错,主要风险在 <b>月级别的波动</b>。继续盯数据,稳定优先。';
+  else if(r.overall==='y') sum.innerHTML='<span class="sh">⚠️ 你的产品组合有 1~2 处偏弱</span>看完上面黄色/红色标的项目,先<b>挑最重要的一个改</b>,不要全线开火。改完一个月再跑一次这工具看分变化。';
+  else sum.innerHTML='<span class="sh">🛑 你的产品组合有结构性问题</span>可能有<b>单品类过载 / 引流失衡 / 利润结构失衡</b>其中之一。建议本月先改一个——<b>SKU 砍 30%+ / 重排主力品类</b>,别再纯靠促销压。';
+}
+function save(){
+  try{
+    var s={};
+    for(var i=0;i<CATS.length;i++){
+      var c=CATS[i];
+      s['sku_'+c.id]=document.getElementById('sku_'+c.id).value;
+      s['rev_'+c.id]=document.getElementById('rev_'+c.id).value;
+      s['mar_'+c.id]=document.getElementById('mar_'+c.id).value;
+      s['pri_'+c.id]=document.getElementById('pri_'+c.id).value;
+    }
+    localStorage.setItem(STORE,JSON.stringify(s));
+  }catch(e){}
+}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORE));if(!s)return;
+    for(var i=0;i<CATS.length;i++){
+      var c=CATS[i];
+      ['sku_','rev_','mar_','pri_'].forEach(function(p){
+        if(s[p+c.id]!==undefined) document.getElementById(p+c.id).value=s[p+c.id];
+      });
+    }
+  }catch(e){}
+}
+function resetAll(){
+  try{localStorage.removeItem(STORE);}catch(e){}
+  for(var i=0;i<CATS.length;i++){
+    var c=CATS[i];
+    document.getElementById('sku_'+c.id).value=0;
+    document.getElementById('rev_'+c.id).value=0;
+    document.getElementById('mar_'+c.id).value=0;
+    document.getElementById('pri_'+c.id).value='';
+  }
+  calc();
+}
+load();calc();
+</script>
+</body>
+</html>
