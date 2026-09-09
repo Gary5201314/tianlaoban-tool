@@ -638,7 +638,7 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
   <div class="tabbar">
     <div class="tab on" data-s="s1"><span class="ti">📸</span><span class="t-lb">私域</span></div>
     <div class="tab" data-s="s2"><span class="ti">👥</span><span class="t-lb">社群</span></div>
-    <div class="tab" id="tabKb"><span class="ti">📚</span><span class="t-lb">知识库</span></div>
+    <div class="tab" data-s="s3"><span class="ti">📚</span><span class="t-lb">知识库</span></div>
     <div class="tab" data-s="s6"><span class="ti">👤</span><span class="t-lb">我的</span></div>
   </div>
 </div>
@@ -658,16 +658,15 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
 </div>
 <div data-page-node-id="4Sz1M6SJZEcUFv7Hh3QMTv" class="toast" id="toast"></div>
 
-<!-- ============ v6.9 老板圈子（论坛）全屏层 ============ -->
-<div class="forum-layer" id="forumLayer">
-  <div class="forum-hd">
-    <span class="bk" id="forumBackBtn">←</span>
-    <span class="ft">🆘 开店求助圈</span>
-    <span class="fg" id="forumCfgBtn">⚙️</span>
+<!-- ============ v9.3 知识库：内嵌屏（不跳转，话题分类+帖子直接展示） ============ -->
+<div class="screen hidden" id="s3">
+  <div class="card" style="padding:14px 14px 16px">
+    <h3><span class="em">🆘</span>开店求助圈</h3>
+    <div class="muted" style="margin-bottom:2px">蛋糕店老板互助社区：经营难题发帖问，同行的经验直接抄。</div>
+    <div class="forum-cats" id="forumCats" style="position:static;background:transparent;padding:10px 0 0;z-index:auto"></div>
+    <div id="forumList" style="margin-top:8px"><div class="forum-empty">加载中…</div></div>
+    <button class="btn" id="forumNewBtn" style="margin-top:14px;width:100%">✏️ 发帖求助 / 分享</button>
   </div>
-  <div class="forum-cats" id="forumCats"></div>
-  <div class="forum-list" id="forumList"><div class="forum-empty">加载中…</div></div>
-  <button class="forum-fab" id="forumNewBtn">✏️</button>
 </div>
 
 <div class="forum-layer" id="forumComposeLayer">
@@ -698,20 +697,7 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
   </div>
 </div>
 
-<div class="forum-layer" id="forumCfgLayer">
-  <div class="forum-hd">
-    <span class="bk" id="forumCfgBack">←</span>
-    <span class="ft">⚙️ 社区服务配置</span>
-  </div>
-  <div class="forum-guide">✅ <b>圈子已开通，正常使用无需任何配置。</b><br/>下方两个值是内置云服务的地址和公开钥匙（可安全公开）。仅当需要更换云服务时才修改，改完点保存即可覆盖。</div>
-    <div style="font-size:12.5px;font-weight:700;margin:12px 0 4px">服务地址</div>
-    <input id="forumAppIdInput"/>
-    <div style="font-size:12.5px;font-weight:700;margin:10px 0 4px">公开钥匙</div>
-    <input id="forumAppKeyInput"/>
-    <button class="btn" id="forumCfgSaveBtn" style="margin-top:12px">💾 保存（一般不用点）</button>
-    <div id="forumCfgStatus" class="note" style="display:none;margin-top:8px"></div>
-  </div>
-</div>
+<!-- v9.3：右上角⚙️社区服务配置浮层已删除（云服务内置，普通用户无需配置） -->
 
 <!-- ============ v7.8 烘焙智囊（语音问答）全屏层 ============ -->
 <div class="forum-layer" id="bakeryAiLayer">
@@ -811,8 +797,7 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
   <div style="padding:14px 16px">
     <div class="card">
       <div class="muted" style="line-height:1.8"><b style="color:var(--ink)">甜老板私域助手 — 蛋糕店老板的 AI 实用助手。</b><br/>一张蛋糕图，AI 出爆款商品图 + 朋友圈文案；社群活动 AI 帮你策划；烘焙圈子里老板互助答疑。一个人，也能开好店。</div>
-      <div class="kv"><span>版本</span><b id="verTxt" style="cursor:pointer">v7.1</b></div>
-      <div style="font-size:11px;color:var(--sub);margin-top:4px">连续点击版本号 5 次可进入开发者设置</div>
+      <div class="kv"><span>版本</span><b id="verTxt">v7.1</b></div>
 
       <!-- 合作项目：外卖代运营 -->
       <div style="margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)">
@@ -903,7 +888,7 @@ function loadStat(){try{return JSON.parse(localStorage.getItem(STAT_KEY)||'{"img
 function persistStat(){localStorage.setItem(STAT_KEY,JSON.stringify(stat));}
 let stat = loadStat();
 function renderStat(){$("#statImg").textContent=stat.img+' 张';$("#statTxt").textContent=stat.txt+' 次';$("#statCost").textContent='¥'+stat.cost.toFixed(2);}
-function bumpImg(n,cost){stat.img+=n;stat.cost+=cost;persistStat();renderStat();}
+function bumpImg(n,cost){stat.img+=n;stat.cost+=window.__lastImgFree?0:cost;window.__lastImgFree=false;persistStat();renderStat();}
 function bumpTxt(cost){stat.txt+=1;stat.cost+=cost;persistStat();renderStat();}
 
 /* ===================== CORS 代理请求 ===================== */
@@ -952,6 +937,33 @@ async function callSeedream(prompt,imageBase64,seed){
     const fb = await attempt(FALLBACK_MODEL);
     r = fb.r; txt = fb.txt;
   }
+  /* v9.3：豆包全线失败（限额/欠费/欠压）时，兜底切智谱 cogview-3-flash —— 永久免费、不限量，
+     保证工具永远能出图。注：智谱仅支持文生图，参考图信息会并入提示词（风格描述），不影响出图 */
+  if(!r.ok){
+    const zk=(cfg.zhipuKey||'').trim();
+    if(zk){
+      console.warn('[seedream] 豆包失败('+r.status+')，兜底切智谱 cogview-3-flash 免费出图');
+      try{
+        const zr = await arkFetch(cfg.zhipuImgUrl||'https://open.bigmodel.cn/api/paas/v4/images/generations',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+zk},
+          body: JSON.stringify({
+            model:'cogview-3-flash',
+            prompt:(imageBase64? '参考图风格重绘：' : '')+prompt,
+            size:'768x1344'  /* 9:16 竖版，与豆包出图比例一致 */
+          })
+        });
+        if(zr.ok){
+          const zj = await zr.json();
+          if(zj.data&&zj.data[0]&&zj.data[0].url){
+            window.__lastImgFree = true;  /* 供计费统计：本张免费 */
+            return zj.data[0].url;
+          }
+        }
+      }catch(e2){ console.warn('[seedream] 智谱兜底也失败', e2); }
+    }
+  }
+  window.__lastImgFree = false;
   if(!r.ok){
     // 友好提示（消费者视角，不外泄技术细节）
     let hint = '（请稍后重试，或联系客服）';
@@ -964,25 +976,50 @@ async function callSeedream(prompt,imageBase64,seed){
   return j.data[0].url;
 }
 
-/* ===================== 真实豆包 LLM ===================== */
+/* ===================== 真实豆包 LLM（v9.3：失败自动兜底智谱 glm-4-flash 免费模型） ===================== */
 async function callLLM(systemPrompt,userPrompt,maxTokens){
+  const body = JSON.stringify({
+    model: cfg.llmModel,
+    messages:[
+      {role:'system',content:systemPrompt},
+      {role:'user',content:userPrompt}
+    ],
+    temperature:0.9,
+    max_tokens:maxTokens||600
+  });
   const r = await arkFetch(cfg.llmUrl,{
     method:'POST',
     headers:{
       'Content-Type':'application/json',
       'Authorization':'Bearer '+cfg.arkKey
     },
-    body: JSON.stringify({
-      model: cfg.llmModel,
-      messages:[
-        {role:'system',content:systemPrompt},
-        {role:'user',content:userPrompt}
-      ],
-      temperature:0.9,
-      max_tokens:maxTokens||600
-    })
+    body
   });
   if(!r.ok){
+    /* v9.3 兜底：豆包失败（限额/欠费）时切智谱 glm-4-flash（永久免费） */
+    const zk=(cfg.zhipuKey||'').trim();
+    if(zk){
+      try{
+        const zr = await arkFetch(cfg.zhipuUrl||'https://open.bigmodel.cn/api/paas/v4/chat/completions',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+zk},
+          body: JSON.stringify({
+            model: cfg.zhipuModel||'glm-4-flash',
+            messages:[
+              {role:'system',content:systemPrompt},
+              {role:'user',content:userPrompt}
+            ],
+            temperature:0.9,
+            max_tokens:maxTokens||600
+          })
+        });
+        if(zr.ok){
+          const zj = await zr.json();
+          const zc = zj.choices&&zj.choices[0]&&zj.choices[0].message&&zj.choices[0].message.content;
+          if(zc) return zc;
+        }
+      }catch(e){}
+    }
     const txt = await r.text().catch(()=>'');
     throw new Error('HTTP '+r.status+': '+(txt.slice(0,200)||r.statusText));
   }
@@ -994,31 +1031,15 @@ async function callLLM(systemPrompt,userPrompt,maxTokens){
 $$(".tab").forEach(t=>t.onclick=()=>{
   $$(".tab").forEach(x=>x.classList.remove("on"));
   t.classList.add("on");
-  ["s1","s2","s6"].forEach(id=>$("#"+id).classList.add("hidden"));
+  ["s1","s2","s3","s6"].forEach(id=>$("#"+id).classList.add("hidden"));
   $("#"+t.dataset.s).classList.remove("hidden");
-  // 切到设置时刷新激活卡按钮绑定
+  // 切到知识库：刷新分类+帖子（v9.3 内嵌展示）
+  if(t.dataset.s === 's3'){ renderForumCats(); loadForumList(); }
+  // 切到我的：刷新激活卡按钮绑定
   if(t.dataset.s === 's6'){ renderSettingLic(); }
 });
 
-/* ---- 开发者模式：版本号连点 5 次 ---- */
-(function(){
-  let verClicks = 0, verTimer = null;
-  const verTxt = document.getElementById('verTxt');
-  if(!verTxt) return;
-  verTxt.onclick = ()=>{
-    verClicks++;
-    clearTimeout(verTimer);
-    verTimer = setTimeout(()=>{ verClicks = 0; }, 1800);
-    if(verClicks >= 5){
-      verClicks = 0;
-      const p1 = document.getElementById('devPanel'), p2 = document.getElementById('devPanel2');
-      const show = p1 && p1.style.display === 'none';
-      if(p1) p1.style.display = show ? 'block' : 'none';
-      if(p2) p2.style.display = show ? 'block' : 'none';
-      toast(show ? '🔓 已进入开发者模式' : '已退出开发者模式');
-    }
-  };
-})();
+/* ---- v9.3：开发者模式入口已移除（版本号连点彩蛋删除，管理员面板永久隐藏） ---- */
 
 /* ===================== 节日识别（保留代码不影响 v5 流程） ===================== */
 const TODAY = (()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");})();
@@ -1616,15 +1637,19 @@ function renderForumCats(){
 }
 async function loadForumList(){
   const box=$("#forumList");
-  if(!loadForumCfg()){
-    box.innerHTML="<div class='forum-guide'>👋 <b>圈子还没开通</b><br/>老板圈子需要管理员（店老板你本人）花 3 分钟开通免费云服务。点右上角 ⚙️ 按指引配置即可激活。</div>";
-    return;
-  }
   box.innerHTML="<div class='forum-empty'>加载中…</div>";
   try{
     const catQ=(forumCat!=='全部')?'&cat=eq.'+encodeURIComponent(forumCat):'';
-    const items=await sbFetch('GET','/posts?select=*&order=created_at.desc&limit=50'+catQ);
-    if(!items.length){box.innerHTML="<div class='forum-empty'>还没有人提问，点右下角 ✏️ 说出你开店遇到的问题</div>";return;}
+    let items=await sbFetch('GET','/posts?select=*&order=created_at.desc&limit=50'+catQ);
+    /* v9.3：首次使用且圈子里还没有任何帖子时，自动发一条系统欢迎帖（原配置层逻辑迁入） */
+    if(!items.length && forumCat==='全部' && !localStorage.getItem('tlb_kb_seeded_v1')){
+      try{
+        await sbFetch('POST','/posts',{title:"欢迎来到老板圈子 🎉",content:"这里是蛋糕店老板的互助社区。经营中遇到任何问题——开业、定价、私域、引流，都可以发帖提问，大家互相帮衬。祝各位老板生意兴隆！",cat:"闲聊灌水",nick:"甜老板助手"});
+        items=await sbFetch('GET','/posts?select=*&order=created_at.desc&limit=50');
+      }catch(e2){}
+      localStorage.setItem('tlb_kb_seeded_v1','1');
+    }
+    if(!items.length){box.innerHTML="<div class='forum-empty'>还没有人提问，点下方 ✏️ 说出你开店遇到的问题</div>";return;}
     box.innerHTML=items.map(p=>
       "<div class='forum-post' data-id='"+p.id+"'>"+
         "<span class='fp-cat'>"+esc(p.cat)+"</span>"+
@@ -1639,7 +1664,7 @@ async function loadForumList(){
       };
     });
   }catch(e){
-    box.innerHTML="<div class='forum-guide'>❌ 加载失败："+esc(e.message).slice(0,80)+"<br/><br/>如果刚配置完：先确认第 3 步的 SQL 已经在 Supabase 的 SQL Editor 里 <b>Run 成功</b>（建表）。如果提示网络错误，检查 Project URL 是否以 https:// 开头、是否为 *.supabase.co 地址，点右上角 ⚙️ 可重新填写。</div>";
+    box.innerHTML="<div class='forum-guide'>❌ 加载失败："+esc(e.message).slice(0,80)+"<br/><br/>请检查手机网络后下拉重试；如果持续失败请联系客服。</div>";
   }
 }
 function openForumLayer(id){
@@ -1652,54 +1677,21 @@ function closeForumLayers(){
   $$(".forum-layer").forEach(l=>l.classList.remove("open"));
   document.body.style.overflow="";
 }
-/* v9.1 底部导航：知识库 tab = 全屏求助圈；「我的」菜单：开店工具全屏工具箱 */
-$("#tabKb").onclick=()=>{ openForumLayer("#forumLayer");renderForumCats();loadForumList(); };
+/* v9.3 知识库改为底部 tab 内嵌屏 s3，不再弹全屏层；论坛云配置已内置（⚙️配置入口删除） */
 $("#menuTools").onclick=()=>{ openForumLayer("#toolLayer"); };
 $("#toolBackBtn").onclick=closeForumLayers;
 $("#menuAccount").onclick=()=>{openForumLayer("#meAccountLayer");};
 $("#meAccountBack").onclick=closeForumLayers;
 $("#menuAbout").onclick=()=>{openForumLayer("#meAboutLayer");};
 $("#meAboutBack").onclick=closeForumLayers;
-$("#forumBackBtn").onclick=closeForumLayers;
-$("#forumCfgBtn").onclick=()=>{
-  const c=loadForumCfg();
-  if(c){$("#forumAppIdInput").value=c.url||'';$("#forumAppKeyInput").value=c.key||'';}
-  openForumLayer("#forumCfgLayer");
-};
-$("#forumCfgBack").onclick=()=>{openForumLayer("#forumLayer");};
-$("#forumCfgSaveBtn").onclick=async()=>{
-  const url=$("#forumAppIdInput").value.trim();
-  const key=$("#forumAppKeyInput").value.trim();
-  const st=$("#forumCfgStatus");
-  if(!url||!key){st.style.display='block';st.textContent='Project URL 和 anon key 都要填';return;}
-  if(!/^https:\/\/.+\.supabase\.co/.test(url)){st.style.display='block';st.textContent='URL 应该长这样：https://xxxx.supabase.co（Project Settings → API 页面顶部复制）';return;}
-  saveForumCfg({url:url,key:key});
-  st.style.display='block';st.textContent='已保存，正在验证连接…';
-  try{
-    // 首次激活：表为空时发一条系统欢迎帖
-    const probe=await sbFetch('GET','/posts?select=id&limit=1');
-    if(!probe.length){
-      await sbFetch('POST','/posts',{title:"欢迎来到老板圈子 🎉",content:"这里是蛋糕店老板的互助社区。经营中遇到任何问题——开业、定价、私域、引流，都可以发帖提问，大家互相帮衬。祝各位老板生意兴隆！",cat:"闲聊灌水",nick:"甜老板助手"});
-    }
-    st.style.display='block';st.textContent='✅ 连接成功，圈子已激活！';
-    setTimeout(()=>{openForumLayer("#forumLayer");renderForumCats();loadForumList();},600);
-  }catch(e){
-    const m=e.message||'';
-    let hint='请检查：① 第 3 步的 SQL 是否已在 SQL Editor 里 Run 成功（没建表会报 relation 不存在）；② key 是否复制的是 anon public 那一行。';
-    if(/Failed to fetch|NetworkError|Load failed/i.test(m))hint='网络连不上 Supabase，检查 Project URL 是否正确、手机网络是否正常。';
-    st.style.display='block';
-    st.textContent='⚠️ 已保存，但验证失败：'+m.slice(0,100)+'。'+hint;
-  }
-};
 $("#forumNewBtn").onclick=()=>{
   if(!user.phone){toast("请先在「我的」注册手机号");return;}
-  if(!loadForumCfg()){toast("圈子未开通，点右上角⚙️按指引配置");openForumLayer("#forumCfgLayer");return;}
   $("#forumTitleInput").value='';$("#forumContentInput").value='';
   $("#forumNickPreview").textContent=forumNick();
   renderForumComposeCats();
   openForumLayer("#forumComposeLayer");
 };
-$("#forumComposeBack").onclick=()=>openForumLayer("#forumLayer");
+$("#forumComposeBack").onclick=closeForumLayers;
 let composeCat="开业筹备";
 function renderForumComposeCats(){
   const box=$("#forumComposeCats");
@@ -1724,7 +1716,7 @@ $("#forumSubmitBtn").onclick=async()=>{
   try{
     await sbFetch('POST','/posts',{title:title,content:content,cat:composeCat,nick:forumNick()});
     st.style.display='block';st.textContent='✅ 发布成功！';
-    setTimeout(()=>{openForumLayer("#forumLayer");loadForumList();},500);
+    setTimeout(()=>{closeForumLayers();loadForumList();},500);
   }catch(e){
     st.style.display='block';st.textContent='发布失败：'+e.message.slice(0,80);
   }
@@ -1762,7 +1754,7 @@ async function openForumDetail(p){
     $("#forumDetailBody").innerHTML="<div class='forum-empty'>加载失败："+esc(e.message).slice(0,60)+"</div>";
   }
 }
-$("#forumDetailBack").onclick=()=>openForumLayer("#forumLayer");
+$("#forumDetailBack").onclick=closeForumLayers;
 $("#forumReplySendBtn").onclick=async()=>{
   if(!curPost)return;
   const txt=$("#forumReplyInput").value.trim();
@@ -1944,6 +1936,11 @@ function bindLicButtons(){
   }
   const wxBtn = $('#wxOpenBtn');
   if(wxBtn){ wxBtn.onclick = openWeixin; }
+  /* v9.3：9.9 自动发卡购买入口 */
+  const buyAutoBtn = $('#buyAutoBtn');
+  if(buyAutoBtn){ buyAutoBtn.onclick = () => { window.open(SHOP_URL, '_blank'); }; }
+  const buyWxBtn = $('#buyWxBtn');
+  if(buyWxBtn){ buyWxBtn.onclick = () => { openWeixin(WEIXIN_BUY); toast('加微信 '+WEIXIN_BUY+' 付款后自动发激活码'); }; }
   const coopBtn = $('#coopWxBtn');
   if(coopBtn){ coopBtn.onclick = openWeixin; }
   const licDeactivateBtn = $('#licDeactivateBtn');
@@ -2083,6 +2080,9 @@ renderStat();
 /* ===================== v5 启动：手机号注册 + 简化激活 ===================== */
 const USER_KEY = 'tianlaoban_user_v5';
 const WEIXIN_ID = 'dreamer0366';
+/* v9.3 激活码自动发货：发卡店铺链接（付款后平台自动发卡密，收款可提现）；为空时只显示微信引导 */
+const SHOP_URL = '';  /* 例：'https://你的店铺.faka.com/buy?gid=1'，配好发卡店后填到这里 */
+const WEIXIN_BUY = 'vipcake996';  /* 激活/付款疑问微信 */
 
 function loadUser(){
   try { return JSON.parse(localStorage.getItem(USER_KEY)||'{}'); } catch(e){ return {}; }
@@ -2175,8 +2175,12 @@ async function renderLicUI(){
         <div style="background:#fff;border-radius:10px;padding:10px 12px;margin-top:10px;text-align:center;">
           <div style="font-size:14px;font-weight:800;color:var(--brand)">⭐ 9.9 元 · 买断制 · 永久使用 ⭐</div>
           <div style="font-size:11.5px;color:var(--sub);margin:4px 0 8px">生图不限次数 · 无月费无年费</div>
-          <button class="btn wx-btn" id="wxOpenBtn">💬 扫码付款 ¥9.9：${WEIXIN_ID}</button>
-          <div style="font-size:11px;color:var(--sub);margin-top:6px">付款后发「手机号」给客服，秒发激活码 → 粘贴到下面激活</div>
+          ${SHOP_URL
+            ? `<button class="btn wx-btn" id="buyAutoBtn">🛒 立即购买 ¥9.9（自动发激活码）</button>
+               <div style="font-size:11px;color:var(--sub);margin-top:6px">付款成功后激活码<b>自动发送</b>，复制粘贴到下方输入框即可激活</div>`
+            : `<button class="btn wx-btn" id="buyWxBtn">💬 付款 ¥9.9 → 自动获取激活码</button>
+               <div style="font-size:11px;color:var(--sub);margin-top:6px">付款成功后激活码自动发送 · 有疑问加微信 <b>${WEIXIN_BUY}</b></div>`
+          }
         </div>
       </div>
     `}
@@ -2185,9 +2189,9 @@ async function renderLicUI(){
   renderQuotaHint();
 }
 
-function openWeixin(){
-  // 优先尝试 weixin scheme，回退到 scheme 拼接
-  const id = WEIXIN_ID;
+function openWeixin(wxId){
+  // 优先尝试 weixin scheme，回退到 scheme 拼接（v9.3：可传入指定微信号，默认代运营微信）
+  const id = wxId || WEIXIN_ID;
   const schemes = [
     `weixin://contact?username=${id}`,
     `weixin://contacts/profile/${id}`,
