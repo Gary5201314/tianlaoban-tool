@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店倒推法选址算账 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus{outline:none;border-color:var(--o);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.btn:hover{background:#b45309;}
+.bignum{font-size:38px;font-weight:900;color:var(--o);line-height:1.1;margin:6px 0;}
+.bignum.r{color:var(--red);} .bignum.g{color:var(--g);} .bignum.y{color:var(--y);}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;}
+.disc-g{background:#ecfdf5;border:1.5px solid #86efac;color:#166534;}
+.disc-y{background:#fef9c3;border:1.5px solid #fde047;color:#854d0e;}
+.disc-r{background:#fef2f2;border:1.5px solid #fca5a5;color:#991b1b;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.bar{height:18px;border-radius:9px;background:#f1f5f9;overflow:hidden;margin:10px 0;}
+.bar>div{height:100%;transition:width .4s;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row,.row3{grid-template-columns:1fr;}.bignum{font-size:30px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>🥕 倒推法选址算账</h1>
+  <div class="sub">算这店址能不能签——能签就签，该走就走</div>
+</div>
+
+<div class="disclaimer">⚠️ 每家店实际数据差很多。本工具是<b>结构化估算 prompt</b>，不是会计报告。<br>🟢=框架（倒推法）/ 🟡=行业经验阈值 / 🔴=单店案例</div>
+
+<h2>① 填这家店的硬成本</h2>
+
+<div class="block">
+<div class="row">
+  <div><label>月房租（元）</label><input id="d_zf" type="number" value="0"></div>
+  <div><label>转让费（元）</label><input id="d_zr" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>装修预估（元）</label><input id="d_zx" type="number" value="0"></div>
+  <div><label>设备预估（元）</label><input id="d_sb" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>押金（元）</label><input id="d_yj" type="number" value="0"></div>
+  <div><label>人工成本 / 月（所有人月薪总和）</label><input id="d_rg" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>食材成本占比 %（蛋糕店一般 32~38）</label><input id="d_food" type="number" value="35" min="20" max="55"></div>
+  <div><label>月目标净利润（元）</label><input id="d_profit" type="number" value="15000"></div>
+</div>
+</div>
+
+<h2>② 现场蹲点数据（早 10 / 下午 2 / 晚 7 各数一次）</h2>
+
+<div class="block">
+<div class="row3">
+  <div><label>路过人数 / 小时（早）</label><input id="d_p1" type="number" value="0"></div>
+  <div><label>路过人数 / 小时（午）</label><input id="d_p2" type="number" value="0"></div>
+  <div><label>路过人数 / 小时（晚）</label><input id="d_p3" type="number" value="0"></div>
+</div>
+<div class="hint" style="font-size:12.5px;color:var(--muted);margin-top:6px;">🟡 蛋糕店客流最高峰是早 7~9（生日预订）+ 下午 3~5（下午茶）+ 晚 6~8（家庭/生日）</div>
+</div>
+
+<button class="btn" onclick="calcDaotui()">📐 倒推能不能签</button>
+
+<div id="res" style="display:none;">
+
+<div class="block">
+<h3>日均路过（加权估算，假定 12 小时营业）</h3>
+<div class="bignum y" id="o_pass">--</div>
+<p style="margin:4px 0 0;font-size:13px;color:var(--ink2);">早:午:晚 按 <b>1.5 : 1 : 1.8</b> 加权（蛋糕店早 7~9 高峰 + 晚 6~8 高峰）</p>
+</div>
+
+<div class="block">
+<h3>🎯 胜负手：要求进店率</h3>
+<p style="font-size:13px;color:var(--ink2);margin:4px 0;">= 反算让这家店保本，要求门口路过的人有多少百分比进店</p>
+<div class="bar"><div id="o_ctr_bar" style="background:var(--o)"></div></div>
+<div class="bignum" id="o_ctr">--</div>
+<p style="margin:4px 0;font-size:14px;" id="o_ctr_hint">--</p>
+</div>
+
+<div class="block">
+<h3>📊 测算三档</h3>
+<table>
+<tr><th>档位</th><th>路过/日</th><th>进店率</th><th>客单价</th><th class="num">月营业额</th><th class="num">净利润</th><th>结论</th></tr>
+<tbody id="o_tab"></tbody>
+</table>
+</div>
+
+<div class="block">
+<h3>💰 转让费能不能砍 / 装修值不值</h3>
+<table id="o_neg"></table>
+</div>
+
+<div class="block">
+<h3>📌 最终判断</h3>
+<div id="o_verdict"></div>
+</div>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+function F(id){return +(document.getElementById(id).value||0);}
+function computeDaotui(inp){
+  // 加权客流
+  var pass=(inp.p1*1.5+inp.p2*1+inp.p3*1.8)*4; // 早高峰 4h + 午 4h + 晚 4h
+  // 月固定 = 房租 + 人工
+  var fc=inp.zf+inp.rg;
+  var monthRev=(fc+inp.profit)/(1-inp.food/100);
+  // 月订单量 = 月营业额 / 客单价
+  var aov=60;
+  var ordMonth=monthRev/aov;
+  var ordDay=ordMonth/30;
+  var ctr=pass>0?ordDay/pass*100:0;
+  // 3 档
+  var tiers=[
+    {name:'保守',ctr:Math.max(ctr*0.6,1.0),color:'#dc2626'},
+    {name:'中性',ctr:ctr,color:'#d97706'},
+    {name:'乐观',ctr:ctr*1.5,color:'#16a34a'}
+  ];
+  var rows=tiers.map(function(t){
+    var dayPass=pass;
+    var ordD=dayPass*t.ctr/100;
+    var rev=ordD*aov*30;
+    var profit=rev*(1-inp.food/100)-fc;
+    var tag=profit<0?'<span class="tag tag-r">亏</span>':profit<inp.profit?'<span class="tag tag-y">撑不到目标</span>':'<span class="tag tag-g">可签</span>';
+    return {name:t.name,ctr:t.ctr,rev:rev,profit:profit,tag:tag,color:t.color};
+  });
+  return {pass:pass,ctr:ctr,monthRev:monthRev,ordDay:ordDay,rows:rows,fc:fc,food:inp.food,
+          aov:aov,profit:inp.profit,zr:inp.zr,zx:inp.zx,sb:inp.sb,yj:inp.yj};
+}
+
+function lvlCtr(c){
+  if(c<2) return {t:'极低',cls:'r',msg:'要求每个人路过几乎都进店，蛋糕店通常 5~15% 已经不错，2% 以下只有社区熟店做得到'};
+  if(c<5) return {t:'紧张',cls:'r',msg:'要求进店率高于普通蛋糕店。建议重做促销/试吃策略，否则风险大'};
+  if(c<10) return {t:'现实',cls:'y',msg:'行业平均水平。如果选址+产品+口味都好，10% 进店率可达'};
+  if(c<20) return {t:'乐观',cls:'g',msg:'高进店率，需要占位+品类+位置综合优势。如果已经做起来，能保持'};
+  return {t:'夸张',cls:'r',msg:'超过 20% 进店率几乎不可能，说明估算哪里出错了（多半是客单价过低）'};
+}
+
+function calcDaotui(){
+  var inp={
+    zf:F('d_zf'),zr:F('d_zr'),zx:F('d_zx'),sb:F('d_sb'),yj:F('d_yj'),rg:F('d_rg'),
+    food:F('d_food')||35,profit:F('d_profit')||15000,
+    p1:F('d_p1'),p2:F('d_p2'),p3:F('d_p3')
+  };
+  var r=computeDaotui(inp);
+  document.getElementById('o_pass').textContent=Math.round(r.pass)+' 人/日';
+  document.getElementById('o_ctr').textContent=r.ctr.toFixed(2)+' %';
+  document.getElementById('o_ctr').className='bignum '+lvlCtr(r.ctr).cls;
+  document.getElementById('o_ctr_bar').style.width=Math.min(r.ctr/25*100,100).toFixed(1)+'%';
+  document.getElementById('o_ctr_bar').style.background=lvlCtr(r.ctr).cls==='r'?'#dc2626':lvlCtr(r.ctr).cls==='y'?'#ca8a04':'#16a34a';
+  var lvl=lvlCtr(r.ctr);
+  document.getElementById('o_ctr_hint').innerHTML='<b>'+lvl.t+'</b>：'+lvl.msg;
+  // 三档
+  var tab='';
+  r.rows.forEach(function(row){
+    tab+='<tr><td>'+row.name+'</td><td>'+Math.round(r.pass)+'</td><td>'+row.ctr.toFixed(1)+'%</td><td>¥'+r.aov+'</td>'+
+         '<td class="num">¥'+Math.round(row.rev).toLocaleString()+'</td>'+
+         '<td class="num">¥'+Math.round(row.profit).toLocaleString()+'</td>'+
+         '<td>'+row.tag+'</td></tr>';
+  });
+  document.getElementById('o_tab').innerHTML=tab;
+  // 谈判建议
+  var breakevenFc=r.fc; // 月固定成本就是它
+  var breakevenRev=breakevenFc/(1-r.food/100);
+  var breakevenZf=breakevenRev*(1-r.food/100)*0.25; // 房租占月营业额 25% 是合理线
+  document.getElementById('o_neg').innerHTML=
+    '<tr><td>月营收保本线（含目标利润）</td><td class="num">¥'+r.monthRev.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</td></tr>'+
+    '<tr><td>行业经验：房租 ≤ 月营收 25%</td><td class="num">房租 ≤ ¥'+breakevenZf.toFixed(0)+'</td></tr>'+
+    '<tr><td><b>你应该砍的房租</b></td><td class="num" style="color:#dc2626;">¥'+(inp.zf-breakevenZf>0?(inp.zf-breakevenZf).toFixed(0):'0')+' / 月</td></tr>'+
+    '<tr><td>装修回本周期</td><td class="num">'+(inp.zx>0?(inp.zx/r.monthRev).toFixed(1):'-')+' 月</td></tr>'+
+    '<tr><td>设备回本周期</td><td class="num">'+(inp.sb>0?(inp.sb/r.monthRev).toFixed(1):'-')+' 月</td></tr>';
+  // 终判
+  var v='';
+  if(r.rows[1].profit<0)v='<div class="disc-hi disc-r"><b>🛑 别签</b>：中性估算都亏损，要么砍房租要么换店。转让费+装修的钱很可能白扔。</div>';
+  else if(r.rows[0].profit<0&&r.rows[1].profit>=0)v='<div class="disc-hi disc-y"><b>🟡 谨慎</b>：保守档亏损，中性档才能盈。需要锁定开业前 3 个月应对策略（爬坡期）</div>';
+  else if(r.ctr>15)v='<div class="disc-hi disc-g"><b>✅ 可签</b>：进店率要求现实，三档都能盈利。建议再核实一次房租+转让费的合理性再下手。</div>';
+  else v='<div class="disc-hi disc-y"><b>🟡 可签但紧</b>：在合理进店率下能盈利。但容错空间不大，建议<a href="xuanzhi.html" style="color:#d97706;">堂食选址打分器</a>再核一遍</div>';
+  document.getElementById('o_verdict').innerHTML=v;
+  document.getElementById('res').style.display='block';
+  try{localStorage.setItem('daotui_state_v1',JSON.stringify(inp));}catch(e){}
+}
+
+// load
+try{var s=JSON.parse(localStorage.getItem('daotui_state_v1')||'{}');Object.keys(s).forEach(function(k){var el=document.getElementById('d_'+({zf:'zf',zr:'zr',zx:'zx',sb:'sb',yj:'yj',rg:'rg',food:'food',profit:'profit',p1:'p1',p2:'p2',p3:'p3'})[k]);if(el&&s[k]!==undefined)el.value=s[k];});}catch(e){}
+</script>
+</body>
+</html>
