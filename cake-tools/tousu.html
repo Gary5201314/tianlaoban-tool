@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店顾客投诉索赔应对 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+select,input{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.case{display:none;background:#fff;border:2px solid var(--red);border-radius:12px;padding:18px;margin:14px 0;}
+.case.on{display:block;}
+.step-l{padding-left:0;list-style:none;counter-reset:st;}
+.step-l li{padding:11px 14px 11px 50px;border-bottom:1px solid #f1f5f9;position:relative;font-size:14.5px;}
+.step-l li:last-child{border:0;}
+.step-l li::before{counter-increment:st;content:counter(st);position:absolute;left:14px;top:11px;width:24px;height:24px;border-radius:50%;background:var(--o);color:#fff;font-weight:900;text-align:center;line-height:24px;font-size:13px;}
+.warn-l{padding-left:0;list-style:none;margin:10px 0;}
+.warn-l li{padding:9px 12px;background:#fef3c7;border-left:4px solid #f59e0b;border-radius:6px;margin:6px 0;font-size:13.5px;}
+.script{background:#f8fafc;border-left:4px solid var(--o);padding:12px 14px;border-radius:6px;margin:10px 0;font-size:14px;color:var(--ink2);}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;border-left:5px solid var(--o);}
+.disc-g{background:#ecfdf5;border-color:#16a34a;color:#166534;}
+.disc-y{background:#fef9c3;border-color:#ca8a04;color:#854d0e;}
+.disc-r{background:#fef2f2;border-color:#dc2626;color:#991b1b;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>🛡️ 蛋糕店顾客投诉索赔应对</h1>
+  <div class="sub">吃出头发/拉肚子/生日迟到——7 种情况应对流程 + 话术复制</div>
+</div>
+
+<div class="disclaimer">⚠️ <b>具体赔付金额和处置流程以《食品安全法》《消费者权益保护法》及当地市场监管局为准</b>。<br>本工具只列<b>应对框架</b>，重大纠纷建议咨询律师。<br>🟢=框架（流程）/ 🟡=经验话术 / 🔴=单店案例</div>
+
+<h2>① 选你遇到的情况</h2>
+
+<div class="block">
+<select id="caseSel">
+  <option value="">-- 选情况 --</option>
+  <option value="hair">吃出头发 / 异物（事实清楚）</option>
+  <option value="late">生日蛋糕迟到 / 送错款</option>
+  <option value="taste">蛋糕味道不对 / 期望不符</option>
+  <option value="stomach">吃后拉肚子 / 怀疑食物中毒</option>
+  <option value="price">价格不符 / 券后价争议</option>
+  <option value="review">威胁差评 / 威胁发小红书</option>
+  <option value="raid">举报 / 食药监局上门</option>
+</select>
+</div>
+
+<div id="caseOut"></div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+/* 7 种情况 + 应对 */
+var cases={
+  hair:{
+    title:'吃出头发 / 异物',
+    risk:'中',
+    verdictClass:'disc-y',
+    steps:[
+      '立刻道歉："真的太不好意思了，让您遇到这种事。" 不要争辩，先认错',
+      '立即退单 / 重做 / 全单退款（不超过消费金额 2~3 倍）',
+      '请顾客出示异物照片 + 订单截图，保存证据（即使对方已经删了，也通过聊天记录+监控补）',
+      '查后厨监控 + 复盘流程：戴发网 / 口罩 / 工服检查',
+      '判断规模：1 次偶然 赔了；同 1 周 3 起以上 是 SOP 出问题，立刻全店排查'
+    ],
+    warn:[
+      '不要先给现金——先做退款 / 换货 / 重做，不要套现进私账',
+      '不要承诺"以后免费"——这种许诺会被多次利用',
+      '不要让员工私下处理——必须有店长或老板在场'
+    ],
+    script:'"您看这样行不行：这一单立刻全额退款，另外我们再做一份新的免费送到您家当补偿。整个流程我亲自跟，您还有什么要求您说。"'
+  },
+  late:{
+    title:'生日蛋糕迟到 / 送错款',
+    risk:'高',
+    verdictClass:'disc-r',
+    steps:[
+      '第一时间电话本人道歉（微信文字保留记录）',
+      '如果还能补救：找同街其他蛋糕店调配相近款 + 全免单',
+      '如果已经"过了 0 点生日"：客户情绪很差，很难谈赔。重点是情感补偿：送 1 个 6 寸 + 道歉卡片 + 全免单',
+      '看订单时间 vs 送达时间差：超时 30 分钟以内的 退一半；超时 1 小时以上的 全免',
+      '骑手 / 后台要有赔付 SOP，月度统计超时率找责任人'
+    ],
+    warn:[
+      '不要解释"骑手路上堵"——客户听到的是借口',
+      '不要等到客户来电话才反应——预计延误 30 分钟前主动打',
+      '不要扣骑手太狠（被投诉过激的话骑手反咬）——罚款走制度，沟通走温和'
+    ],
+    script:'"您生日是今天，是我们晚了，这次单全退，单外的我也替您承担。重新做一个 8 寸送到您家，您看几点方便？我蹲点儿不送过去不放心。"'
+  },
+  taste:{
+    title:'蛋糕味道不对 / 期望不符',
+    risk:'低',
+    verdictClass:'disc-g',
+    steps:[
+      '先问具体哪里不对——是甜度？层次？奶油？饼底？还是"看起来不像图"',
+      '多数"味道不对"其实是"期望不符"——客户看到的是小红书截图，你给的是同款但不是同一批师傅做的',
+      '处理：补一份试吃装 / 重做同款（价值不超过原订单 1.5 倍）',
+      '不要退全款——退全款等于承认"产品有问题"，下次类似投诉会蜂拥',
+      '回访 3 天后是否满意——若还不行再启动退款'
+    ],
+    warn:[
+      '不要用"我们的师傅做了 20 年不会出错"——技术好不等于口味普适',
+      '不要把客户意见藏在后厨听不到——反馈写进菜单研发表'
+    ],
+    script:'"让您吃得不开心是我的责任。您是想我这边全额退款，还是我再做一份您指定的款给您？您定，我都接受。"'
+  },
+  stomach:{
+    title:'吃后拉肚子 / 怀疑食物中毒',
+    risk:'极高',
+    verdictClass:'disc-r',
+    steps:[
+      '⚠️ 这是<b>最高风险场景</b>，必须老板亲自出面，不能员工处理',
+      '先问时间和人数：1 人什么时候吃 / 出现症状 / 几人同餐 / 是否就医',
+      '立刻内部自查：同批次原料是否有其他客诉 / 后厨健康证 / 冷链温度记录',
+      '如多起同时：立刻启动应急预案——停售相关 SKU、联系当地市场监管局主动报告',
+      '要求顾客出示医院诊断 + 同餐同伴资料——这是后续调解或诉讼的证据',
+      '事情严重时（如医疗费 / 住院），请律师介入——不要私了超过 5000 元的赔款'
+    ],
+    warn:[
+      '重大食物中毒如和解不成，可走 12315 调解 → 法院诉讼——永远不要销毁当日录像和原料记录',
+      '向对方"承认是我问题"的话，被录音会很麻烦——用"我们重视，正在查"代替',
+      '赔偿不要超过 1000 元的私了，要让对方签《和解协议》并明确"不再追究"'
+    ],
+    script:'"您先去医院，我全程陪同，费用我这边出。具体责任我们等医院结论出来一起处理。如果是我们的问题，我承担到底。"'
+  },
+  price:{
+    title:'价格不符 / 券后价争议',
+    risk:'低',
+    verdictClass:'disc-g',
+    steps:[
+      '调取后台订单截图 + 当时活动截图',
+      '多数争议是客户用了过期的券 / 不知道某个活动不算叠加——耐心解释',
+      '如确属我方错：退差价 + 致歉',
+      '如确属误会：礼貌解释 + 给小赠品（试吃装 / 优惠券）安抚情绪'
+    ],
+    warn:[
+      '不要纠缠责任——客户胜在情绪，错赢赢一单',
+      '不要承诺"以后都给这个价"——会被反复骚扰'
+    ],
+    script:'"我看了下后台，差价给您退了（或者：小礼物您留一份）。您看这样可以吗？"'
+  },
+  review:{
+    title:'威胁差评 / 威胁发小红书',
+    risk:'中',
+    verdictClass:'disc-y',
+    steps:[
+      '<b>不！要！私！下！答！应！额！外！赔！付！</b>',
+      '让对方"先发"：如果是恶意，对方多半不会真发；如果真发了，你截图之后还可向平台申诉',
+      '评估：恶意索赔（要赔 1000 才删）vs 真实不满（要求退款），分开处理',
+      '真实不满：退款+道歉，把差评降为中评的技巧是<b>先解决再求删</b>',
+      '恶意索赔：留证据（聊天记录 / 通话录音），不要怕——这种人多半不会真曝光，曝光反而自己丢脸'
+    ],
+    warn:[
+      '威胁 1000 元赔款的多数是"碰瓷"——你给 1000 他下次还要 3000',
+      '不要反驳对方"你这就是敲诈"——记录在案，但嘴甜',
+      '差评对店流量影响通常 1~3 天，3 天后逐步淡——不用每次都紧张'
+    ],
+    script:'"您的心情我完全理解。您看这样：这一单我全额退您，作为补偿我们也再做一份。您愿意的话把这次点评删掉，给其他读者留个好印象。不愿意也行，您是上帝，您定。"'
+  },
+  raid:{
+    title:'举报 / 食药监局上门',
+    risk:'极高',
+    verdictClass:'disc-r',
+    steps:[
+      '⚠️ 让员工立刻通知老板，不要自作主张回应',
+      '<b>永远配合执法人员</b>——执照、原料、记录、出货单据，看什么给什么',
+      '<b>不卑不亢</b>：不质问"凭什么查我"，不主动暴露其他问题',
+      '事后整改：3 日内自查、保留整改前后照片、<b>不要怠于整改</b>——下次复检来会更严',
+      '罚款多在 1~10 万元（无证 / 过期原料 / 健康证不全）——如果不公可申诉或起诉',
+      '长线：把"通过日常自查避免被罚"作为店主核心能力——<a href="zhisun.html">治损器</a> / 各项自检工具就是干这个的'
+    ],
+    warn:[
+      '千万不要贿赂 — 风险比合规经营大 10 倍',
+      '建群"同行互助"——遇到执法检查先通气，再决定派谁去接待',
+      '保留《食品经营许可证》《员工健康证》《进货台账》《消毒记录》4 个本子在店'
+    ],
+    script:'"您看需要看什么尽管看。这是 4 个本子（执照、健康证、台账、消毒），都在这边。我的手机号给您，有问题随时联系我，我立刻到。"'
+  }
+};
+
+function render(){
+  var k=document.getElementById('caseSel').value;
+  if(!k){document.getElementById('caseOut').innerHTML='';return;}
+  var c=cases[k];
+  var html='<div class="case on">'+
+    '<h2 style="margin-top:0;color:#dc2626;">'+c.title+'</h2>'+
+    '<p><span class="tag '+('tag-'+(c.risk==='极高'?'r':c.risk==='高'?'r':c.risk==='中'?'y':'g'))+'">风险 '+c.risk+'</span> 框架建议按下面走</p>'+
+    '<h3>📋 应对步骤</h3>'+
+    '<ol class="step-l">';
+  c.steps.forEach(function(s){html+='<li>'+s+'</li>';});
+  html+='</ol>'+
+    '<h3>💬 直接复用的开场话术</h3>'+
+    '<div class="script">'+c.script+'</div>'+
+    '<h3>🚫 千万不要做的事</h3>'+
+    '<ul class="warn-l">';
+  c.warn.forEach(function(w){html+='<li>'+w+'</li>';});
+  html+='</ul>'+
+    '<div class="disc-hi '+c.verdictClass+'">重点：照上面走，<b>切忌</b>私下赔钱 / 销毁证据 / 答应不切实际的承诺。</div>'+
+    '<p style="font-size:12.5px;color:var(--muted);margin-top:14px;">⚠️ 重大纠纷请咨询当地市场监管局或专业律师。</p>'+
+    '</div>';
+  document.getElementById('caseOut').innerHTML=html;
+}
+document.getElementById('caseSel').addEventListener('change',render);
+render();
+</script>
+</body>
+</html>
