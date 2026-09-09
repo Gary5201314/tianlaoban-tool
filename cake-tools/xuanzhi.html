@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛋糕店选址评分器 · 6 维度打分,该不该选这个店址 | 蛋糕店老板工具</title>
+<meta name="description" content="蛋糕店选址 6 维度打分工具:周边人口/同业密度/客流聚集点/店型适配/租金承受/配送覆盖,告诉你店址该不该选。">
+<style>
+:root{
+  --ink:#0f172a;--ink2:#475569;--muted:#7c8aa0;
+  --brand:#2563eb;--brand2:#1e40af;
+  --ok:#15803d;--okbg:#dcfce7;--warn:#d97706;--warnbg:#fef3c7;--bad:#b91c1c;--badbg:#fee2e2;
+  --bg:#eff6ff;--card:#ffffff;--line:#bfdbfe;--slate:#1e293b;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+body{background:linear-gradient(180deg,#eff6ff 0%,#fef3c7 100%);color:var(--ink);font-family:"PingFang SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.75;min-height:100vh;}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px 60px;}
+a{color:var(--brand);}
+b,strong{font-weight:800;}
+.hero{position:relative;background:linear-gradient(150deg,#1e3a8a 0%,#1e40af 50%,#2563eb 100%);color:#eff6ff;border-radius:0 0 22px 22px;margin:0 -14px 20px;padding:30px 24px 26px;overflow:hidden;}
+.hero::after{content:"📍";position:absolute;right:18px;bottom:-30px;font-size:160px;line-height:1;opacity:.15;}
+.hero .kicker{font-size:12px;letter-spacing:2px;color:#bfdbfe;font-weight:800;margin-bottom:9px;}
+.hero h1{font-size:25px;font-weight:900;line-height:1.4;position:relative;z-index:2;}
+.hero .sub{margin-top:11px;font-size:14px;color:#dbeafe;line-height:1.85;position:relative;z-index:2;}
+.hero .sub b{color:#fff;}
+.hero-back{display:inline-flex;align-items:center;gap:6px;position:absolute;top:16px;left:16px;padding:8px 16px 8px 12px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.45);border-radius:999px;backdrop-filter:blur(6px);text-decoration:none;z-index:3;}
+.hero{padding-top:64px !important;}
+.sec{margin:26px 0 8px;display:flex;align-items:center;gap:10px;}
+.sec .t{font-size:17px;font-weight:900;color:var(--slate);}
+.sec .bar{flex:1;height:1px;background:var(--line);}
+.lead{font-size:13.5px;color:var(--ink2);line-height:1.8;margin:6px 0 13px;}
+.lead b{color:var(--brand2);}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 14px rgba(30,58,138,.07);margin-bottom:13px;}
+.dim{margin-bottom:13px;padding-bottom:12px;border-bottom:1px dashed #dbeafe;}
+.dim:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.dim .dh{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+.dim .dt{font-size:14.5px;font-weight:900;color:var(--slate);}
+.dim .dt .dn{font-size:11px;font-weight:800;color:#fff;background:var(--brand);border-radius:5px;padding:1px 7px;margin-right:6px;}
+.dim .dv{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:6px;}
+.dim .dv b{color:var(--brand2);}
+.dim-row{display:flex;align-items:center;gap:8px;}
+.dim input[type=range]{flex:1;accent-color:var(--brand);}
+.dim .dn2{font-size:14px;font-weight:900;color:var(--brand);min-width:30px;text-align:right;}
+.dim .hints{font-size:11px;color:var(--muted);margin-top:5px;display:flex;justify-content:space-between;}
+.result{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:20px 16px;box-shadow:0 4px 18px rgba(30,58,138,.10);margin-bottom:14px;}
+.score-big{font-size:54px;font-weight:900;line-height:1;text-align:center;margin:8px 0;}
+.score-big .max{font-size:20px;color:var(--muted);font-weight:700;}
+.score-verdict{text-align:center;font-size:18px;font-weight:900;padding:11px;border-radius:12px;margin:8px 0 16px;}
+.score-verdict.g{background:var(--okbg);color:var(--ok);}
+.score-verdict.y{background:var(--warnbg);color:#b45309;}
+.score-verdict.r{background:var(--badbg);color:var(--bad);}
+.dim-list{font-size:13.5px;line-height:1.7;}
+.dim-list .dr{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #dbeafe;}
+.dim-list .dr:first-of-type{border-top:none;}
+.dim-list .dr .dk{color:var(--ink2);}
+.dim-list .dr .dk .em{font-size:11px;font-weight:800;color:#fff;background:#94a3b8;border-radius:5px;padding:1px 6px;margin-right:5px;}
+.dim-list .dr .dk .em.r{background:#b91c1c;}
+.dim-list .dr .dk .em.y{background:#d97706;}
+.dim-list .dr .dk .em.g{background:#15803d;}
+.dim-list .dr .ds{font-weight:900;}
+.dim-list .dr .ds.r{color:var(--bad);}
+.dim-list .dr .ds.y{color:var(--warn);}
+.dim-list .dr .ds.g{color:var(--ok);}
+.fix{margin-top:13px;background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:14px 15px;}
+.fix .ft{font-size:14.5px;font-weight:900;color:var(--slate);margin-bottom:8px;}
+.fix .fc{font-size:13px;color:var(--ink2);line-height:1.65;padding:5px 0;border-top:1px solid #fed7aa;}
+.fix .fc:first-of-type{border-top:none;}
+.fix .fc b{color:var(--brand2);}
+.cmp{background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin:14px 0;font-size:12.5px;color:var(--ink2);line-height:1.75;}
+.cmp b{color:var(--brand2);}
+.disc{font-size:12px;color:var(--muted);line-height:1.7;background:#fff;border:1px dashed var(--line);border-radius:12px;padding:13px 15px;margin-top:16px;}
+.disc b{color:var(--ink2);}
+.backhome{margin-top:24px;text-align:center;}
+.backhome a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);color:#fff;font-size:14.5px;font-weight:800;border-radius:999px;text-decoration:none;}
+.foot{margin-top:18px;text-align:center;}
+.foot .tiny{font-size:12px;color:var(--muted);line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <a class="hero-back" href="index.html"><span>←</span> 工具箱</a>
+  <div class="kicker">蛋糕店开店前 · 选址评分器</div>
+  <h1>这个店址<span style="color:#fbbf24;">该不该选</span>?</h1>
+  <div class="sub">蛋糕店<b>7 成命运在选址</b>——踩对一个店址,后面少补三倍课。下面 6 维度拖动打分,总分告诉你<b>推荐 / 慎选 / 不推荐</b>。短板的维度会标红,你就知道钱要花在哪儿、风险在哪儿。</div>
+</div>
+
+<p class="lead">每维度 <b>0~10 分</b>,总分 <b>60 分</b>。蛋糕店合理阈值:<b>≥48 推荐,36~47 慎选,&lt;36 不推荐</b>。这是经验法则(无同行评议研究),蛋糕行业门店 1 年成活率通常不到 50%,选址占成败大头。</p>
+
+<div class="card" id="inputBox">
+
+<div class="dim">
+  <div class="dh"><div class="dt"><span class="dn">D1</span>周边人口密度</div></div>
+  <div class="dv">店 <b>1~3 公里</b> 内常住 + 办公 + 学生总数(万人)<b>:</b></div>
+  <div class="dim-row"><input type="range" id="d1" min="0" max="10" value="0" oninput="calc();setHint(1,this.value)"><span class="dn2" id="d1v">0</span></div>
+  <div class="hints"><span>1万以下</span><span>1~3万</span><span>3~5万</span><span>5万+</span></div>
+</div>
+
+<div class="dim">
+  <div class="dh"><div class="dt"><span class="dn">D2</span>同街同业密度</div></div>
+  <div class="dv">店 <b>500 米</b> 内已有的蛋糕 / 烘焙 / 甜品 / 奶茶店家数:<b>越少越分高</b>。</div>
+  <div class="dim-row"><input type="range" id="d2" min="0" max="10" value="0" oninput="calc();setHint(2,this.value)"><span class="dn2" id="d2v">0</span></div>
+  <div class="hints"><span>5 家+(红海)</span><span>4 家</span><span>3</span><span>2</span><span>1</span><span>0(蓝海)</span></div>
+</div>
+
+<div class="dim">
+  <div class="dh"><div class="dt"><span class="dn">D3</span>客流聚集点距离</div></div>
+  <div class="dv">地铁口 / 大型商超 / 学校 / 写字楼聚集点距离(米)<b>:</b></div>
+  <div class="dim-row"><input type="range" id="d3" min="0" max="10" value="0" oninput="calc();setHint(3,this.value)"><span class="dn2" id="d3v">0</span></div>
+  <div class="hints"><span>1km 外</span><span>500m</span><span>200m</span><span>100m 内(地铁口/校门口)</span></div>
+</div>
+
+<div class="dim">
+  <div class="dh"><div class="dt"><span class="dn">D4</span>店型适配度</div></div>
+  <div class="dv">这个店型(<b>社区店/写字楼店/商场店/街边店</b>)与你<b>想做的蛋糕店定位</b>匹配吗?</div>
+  <div class="dim-row"><input type="range" id="d4" min="0" max="10" value="0" oninput="calc();setHint(4,this.value)"><span class="dn2" id="d4v">0</span></div>
+  <div class="hints"><span>完全错配(街边店做生日蛋糕快取)</span><span>一般</span><span>良好</span><span>完美匹配</span></div>
+</div>
+
+<div class="dim">
+  <div class="dh"><div class="dt"><span class="dn">D5</span>租金承受</div></div>
+  <div class="dv"><b>月租 ÷ 预期月营收</b>(%)。蛋糕店安全线 <b>≤15%</b>,警戒线 <b>20%</b>,>25% 危险。</div>
+  <div class="dim-row"><input type="range" id="d5" min="0" max="10" value="0" oninput="calc();setHint(5,this.value)"><span class="dn2" id="d5v">0</span></div>
+  <div class="hints"><span>>25% 危险</span><span>20~25%</span><span>15~20%</span><span>10~15%</span><span>≤10% 安全</span></div>
+</div>
+
+<div class="dim">
+  <div class="dh"><div class="dt"><span class="dn">D6</span>配送覆盖</div></div>
+  <div class="dv">从店出发 <b>3 公里</b> 内能覆盖多少住宅小区 + 写字楼 + 学校:<b>越多越分高</b>。</div>
+  <div class="dim-row"><input type="range" id="d6" min="0" max="10" value="0" oninput="calc();setHint(6,this.value)"><span class="dn2" id="d6v">0</span></div>
+  <div class="hints"><span><10 个</span><span>10~30</span><span>30~50</span><span>50+/10+写字楼</span></div>
+</div>
+
+</div>
+
+<div class="sec"><span class="t">🗺️ 评分结果</span><div class="bar"></div></div>
+<div class="result">
+  <div class="score-big"><span id="scTotal">0</span><span class="max">/60</span></div>
+  <div class="score-verdict g" id="scVerdict">拖完 6 个维度,这里告诉你选不选</div>
+
+  <div style="font-size:13px;font-weight:900;color:var(--slate);margin:14px 0 6px;">📊 各维度评分</div>
+  <div class="dim-list" id="dimList"></div>
+
+  <div class="fix" id="fixBox" style="display:none;"></div>
+
+  <div style="text-align:center;margin-top:16px;"><a href="javascript:void(0)" onclick="resetAll()" style="font-size:13px;color:var(--muted);text-decoration:underline;">🔄 重置</a></div>
+</div>
+
+<div class="cmp">🆚 <b>为啥不直接告诉我"这个店址能不能成"?</b>因为<b>成不成七分靠你的产品服务,三分靠选址</b>,光选址好不够。光看单一维度也容易误判(人流大不代表同业竞争小)。六维度一起看,补强短板。</div>
+
+<div class="disc"><b>说明:</b>免费工具,分数存在你浏览器里(localStorage),我们看不到。<b>本工具不替你签合同</b>,真要下定金前请实地蹲 3 天(早中晚各 1 小时)数人流、看周边。最终选址还得结合你的产品定位、目标客群画像、运营能力综合判断。</div>
+
+<div class="backhome"><a href="index.html">← 回工具箱首页</a></div>
+<div class="foot"><div class="tiny">蛋糕店选址评分器 · 6 维度 · 仅供自查参考</div></div>
+
+</div>
+
+<script>
+var STORE='dgs_xuanzhi_v1';
+var DIMS=[
+  {n:'D1 周边人口密度',desc:'1~3km 人口'},
+  {n:'D2 同街同业密度',desc:'500m 内同业店数'},
+  {n:'D3 客流聚集点距离',desc:'地铁/商超/学校距离'},
+  {n:'D4 店型适配度',desc:'店型与定位匹配'},
+  {n:'D5 租金承受',desc:'月租占营收比'},
+  {n:'D6 配送覆盖',desc:'3km 内覆盖密度'}
+];
+// 各维度的"短板的招":按 0~3 分提示
+var FIX={
+  1:{low:'周边人口密度偏低,真要蹲点数:工作日午高峰和周末晚间各蹲 1 小时,数一下步行客流。',
+      mid:'人口密度中等,要看结构(常住 vs 流动 vs 学生)是否匹配你的蛋糕定位。'},
+  2:{low:'同街同业太多(红海),蛋糕又是低频高客单品类,价格战很难胜出——除非你有显著差异化(动物奶油 / 现做 / 配送快)。',
+      mid:'有 1~2 家同业,看看他们定价和客群,避免正面贴身肉搏。'},
+  3:{low:'没在客流聚集点旁,纯靠路过客流太被动。必须靠外卖 / 异业 / 老带新补客流缺口。',
+      mid:'离聚集点 500m 内,合理。但需要主动引导(地推、立牌、地图标注)。'},
+  4:{low:'店型和你的产品错配(比如:商场快取店做生日蛋糕需求匹配低)。要么换店型,要么换定位。',
+      mid:'店型基本对得上,你看下"动线"——顾客进店前能不能一眼看清你的蛋糕柜。'},
+  5:{low:'租金占营收 >20% 是危险线,先算月固定成本能不能撑过 3 个月空窗期(开业 3 个月亏损很正常)。',
+      mid:'10~15% 还行,但要预留第一年 30% 营收缓冲。'},
+  6:{low:'配送覆盖不够,生日蛋糕这种强配送品类会丢客至少 30%。评估是否能拿到更多线上订单,或换更大辐射。',
+      mid:'3km 覆盖一般,可以跟附近小区物业谈合作(团购取货点)。'}
+};
+
+// 把 slider 数值映射到"分数提示语"
+function setHint(d,v){
+  var n=v;
+  if(d===1){n=v;}
+  if(d===2){n=v;}// d2 是反向,滑到右边 = 越少 = 分越高
+  document.getElementById('d'+d+'v').textContent=n;
+}
+function lvlFor(d,v){
+  // d2 同街同业:反转(多家 = 0 分,少家 = 10 分),slider 用户按"少到多"排
+  var s=d===2?(10-v):v;
+  if(s<=3) return 'r';
+  if(s<=6) return 'y';
+  return 'g';
+}
+function dimLbl(d,v){
+  var s=d===2?(10-v):v;
+  if(s<=3) return '偏弱';
+  if(s<=6) return '一般';
+  return '良好';
+}
+function compute(inp){
+  var sc={};
+  var total=0;
+  for(var i=1;i<=6;i++){
+    var v=parseInt(inp['d'+i]);
+    if(i===2) v=10-v;// 同业:多家扣分
+    sc[i]=v; total+=v;
+  }
+  var tier = total>=48?'g':(total>=36?'y':'r');
+  var label = total>=48?'✅ 推荐,这个店址值得选':(total>=36?'⚠️ 慎选,有短板需要补强':'🛑 不推荐,要么换址要么大改');
+  return {sc:sc,total:total,tier:tier,label:label};
+}
+function fixText(d,v){
+  if(v<=3) return FIX[d].low;
+  if(v<=6) return FIX[d].mid;
+  return null;
+}
+function calc(){
+  save();
+  var inp={};
+  for(var i=1;i<=6;i++){ inp['d'+i]=document.getElementById('d'+i).value; }
+  var r=compute(inp);
+  document.getElementById('scTotal').textContent=r.total;
+  var v=document.getElementById('scVerdict');
+  v.className='score-verdict '+r.tier;
+  v.textContent=r.label;
+  // 维度列表
+  var html='';
+  var weakCount=0;
+  for(var i=1;i<=6;i++){
+    var v2=i===2?(10-parseInt(inp['d'+i])):parseInt(inp['d'+i]);
+    var cls=lvlFor(i, parseInt(inp['d'+i]));
+    if(cls==='r') weakCount++;
+    html+='<div class="dr"><span class="dk"><span class="em '+cls+'">'+DIMS[i-1].n.split(' ')[0]+'</span>'+DIMS[i-1].n.substr(3)+'</span><span class="ds '+cls+'">'+v2+' 分 · '+dimLbl(i,inp['d'+i])+'</span></div>';
+  }
+  document.getElementById('dimList').innerHTML=html;
+  // 整改
+  var fx=document.getElementById('fixBox');
+  if(weakCount>0){
+    fx.style.display='block';
+    var fh='<div class="ft">🔧 '+weakCount+' 个维度偏弱,针对性补强</div>';
+    for(var i=1;i<=6;i++){
+      var tt=fixText(i, parseInt(inp['d'+i]));
+      if(tt){ fh+='<div class="fc"><b>'+DIMS[i-1].n+'</b>· '+tt+'</div>'; }
+    }
+    fx.innerHTML=fh;
+  } else {
+    fx.style.display='none';
+  }
+}
+function save(){
+  try{
+    var s={};
+    for(var i=1;i<=6;i++){s['d'+i]=document.getElementById('d'+i).value;}
+    localStorage.setItem(STORE,JSON.stringify(s));
+  }catch(e){}
+}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORE));if(!s)return;
+    for(var i=1;i<=6;i++){if(s['d'+i]!==undefined){var el=document.getElementById('d'+i);el.value=s['d'+i];document.getElementById('d'+i+'v').textContent=el.value;}}
+  }catch(e){}
+}
+function resetAll(){
+  try{localStorage.removeItem(STORE);}catch(e){}
+  for(var i=1;i<=6;i++){document.getElementById('d'+i).value=0;document.getElementById('d'+i+'v').textContent='0';}
+  calc();
+}
+load();calc();
+</script>
+</body>
+</html>
