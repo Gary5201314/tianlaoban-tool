@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店开店准备度自测 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.dim{border:1px solid var(--line);border-radius:10px;padding:14px;margin:8px 0;}
+.dim h4{margin:0 0 6px;font-size:14.5px;display:flex;justify-content:space-between;color:var(--slate);}
+.dim p{margin:0 0 8px;font-size:13px;color:var(--ink2);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.bignum{font-size:48px;font-weight:900;color:var(--o);line-height:1;margin:6px 0;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;border-left:5px solid var(--o);}
+.disc-g{background:#ecfdf5;border-color:#16a34a;color:#166534;}
+.disc-y{background:#fef9c3;border-color:#ca8a04;color:#854d0e;}
+.disc-r{background:#fef2f2;border-color:#dc2626;color:#991b1b;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+svg{display:block;margin:14px auto;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>🎯 蛋糕店开店准备度自测</h1>
+  <div class="sub">8 维度打分——先胜可开还是先别急着冲</div>
+</div>
+
+<div class="disclaimer">⚠️ 这是<b>自检 prompt</b>，不是诊断报告。<br>🟢=框架（先胜后战）/ 🟡=经验阈值 / 🔴=主观</div>
+
+<h2>8 维度评分（每项 0~10）</h2>
+
+<div id="dims"></div>
+
+<button class="btn" onclick="calc()">📐 算总分 + 雷达图</button>
+
+<div id="res" style="display:none;">
+
+<div class="block">
+<h3>准备度总分</h3>
+<div class="bignum" id="o_score">--</div>
+<p style="margin:4px 0 0;font-size:14px;" id="o_lvl">--</p>
+</div>
+
+<div class="block">
+<h3>8 维度雷达图</h3>
+<div id="o_radar"></div>
+</div>
+
+<div class="block">
+<h3>分项</h3>
+<table>
+<thead><tr><th>维度</th><th class="num">得分</th><th>评估</th></tr></thead>
+<tbody id="o_tab"></tbody>
+</table>
+</div>
+
+<div class="block">
+<h3>📌 短板先补齐</h3>
+<div id="o_action"></div>
+</div>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+var dimDefs=[
+  {id:'d1',n:'决心',d:'遇到半年亏损 / 加班到深夜 / 员工流动，能扛住不后悔？'},
+  {id:'d2',n:'认知',d:'清楚知道蛋糕店 60% 死在第 1 年，知道这是体力活不是"朋友圈美食"'},
+  {id:'d3',n:'资金',d:'总投入预算 + 3 个月爬坡期现金 + 6 个月生活费，全部现金 100% 自有'},
+  {id:'d4',n:'产品',d:'主力 SKU 已经定型，会做的款式占菜单 80% 以上'},
+  {id:'d5',n:'领路人',d:'身边有真正开过店的朋友，能指点你 SKU / 营销 / 财务'},
+  {id:'d6',n:'市场调研',d:'蹲点过 3 家对标店，看过大众点评 1 星 5 星各 50 条'},
+  {id:'d7',n:'动手体验',d:'亲自做过 100 个生日蛋糕，能独立完成你看中的主力 SKU'},
+  {id:'d8',n:'身体/后院',d:'家人支持、身体能扛住 16 小时工作日、家中无重大变故'},
+];
+
+(function build(){
+  var html='';
+  dimDefs.forEach(function(d,i){
+    html+='<div class="dim"><h4>'+(i+1)+'. '+d.n+'<span style="font-size:11.5px;color:var(--muted);font-weight:400;" id="'+d.id+'_v">5 分</span></h4><p>'+d.d+'</p><input class="slider" id="'+d.id+'" type="range" min="0" max="10" value="5" oninput="this.parentElement.querySelector(\'span\').textContent=this.value+\' 分\'"></div>';
+  });
+  document.getElementById('dims').innerHTML=html;
+})();
+
+function F(id){return +(document.getElementById(id).value||0);}
+
+function calc(){
+  var total=0;
+  var rows='';
+  var weak=[];
+  dimDefs.forEach(function(d){
+    var s=F(d.id);
+    total+=s;
+    var tag=s<=3?'<span class="tag tag-r">差</span>':s<=6?'<span class="tag tag-y">可</span>':'<span class="tag tag-g">好</span>';
+    rows+='<tr><td>'+d.n+'</td><td class="num">'+s+'</td><td>'+tag+'</td></tr>';
+    if(s<=4)weak.push(d);
+  });
+  document.getElementById('o_score').textContent=total+' 分';
+  document.getElementById('o_score').className='bignum '+(total>=64?'g':total>=48?'y':'r');
+  document.getElementById('o_score').style.color=(total>=64?'#16a34a':total>=48?'#ca8a04':'#dc2626');
+  document.getElementById('o_lvl').innerHTML=
+    total>=64?'<span class="tag tag-g">先胜可开</span> 准备较充分，可以冲' :
+    total>=48?'<span class="tag tag-y">谨慎</span> 有短板，先补短板再考虑' :
+    '<span class="tag tag-r">先别急</span> 多项不到 5 分，还需补功课';
+  document.getElementById('o_tab').innerHTML=rows+'<tr><th>总分（80 满）</th><td></td><td></td></tr>';
+  // 雷达图
+  renderRadar(dimDefs.map(function(d){return F(d.id);}));
+  // 短板
+  var wActs={
+    d1:'决心不足是开店最大风险。坐下来算 3 笔账：最坏情况能扛多少？家人意见是否一致？如果想"先试试"——这个心态本身就不够。',
+    d2:'认知短板最危险。补：读 3 本开店书（开店笔记全集 + 蛋糕店经营类）+ 实地蹲 10 家店看生意。',
+    d3:'资金短缺一定不开。宁可晚开 6 个月攒钱，不要开半年后钱烧光倒闭——浪费的是 30 万 + 你的 1 年时间。',
+    d4:'产品没定型就开店 = 拿客人试错。开店前 3 个月做 200 个测试蛋糕，找 50 个陌生人盲测。',
+    d5:'没领路人 = 独自踩坑。加入当地蛋糕老板群（线下或微信），每月见 2 次同行请教。',
+    d6:'市场调研不到位必败。每天蹲 2 小时看 1 家对标店,坚持 14 天，看他的销量结构 + 高峰时段 + 定价。',
+    d7:'动手经验不够别开店。先去 1 家店打工 6 个月,把流程 / 配方 / 应急都学到位,再出山。',
+    d8:'身体 / 家庭不支持就缓一年。开店头 12 个月是体力透支期,没有后盾很难撑。'
+  };
+  var wHtml='';
+  if(weak.length===0)wHtml='<div class="disc-hi disc-g"><b>✅ 8 维度都过及格线</b>——准备较充分,可以冲</div>';
+  else {
+    weak.forEach(function(w){
+      wHtml+='<div class="disc-hi disc-y"><b>'+w.n+'（'+F(w.id)+' 分）</b><br><span style="font-size:13.5px;">'+wActs[w.id]+'</span></div>';
+    });
+  }
+  document.getElementById('o_action').innerHTML=wHtml;
+  document.getElementById('res').style.display='block';
+}
+
+function renderRadar(vals){
+  var w=400,h=400,cx=200,cy=200,r=140;
+  var n=vals.length;
+  var angle=Math.PI*2/n;
+  // 计算多边形点
+  var pts=vals.map(function(v,i){
+    var a=-Math.PI/2+angle*i;
+    var rr=r*(v/10);
+    return [cx+rr*Math.cos(a),cy+rr*Math.sin(a)];
+  });
+  var polyPts=pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');
+  // 网格
+  var gridSvg='';
+  for(var lv=2;lv<=10;lv+=2){
+    var rr=r*(lv/10);
+    var lp=[];
+    for(var i=0;i<n;i++){
+      var a=-Math.PI/2+angle*i;
+      lp.push([cx+rr*Math.cos(a),cy+rr*Math.sin(a)]);
+    }
+    gridSvg+='<polygon points="'+lp.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'" fill="none" stroke="#e5e7eb" stroke-width="1"/>';
+  }
+  // 轴线
+  for(var i=0;i<n;i++){
+    var a=-Math.PI/2+angle*i;
+    gridSvg+='<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+r*Math.cos(a)).toFixed(1)+'" y2="'+(cy+r*Math.sin(a)).toFixed(1)+'" stroke="#e5e7eb" stroke-width="1"/>';
+    var lx=cx+(r+12)*Math.cos(a);
+    var ly=cy+(r+12)*Math.sin(a);
+    var lbl=dimDefs[i].n;
+    gridSvg+='<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#475569">'+lbl+'</text>';
+  }
+  var html='<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">'+
+    gridSvg+
+    '<polygon points="'+polyPts+'" fill="rgba(234,88,12,.25)" stroke="#ea580c" stroke-width="2"/>'+
+    pts.map(function(p){return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4" fill="#ea580c"/>';}).join('')+
+    '</svg>';
+  document.getElementById('o_radar').innerHTML=html;
+}
+
+// load
+try{var s=JSON.parse(localStorage.getItem('zhunbei_state_v1')||'{}');Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el&&s[k]!==undefined){el.value=s[k];var v=document.getElementById(k+'_v');if(v)v.textContent=s[k]+' 分';}});}catch(e){}
+window.addEventListener('beforeunload',function(){var s={};document.querySelectorAll('input[type=range]').forEach(function(el){s[el.id]=el.value;});try{localStorage.setItem('zhunbei_state_v1',JSON.stringify(s));}catch(e){}});
+</script>
+</body>
+</html>
