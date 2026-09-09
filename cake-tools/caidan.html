@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店菜单末位淘汰 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;--p:#a21caf;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus{outline:none;border-color:var(--o);}
+textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;resize:vertical;}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.btn-sm{padding:9px 14px;font-size:13px;width:auto;display:inline-block;margin:4px 0;}
+.bignum{font-size:38px;font-weight:900;color:var(--o);line-height:1.1;margin:6px 0;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;border-left:5px solid var(--o);}
+.disc-g{background:#ecfdf5;border-color:#16a34a;color:#166534;}
+.disc-y{background:#fef9c3;border-color:#ca8a04;color:#854d0e;}
+.disc-r{background:#fef2f2;border-color:#dc2626;color:#991b1b;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;}
+table th,table td{padding:7px 5px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.sku-row{background:#fafafa;padding:8px;border-radius:8px;margin:8px 0;display:grid;grid-template-columns:3fr 1fr 1fr 1fr 0.5fr;gap:8px;align-items:center;}
+.sku-row input{padding:7px 9px;font-size:13px;}
+.sku-row .rm{background:#fee;color:#dc2626;border:none;border-radius:6px;padding:6px 8px;font-size:14px;cursor:pointer;}
+.bar{height:14px;border-radius:7px;background:#f1f5f9;overflow:hidden;margin:6px 0;}
+.bar>div{height:100%;transition:width .4s;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row,.row3{grid-template-columns:1fr;}.bignum{font-size:28px;}.sku-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📜 蛋糕店菜单末位淘汰</h1>
+  <div class="sub">算每个 SKU 的真正贡献——末位 20% 该退场就退</div>
+</div>
+
+<div class="disclaimer">⚠️ 这是<b>结构化盘点 prompt</b>，不是诊断。<br>🟢=ABC 分析法 / 🟡=行业经验 / 🔴=单店案例</div>
+
+<h2>① 填你菜单上的 SKU</h2>
+
+<div class="block">
+<p style="font-size:13.5px;color:var(--ink2);margin:0 0 10px;">每行填 1 个 SKU：月销量 / 月毛利 / 评分（客人对它的评价）。多了就多填。</p>
+<div style="display:grid;grid-template-columns:3fr 1fr 1fr 1fr 0.5fr;gap:8px;padding:0 8px;font-size:13px;color:var(--ink2);font-weight:700;"><div>SKU 名</div><div>月销量</div><div>毛利/个 (元)</div><div>客人评分 (1-5)</div><div></div></div>
+<div id="skuList"></div>
+<button class="btn-sm btn" onclick="addSku()" style="background:#16a34a;">+ 加一行</button>
+</div>
+
+<h2>② 工具评估</h2>
+
+<div class="block">
+<div class="row">
+  <div><label>月固定成本（元）要分摊给谁？</label>
+    <select id="mode">
+      <option value="all">全部 SKU 分摊</option>
+      <option value="hit">只让卖得好的 SKU 分摊</option>
+    </select>
+  </div>
+  <div><label>按哪个指标排序？</label>
+    <select id="sort">
+      <option value="profit">毛利贡献</option>
+      <option value="score">评分加权</option>
+      <option value="combo">综合（毛利×评分）</option>
+    </select>
+  </div>
+</div>
+</div>
+
+<button class="btn" onclick="calc()">📐 算 ABC 分类 + 末位淘汰</button>
+
+<div id="res" style="display:none;">
+
+<div class="block">
+<h3>总览</h3>
+<table>
+<tr><th>指标</th><th class="num">值</th></tr>
+<tr><td>SKU 总数</td><td class="num" id="o_n">--</td></tr>
+<tr><td>月总销量</td><td class="num" id="o_qty">--</td></tr>
+<tr><td>月总毛利贡献</td><td class="num" id="o_gross">--</td></tr>
+<tr><td>卖得动的 SKU 占比</td><td class="num" id="o_active">--</td></tr>
+</table>
+</div>
+
+<div class="block">
+<h3>🅰 A 类（明星 SKU - 加大推广）</h3>
+<div class="legend" style="font-size:13px;color:var(--ink2);">占总毛利 60%~80% 的头部 SKU。重点推广 / 主推爆款</div>
+<table id="o_a"></table>
+</div>
+
+<div class="block">
+<h3>🅱 B 类（普通 - 维持现状）</h3>
+<div class="legend" style="font-size:13px;color:var(--ink2);">占总毛利 15~30%。保持现状，看是否有翻身机会</div>
+<table id="o_b"></table>
+</div>
+
+<div class="block">
+<h3>🅲 C 类（拖后腿 - 考虑淘汰）</h3>
+<div class="legend" style="font-size:13px;color:var(--ink2);">总销量低 + 评分低 + 毛利差。建议淘汰节省精力</div>
+<table id="o_c"></table>
+</div>
+
+<div class="block">
+<h3>📌 淘汰清单（按你选的标准）</h3>
+<div id="o_kill"></div>
+</div>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+var rows=[];
+function addSku(n,q,p,s){
+  rows.push({n:n||'',q:q||0,p:p||0,s:s||3});
+  renderRows();
+}
+function renderRows(){
+  var html='';
+  rows.forEach(function(r,i){
+    html+='<div class="sku-row"><input id="r_n_'+i+'" value="'+r.n+'" placeholder="例：榴莲千层"><input id="r_q_'+i+'" type="number" value="'+r.q+'" placeholder="120"><input id="r_p_'+i+'" type="number" value="'+r.p+'" placeholder="40"><input id="r_s_'+i+'" type="number" value="'+r.s+'" min="1" max="5" placeholder="4.2"><button class="rm" onclick="removeSku('+i+')">×</button></div>';
+  });
+  document.getElementById('skuList').innerHTML=html;
+}
+function removeSku(i){rows.splice(i,1);renderRows();}
+
+// 默认示例数据
+addSku('榴莲千层',60,32,4.5);
+addSku('芒果慕斯',40,28,4.2);
+addSku('草莓裸蛋糕',30,40,4.7);
+addSku('提拉米苏',25,38,4.8);
+addSku('彩虹蛋糕',20,30,4.3);
+addSku('榴莲芝士',18,35,4.4);
+addSku('黑森林',15,25,3.8);
+addSku('瑞士卷',12,8,3.5);
+addSku('菠萝包',10,6,3.0);
+addSku('咸蛋黄酥',8,12,4.0);
+
+function collect(){
+  var out=[];
+  var n=rows.length;
+  for(var i=0;i<n;i++){
+    var sku={n:document.getElementById('r_n_'+i).value||'SKU'+(i+1),
+             q:+(document.getElementById('r_q_'+i).value||0),
+             p:+(document.getElementById('r_p_'+i).value||0),
+             s:+(document.getElementById('r_s_'+i).value||3)};
+    out.push(sku);
+  }
+  return out;
+}
+
+function calc(){
+  var list=collect();
+  var sort=document.getElementById('sort').value;
+  // 计算综合得分
+  list.forEach(function(s){
+    var profit=s.q*s.p;
+    s.profit=profit;
+    s.scoreNum=profit*Math.pow(s.s/5,1.5); // 评分加权
+  });
+  // 按选定排序
+  var sortKey=sort==='profit'?'profit':sort==='score'?'s':sort==='combo'?'scoreNum':'scoreNum';
+  var sortMap={profit:function(a,b){return b.profit-a.profit;},s:function(a,b){return b.s-a.s;},scoreNum:function(a,b){return b.scoreNum-a.scoreNum;}};
+  list.sort(sortMap[sortKey]);
+  // 总览
+  var n=list.length;
+  var totalQty=list.reduce(function(s,x){return s+x.q;},0);
+  var totalProfit=list.reduce(function(s,x){return s+x.profit;},0);
+  var activeCount=list.filter(function(x){return x.q>=5;}).length;
+  document.getElementById('o_n').textContent=n;
+  document.getElementById('o_qty').textContent=totalQty;
+  document.getElementById('o_gross').textContent='¥ '+totalProfit.toLocaleString();
+  document.getElementById('o_active').textContent=(n>0?activeCount/n*100:0).toFixed(0)+'% ('+activeCount+' 个)';
+  // 累计算 80/20
+  var cum=0;
+  var cls=[];
+  list.forEach(function(s,i){
+    cum+=s.profit;
+    var pct=totalProfit>0?cum/totalProfit*100:0;
+    cls.push({pct:pct});
+  });
+  var aIdx=[];var bIdx=[];var cIdx=[];
+  cls.forEach(function(c,i){
+    if(c.pct<=80)aIdx.push(i);
+    else if(c.pct<=95)bIdx.push(i);
+    else cIdx.push(i);
+  });
+  function mkTab(idx){
+    var h='<thead><tr><th>#</th><th>SKU</th><th>月销</th><th>毛利/个</th><th>总毛利</th><th>评分</th><th>累计</th></tr></thead><tbody>';
+    idx.forEach(function(i){
+      var s=list[i];
+      var c=cls[i].pct.toFixed(0)+'%';
+      h+='<tr><td>#'+(i+1)+'</td><td>'+s.n+'</td><td class="num">'+s.q+'</td><td class="num">¥'+s.p+'</td><td class="num">¥'+s.profit+'</td><td class="num">'+s.s+'</td><td class="num">'+c+'</td></tr>';
+    });
+    h+='</tbody>';
+    return h;
+  }
+  document.getElementById('o_a').innerHTML=aIdx.length?mkTab(aIdx):'<tr><td>无</td></tr>';
+  document.getElementById('o_b').innerHTML=bIdx.length?mkTab(bIdx):'<tr><td>无</td></tr>';
+  document.getElementById('o_c').innerHTML=cIdx.length?mkTab(cIdx):'<tr><td>无</td></tr>';
+  // 淘汰
+  var kill=list.filter(function(s){return s.q<5&&s.s<4;});
+  var kHtml='';
+  if(kill.length===0)kHtml='<div class="disc-hi disc-g"><b>✅ 没看到明显该淘汰的 SKU</b>——所有 SKU 月销 ≥5 或评分 ≥4。</div>';
+  else {
+    kHtml='<p style="margin:0 0 10px;font-size:13.5px;">以下 SKU 月销 &lt; 5 且评分 &lt; 4，建议直接淘汰：</p><ul style="padding-left:0;list-style:none;">';
+    kill.forEach(function(s){
+      kHtml+='<li style="padding:8px 12px;background:#fef2f2;border-left:4px solid #dc2626;border-radius:6px;margin:6px 0;"><b>'+s.n+'</b>（月销 '+s.q+' 个、评分 '+s.s+'、毛利 ¥'+s.profit+'）</li>';
+    });
+    kHtml+='</ul><p style="font-size:13px;color:var(--ink2);">淘汰节省：</p><ul style="padding-left:20px;font-size:13.5px;color:var(--ink2);"><li>每周少做 '+kill.length+' 个 SKU，节省操作时间</li><li>少备 '+kill.length+' 种原料，<b>挽回预计 ¥'+kill.reduce(function(s,x){return s+x.q*x.p*0.3;},0).toFixed(0)+'/月</b> 损耗</li><li>菜单更简洁，老客户点单更快</li></ul>';
+  }
+  document.getElementById('o_kill').innerHTML=kHtml;
+  document.getElementById('res').style.display='block';
+}
+
+// load
+try{
+  var s=JSON.parse(localStorage.getItem('caidan_state_v1')||'{}');
+  if(s.rows)rows=s.rows;
+  renderRows();
+}catch(e){}
+window.addEventListener('beforeunload',function(){
+  try{localStorage.setItem('caidan_state_v1',JSON.stringify({rows:collect()}));}catch(e){}
+});
+</script>
+</body>
+</html>
