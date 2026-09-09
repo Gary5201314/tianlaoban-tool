@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店商圈评价 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+select,input{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+select:focus,input:focus{outline:none;border-color:var(--o);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.bignum{font-size:48px;font-weight:900;color:var(--o);line-height:1;margin:6px 0;}
+.bignum.g{color:var(--g);} .bignum.y{color:var(--y);} .bignum.r{color:var(--red);}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;border-left:5px solid var(--o);}
+.disc-g{background:#ecfdf5;border-color:#16a34a;color:#166534;}
+.disc-y{background:#fef9c3;border-color:#ca8a04;color:#854d0e;}
+.disc-r{background:#fef2f2;border-color:#dc2626;color:#991b1b;}
+.dim{padding:14px;border:1px solid var(--line);border-radius:10px;margin:8px 0;}
+.dim h4{margin:0 0 8px;font-size:14.5px;color:var(--slate);display:flex;justify-content:space-between;}
+.slider{width:100%;}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.warn-list{margin:10px 0;padding:0;list-style:none;}
+.warn-list li{padding:8px 12px;background:#fef3c7;border-left:4px solid #f59e0b;border-radius:6px;margin:6px 0;font-size:13.5px;}
+.warn-list.r li{background:#fef2f2;border-color:#dc2626;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row{grid-template-columns:1fr;}.bignum{font-size:36px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>🗺️ 蛋糕店商圈评价</h1>
+  <div class="sub">选址的本质是选人不是选铺——先看懂这片地方适不适合蛋糕店</div>
+</div>
+
+<div class="disclaimer">⚠️ 商圈每片不同，本工具是<b>结构化打分 prompt</b>，不是市调报告。<br>🟢=框架（商圈评估）/ 🟡=行业经验 / 🔴=单点案例</div>
+
+<h2>① 选商圈类型</h2>
+<div class="block">
+<select id="cat" onchange="applyHints()">
+  <option value="community">社区底商（居民区，稳态）</option>
+  <option value="office">写字楼商圈（白领，午餐 + 下午茶）</option>
+  <option value="school">学校 / 车站（学生 / 旅客）</option>
+  <option value="mall">商业街 / 商场（高人流，高租金）</option>
+  <option value="county">县城乡镇（本地客，价格敏感）</option>
+</select>
+<p style="margin:14px 0 6px;color:var(--ink2);font-size:13px;" id="catHint">--</p>
+</div>
+
+<h2>② 7 维度打分（每项 1~10 分）</h2>
+
+<div id="dims"></div>
+
+<div class="block">
+<h4 style="margin:0 0 10px;">🚨 一票否决项</h4>
+<label style="display:flex;align-items:center;gap:8px;padding:6px 0;"><input type="checkbox" id="veto1" style="width:auto;"> 附近 1.5 km 内有 4 家以上蛋糕店在营/转让</label>
+<label style="display:flex;align-items:center;gap:8px;padding:6px 0;"><input type="checkbox" id="veto2" style="width:auto;"> 门口非机动车难停 / 步行 5 分钟无公交站</label>
+<label style="display:flex;align-items:center;gap:8px;padding:6px 0;"><input type="checkbox" id="veto3" style="width:auto;"> 街道/店面近期规划拆迁或改造</label>
+<label style="display:flex;align-items:center;gap:8px;padding:6px 0;"><input type="checkbox" id="veto4" style="width:auto;"> 整条街在关店转让（除你之外 3 家以上）</label>
+<p style="margin:4px 0 0;font-size:12.5px;color:var(--muted);">勾上任一即不通过——不用算分</p>
+</div>
+
+<button class="btn" onclick="calc()">📐 算商圈分</button>
+
+<div id="res" style="display:none;">
+
+<div class="block">
+<h3>商圈总分</h3>
+<div class="bignum" id="o_score">--</div>
+<p style="margin:4px 0 0;font-size:13px;" id="o_lvl">--</p>
+</div>
+
+<div class="block">
+<h3>分项</h3>
+<table id="o_dim"></table>
+</div>
+
+<div class="block">
+<h3>🚨 自动识别的雷区</h3>
+<ul class="warn-list" id="o_warn"></ul>
+</div>
+
+<div class="block">
+<h3>📌 决策</h3>
+<div id="o_verdict"></div>
+</div>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+var dimDefs=[
+  {id:'d1',n:'人流（实数）',w:15,d:'早 7~9 + 下午 3~5 + 晚 6~8 实际走过多少人'},
+  {id:'d2',n:'目标人群',w:15,d:'是否符合 25~45 女性 + 家庭 + 礼品 3 类核心客群'},
+  {id:'d3',n:'消费力',w:15,d:'人均可支配 / 同店客单价 60 元是否支撑得起'},
+  {id:'d4',n:'竞品强度',w:15,d:'同品类竞争压力（多=降分，少=加分）'},
+  {id:'d5',n:'动线便利',w:15,d:'路口位置 / 公交站距离 / 停车位 / 电动车位'},
+  {id:'d6',n:'社区氛围',w:15,d:'附近店稳定 3 年以上 / 居民回头率'},
+  {id:'d7',n:'租金合理',w:10,d:'同商圈同面积 / 同业态租金水平'},
+];
+
+var hints={
+  community:'🟡 社区蛋糕店核心是生日蛋糕+老人小孩，客单价低但回头率高。看消费力+老龄比例+儿童数量。',
+  office:'🟡 写字楼核心是下午茶+生日预订（同事送礼）。看白领密度+楼层租赁率+便当店生意。',
+  school:'🟡 学校核心是节日蛋糕+小甜点，价格敏感，回头弱。节假日单峰，平时低谷。',
+  mall:'🟡 商场核心是 IP 联名+礼盒+下午茶，客单价高，租金高。试吃动线是关键。',
+  county:'🟡 县城乡镇核心是本地口碑+人情客。便宜耐用是真理，网红款式不流行。'
+};
+
+function applyHints(){
+  document.getElementById('catHint').textContent=hints[document.getElementById('cat').value]||'';
+}
+
+(function buildDims(){
+  var html='';
+  dimDefs.forEach(function(d,i){
+    html+='<div class="dim"><h4>'+d.n+'<span style="font-size:12px;color:var(--muted);font-weight:400;">权重 '+d.w+'%</span></h4><div style="font-size:13px;color:var(--ink2);margin:4px 0 8px;">'+d.d+'</div><input class="slider" id="'+d.id+'" type="range" min="1" max="10" value="5" oninput="this.nextElementSibling.children[0].textContent=this.value"><div class="scale"><span>1 极差</span><span>5 普通</span><span>10 极佳</span></div><p style="margin:6px 0 0;font-size:13px;">当前：<b id="'+d.id+'_v">5</b> 分</p></div>';
+  });
+  document.getElementById('dims').innerHTML=html;
+})();
+applyHints();
+
+function F(id){return +(document.getElementById(id).value||0);}
+
+function calc(){
+  // 一票否决
+  var veto=[document.getElementById('veto1').checked,document.getElementById('veto2').checked,
+            document.getElementById('veto3').checked,document.getElementById('veto4').checked];
+  if(veto.some(function(v){return v;})){
+    document.getElementById('res').style.display='none';
+    document.getElementById('o_verdict').innerHTML='<div class="disc-hi disc-r" style="display:block;"><b>🛑 一票否决</b>：你勾了红线项。<br>这条店址直接放弃——不用再算分。</div>';
+    document.getElementById('res').style.display='block';
+    document.getElementById('o_score').textContent='×';
+    document.getElementById('o_score').className='bignum r';
+    document.getElementById('o_lvl').innerHTML='<span class="tag tag-r">不通过</span>';
+    return;
+  }
+  var total=0;
+  var rows='';
+  var wn=[];
+  dimDefs.forEach(function(d){
+    var s=F(d.id);
+    var w=s*d.w;
+    total+=w;
+    var tag=s<=3?'<span class="tag tag-r">差</span>':s<=6?'<span class="tag tag-y">普通</span>':'<span class="tag tag-g">好</span>';
+    rows+='<tr><td>'+d.n+'</td><td class="num">'+s+'</td><td class="num">'+(s*d.w).toFixed(0)+'</td><td>'+tag+'</td></tr>';
+    if(s<=3)wn.push(d.n+'：'+s+' 分，建议先解决这个再考虑');
+  });
+  document.getElementById('o_score').textContent=total.toFixed(0);
+  var cls=total>=75?'g':total>=55?'y':'r';
+  document.getElementById('o_score').className='bignum '+cls;
+  var lvl=cls==='g'?'<span class="tag tag-g">优</span> 健康商圈':cls==='y'?'<span class="tag tag-y">中</span> 普通商圈':'<span class="tag tag-r">差</span> 危险商圈';
+  document.getElementById('o_lvl').innerHTML=lvl;
+  document.getElementById('o_dim').innerHTML=rows+'<tr><th>总分</th><td></td><th class="num">'+total.toFixed(0)+'</th><td></td></tr>';
+  // warning
+  var wHtml='';
+  if(total<55)wn.push('总分偏低——这片地方本身不适合蛋糕店');
+  if(F('d1')<=4)wn.push('⚠ 人流偏低：早 7~9 + 下午 3~5 看不到人，路过率撑不起生意');
+  if(F('d4')>=7)wn.push('⚠ 竞品太强：同片区蛋糕店太多，新店会被分走流量');
+  if(F('d5')<=4)wn.push('⚠ 动线差：客户要绕路才能到你店，转化会大打折扣');
+  if(F('d2')<=4&&document.getElementById('cat').value==='office')wn.push('⚠ 写字楼商圈定位不对：写字楼附近居民/家庭少，订单结构可能偏单一');
+  if(wn.length===0)wn.push('✅ 没看出明显雷区，可以往下推进');
+  document.getElementById('o_warn').innerHTML=wn.map(function(x){return '<li class="'+(x.indexOf('⚠')>=0?'r':'')+'">'+x+'</li>';}).join('');
+  // verdict
+  var v='';
+  if(total>=75)v='<div class="disc-hi disc-g"><b>✅ 好商圈</b>：核心维度都不错。可以进入下一步——<a href="xuanzhi.html" style="color:#16a34a;">堂食选址打分器</a>挑具体铺位</div>';
+  else if(total>=55)v='<div class="disc-hi disc-y"><b>🟡 普通</b>：能用但要特别看短板——能不能提升不？如果差的是人流或竞品，建议换</div>';
+  else v='<div class="disc-hi disc-r"><b>🛑 慎入</b>：核心维度低于阈值，蛋糕店大概率养不活。换商圈</div>';
+  document.getElementById('o_verdict').innerHTML=v;
+  document.getElementById('res').style.display='block';
+}
+
+(function loadState(){
+  try{
+    var s=JSON.parse(localStorage.getItem('shangquan_state_v1')||'{}');
+    document.querySelectorAll('input[type=range]').forEach(function(el){if(s[el.id]){el.value=s[el.id];var v=document.getElementById(el.id+'_v');if(v)v.textContent=s[el.id];}});
+    for(var i=1;i<=4;i++){var k='veto'+i;if(s[k])document.getElementById(k).checked=true;}
+  }catch(e){}
+})();
+window.addEventListener('beforeunload',function(){
+  var s={};
+  document.querySelectorAll('input').forEach(function(el){if(el.id)s[el.id]=el.id.indexOf('veto')>=0?el.checked:el.value;});
+  try{localStorage.setItem('shangquan_state_v1',JSON.stringify(s));}catch(e){}
+});
+</script>
+</body>
+</html>
