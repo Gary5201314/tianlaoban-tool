@@ -163,7 +163,7 @@
   .stat-cell .sl{font-size:10.5px;color:var(--sub);margin-top:2px;}
   .plan-out{background:#fffaf5;border:1.5px solid #f3d7e0;border-radius:14px;padding:14px;font-size:13px;line-height:1.75;white-space:pre-wrap;word-break:break-word;}
   /* 论坛全屏层 */
-  .forum-layer{position:fixed;inset:0;background:var(--bg);z-index:60;overflow-y:auto;padding:0 0 80px;display:none;}
+  .forum-layer{position:fixed;inset:0;background:var(--bg);z-index:80;overflow-y:auto;padding:0 0 30px;display:none;}
   .forum-layer.open{display:block;}
   /* v7.1 我的页：菜单列表 */
   .me-menu{display:flex;align-items:center;gap:12px;padding:15px 6px;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px;font-weight:700;color:var(--ink);}
@@ -185,7 +185,7 @@
   .forum-post .fp-title{font-weight:800;font-size:14px;margin-bottom:4px;}
   .forum-post .fp-ex{font-size:12.5px;color:var(--sub);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   .forum-post .fp-meta{font-size:11px;color:var(--sub);margin-top:7px;display:flex;gap:12px;}
-  .forum-fab{position:fixed;right:18px;bottom:26px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(232,85,122,.4);cursor:pointer;z-index:61;border:none;}
+  .forum-fab{position:fixed;right:18px;bottom:26px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(232,85,122,.4);cursor:pointer;z-index:82;border:none;}
   .forum-compose{padding:16px;}
   .forum-compose textarea,.forum-compose input{width:100%;margin-bottom:10px;}
   .forum-reply{display:flex;gap:8px;padding:10px 16px;}
@@ -337,6 +337,39 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
 .ring{background:conic-gradient(var(--brand2) 0deg,#f0e4d2 0deg);}
 #bakeryAiKbBtn{background:linear-gradient(135deg,var(--brand),var(--brand2))!important;}
 #updToast{background:linear-gradient(135deg,#7a5233,#a9763f)!important;box-shadow:0 8px 22px rgba(122,82,51,.45)!important;}
+
+/* ===================== v9.1 导航收敛：私域 社群 知识库 我的（4 档）＋智囊首页 hero 重点位 ===================== */
+.tabbar{background:rgba(255,252,248,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  padding:9px 2px 11px;box-shadow:0 -8px 30px rgba(86,60,36,.10);z-index:40;border-top:1px solid rgba(230,214,190,.5);}
+.tab{flex:1;text-align:center;color:#a99a8b;font-size:10.5px;font-weight:700;padding:3px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;position:relative;-webkit-tap-highlight-color:transparent;}
+.tab .ti{font-size:22px;line-height:1;transition:transform .15s,color .15s;}
+.tab .t-lb{font-size:10px;line-height:1;letter-spacing:.5px;}
+.tab.on{color:#7a5233;}
+.tab.on .ti{transform:translateY(-1px);}
+.tab.on::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:24px;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,#7a5233,#c99a5e);}
+/* —— 智囊首页 hero 卡：以形态与色彩成为首页第一焦点（不用角标、不加红点） —— */
+.ba-hero{margin-bottom:16px;border-radius:22px;position:relative;cursor:pointer;color:#fff;overflow:hidden;
+  background:linear-gradient(135deg,#3f2a1a 0%,#6f4a2f 52%,#9a6b3a 100%);
+  box-shadow:0 16px 36px rgba(90,58,28,.34),inset 0 1px 0 rgba(255,255,255,.18);
+  padding:18px 18px 15px;}
+.ba-hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#e8c48c,#9a6b3a);opacity:.9;}
+.ba-hero::after{content:"";position:absolute;right:-46px;top:-52px;width:190px;height:190px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,224,170,.20),transparent 66%);pointer-events:none;}
+.ba-hd{display:flex;align-items:center;gap:13px;position:relative;z-index:1;}
+.ba-ic{width:54px;height:54px;border-radius:18px;background:rgba(255,255,255,.13);border:1px solid rgba(255,235,200,.38);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  box-shadow:0 8px 18px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.25);}
+.ba-tx{flex:1;}
+.ba-t1{font-size:19px;font-weight:900;letter-spacing:1px;text-shadow:0 1px 8px rgba(0,0,0,.22);}
+.ba-t2{font-size:12px;color:rgba(255,255,255,.82);margin-top:3px;letter-spacing:.2px;}
+.ba-go{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-size:19px;color:#ffe6bd;font-weight:900;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);}
+.ba-chips{display:flex;gap:8px;margin-top:14px;overflow-x:auto;position:relative;z-index:1;scrollbar-width:none;padding-bottom:2px;}
+.ba-chips::-webkit-scrollbar{display:none;}
+.ba-chip{flex:0 0 auto;background:rgba(255,250,242,.96);color:#5f3d1e;border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:700;white-space:nowrap;
+  box-shadow:0 4px 10px rgba(0,0,0,.14);border:none;cursor:pointer;}
+.ba-chip:active{transform:scale(.95);}
+/* 开店工具全屏层内容排版 */
+#toolLayer .muted{color:#8a7560;}
 </style>
 </head>
 <body data-page-node-id="LDQruYy76MAMSvLyjyC967">
@@ -348,6 +381,19 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
 
   <!-- ============ 模块一：私域运营 ============ -->
   <div data-page-node-id="F1FPURVy3sRN591CpfFEaL" class="screen" id="s1">
+    <!-- v9.1 烘焙智囊 · 首页首屏 hero 卡：用色彩/层级突出，不做角标 -->
+    <div class="ba-hero" id="baHero">
+      <div class="ba-hd">
+        <div class="ba-ic">🧠</div>
+        <div class="ba-tx">
+          <div class="ba-t1">烘焙智囊</div>
+          <div class="ba-t2">开店难题开口问 · 免费 AI 秒回 · 可语音</div>
+        </div>
+        <div class="ba-go">›</div>
+      </div>
+      <div class="ba-chips" id="baHeroChips"></div>
+    </div>
+
     <div data-page-node-id="pnj0IDcuzAzJTSRuFMjFed" class="card">
       <label data-page-node-id="ghC4dfSY15frRfQufkgBvo" class="upload" id="upLabel">
         <div data-page-node-id="eU3E20KHoKhLyBIpZdM12m" class="ic">＋</div>
@@ -460,9 +506,9 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
   <div data-page-node-id="Set5creen" class="screen hidden" id="s6">
     <!-- ============ v7.1 我的页：3 行菜单，点进去看详情 ============ -->
     <div class="card" style="padding:4px 16px">
-      <div class="me-menu" id="menuForum">
-        <span class="mi">📚</span>
-        <span class="mt">知识库<span class="msub">开店求助圈 · 遇到问题发帖，老板们帮你解答</span></span>
+      <div class="me-menu" id="menuTools">
+        <span class="mi">🛠️</span>
+        <span class="mt">开店工具<span class="msub">17 件检测工具 · 救命 / 体检 / 筹备，离线可用</span></span>
         <span class="arr">›</span>
       </div>
       <div class="me-menu" id="menuAccount">
@@ -548,25 +594,11 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
     </div>
   </div>
 
-  <!-- ============ 开店工具（蛋糕店老板自助检测工具箱 · 17 件） ============ -->
-  <div data-page-node-id="toolS4" class="screen hidden" id="s4">
-    <div class="card">
-      <h3><span class="em">🛠️</span>开店工具</h3>
-      <div class="muted">17 件蛋糕店老板专用检测工具 · 出问题能用、筹备期能用 · 离线可用</div>
-    </div>
-
-    <!-- v7.8 烘焙智囊（重点功能，语音提问） -->
-    <div class="card" id="bakeryAiCard" style="background:linear-gradient(135deg,#fff0f4,#fff6e8);border:2px solid var(--brand);cursor:pointer">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="font-size:40px;line-height:1">🧠</div>
-        <div style="flex:1">
-          <div style="font-size:16px;font-weight:800;color:var(--brand);display:flex;align-items:center;gap:6px">烘焙智囊 · 语音问答<span class="badge" style="background:var(--brand);color:#fff">🔥 重点</span></div>
-          <div class="muted" style="margin-top:3px">用你自己的知识库，老板开口问，AI 秒答烘焙难题</div>
-          <div style="margin-top:6px;font-size:11.5px;color:var(--sub)">🎙️ 支持语音提问 · 💬 打字也可以 · 配方/工艺/经营一问就答</div>
-        </div>
-        <div style="color:var(--brand);font-size:22px">›</div>
-      </div>
-    </div>
+  <!-- ============ 开店工具：全屏工具箱层（v9.1 从「我的」进入 · 原 s4 独立 tab 已废除） ============ -->
+  <div class="forum-layer" id="toolLayer">
+    <div class="forum-hd"><span class="bk" id="toolBackBtn">←</span><span class="ft">🛠️ 开店工具</span><span class="fg" style="visibility:hidden">·</span></div>
+    <div style="padding:6px 14px 40px">
+      <div class="muted" style="padding:10px 2px 14px;line-height:1.7">17 件蛋糕店老板专用检测工具 · 出问题能用、筹备期能用 · 离线可用</div>
 
     <div class="tool-section-hd">🚨 救命用（出问题才查）</div>
     <div class="tool-grid">
@@ -600,13 +632,14 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
     <div class="card" style="text-align:center;color:var(--sub);font-size:12px;margin-top:14px">
       数据只存你手机本地（localStorage） · 关闭页面不丢失
     </div>
+    </div>
   </div>
 
-  <div data-page-node-id="bRtpMIYGvigomlw7omqtAd" class="tabbar">
-    <div data-page-node-id="dI10oXnACEf9pZl6hX2YNk" class="tab on" data-s="s1"><span data-page-node-id="W98G4OcotBxxU7fgVaeICN" class="ti">📸</span>私域</div>
-    <div data-page-node-id="jdvKsXKimGjfEH8pJk2Dc2" class="tab" data-s="s2"><span data-page-node-id="B4SUUt6QJWTHnUeqZ5I2RM" class="ti">👥</span>社群</div>
-    <div class="tab" data-s="s4"><span class="ti">🛠️</span>开店工具</div>
-    <div class="tab" data-s="s6"><span class="ti">👤</span>我的</div>
+  <div class="tabbar">
+    <div class="tab on" data-s="s1"><span class="ti">📸</span><span class="t-lb">私域</span></div>
+    <div class="tab" data-s="s2"><span class="ti">👥</span><span class="t-lb">社群</span></div>
+    <div class="tab" id="tabKb"><span class="ti">📚</span><span class="t-lb">知识库</span></div>
+    <div class="tab" data-s="s6"><span class="ti">👤</span><span class="t-lb">我的</span></div>
   </div>
 </div>
 
@@ -948,7 +981,7 @@ async function callLLM(systemPrompt,userPrompt,maxTokens){
 $$(".tab").forEach(t=>t.onclick=()=>{
   $$(".tab").forEach(x=>x.classList.remove("on"));
   t.classList.add("on");
-  ["s1","s2","s4","s6"].forEach(id=>$("#"+id).classList.add("hidden"));
+  ["s1","s2","s6"].forEach(id=>$("#"+id).classList.add("hidden"));
   $("#"+t.dataset.s).classList.remove("hidden");
   // 切到设置时刷新激活卡按钮绑定
   if(t.dataset.s === 's6'){ renderSettingLic(); }
@@ -1606,7 +1639,10 @@ function closeForumLayers(){
   $$(".forum-layer").forEach(l=>l.classList.remove("open"));
   document.body.style.overflow="";
 }
-$("#menuForum").onclick=()=>{openForumLayer("#forumLayer");renderForumCats();loadForumList();};
+/* v9.1 底部导航：知识库 tab = 全屏求助圈；「我的」菜单：开店工具全屏工具箱 */
+$("#tabKb").onclick=()=>{ openForumLayer("#forumLayer");renderForumCats();loadForumList(); };
+$("#menuTools").onclick=()=>{ openForumLayer("#toolLayer"); };
+$("#toolBackBtn").onclick=closeForumLayers;
 $("#menuAccount").onclick=()=>{openForumLayer("#meAccountLayer");};
 $("#meAccountBack").onclick=closeForumLayers;
 $("#menuAbout").onclick=()=>{openForumLayer("#meAboutLayer");};
@@ -2283,7 +2319,24 @@ function baSaveHistory(){
 }
 
 /* 打开/关闭对话层 */
-$("#bakeryAiCard").onclick=()=>{ baOpen(); };
+$("#baHero").onclick=()=>{ baOpen(); };
+/* v9.1 智囊 hero 卡：快捷提问 chips（点击即问，突出但不打扰） */
+(function(){
+  const box=document.getElementById('baHeroChips');
+  if(!box) return;
+  const qs=[
+    ['戚风蛋糕为什么会塌陷回缩？','戚风塌陷怎么办'],
+    ['淡奶油打不发是怎么回事？','淡奶油打不发'],
+    ['蛋糕怎么定价？','蛋糕怎么定价'],
+    ['私房烘焙需要办什么证？','私房要办什么证']
+  ];
+  qs.forEach(([q,lb])=>{
+    const b=document.createElement('button');
+    b.className='ba-chip'; b.textContent=lb;
+    b.addEventListener('click',ev=>{ ev.stopPropagation(); baOpen(); const inp=$("#bakeryAiInput"); if(inp) inp.value=q; baAsk(q); });
+    box.appendChild(b);
+  });
+})();
 $("#bakeryAiBack").onclick=()=>{ $("#bakeryAiLayer").classList.remove("open"); };
 function baOpen(){
   $("#bakeryAiLayer").classList.add("open");
