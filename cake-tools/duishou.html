@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店竞争对手分析 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;--p:#a21caf;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+h3{font-size:15px;margin:14px 0 8px;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus,select:focus{outline:none;border-color:var(--o);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.dim{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:8px 0;}
+.dim h4{margin:0 0 4px;font-size:14.5px;display:flex;justify-content:space-between;color:var(--slate);}
+.dim p{margin:0 0 4px;font-size:13px;color:var(--ink2);}
+.bignum{font-size:48px;font-weight:900;color:var(--o);line-height:1;margin:6px 0;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;border-left:5px solid var(--o);}
+.disc-g{background:#ecfdf5;border-color:#16a34a;color:#166534;}
+.disc-y{background:#fef9c3;border-color:#ca8a04;color:#854d0e;}
+.disc-r{background:#fef2f2;border-color:#dc2626;color:#991b1b;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;}
+ul.checklist{padding-left:0;list-style:none;margin:10px 0;}
+ul.checklist li{padding:9px 12px;border-bottom:1px solid #f1f5f9;font-size:14px;display:flex;gap:9px;}
+ul.checklist li::before{content:"✓";color:var(--g);font-weight:900;flex-shrink:0;}
+ul.checklist li b{display:block;}
+ul.checklist li small{color:var(--ink2);}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row{grid-template-columns:1fr;}.bignum{font-size:36px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>⚔️ 蛋糕店竞争对手分析</h1>
+  <div class="sub">旁边那家店太强，能不能开？打得赢就打，打不赢就走</div>
+</div>
+
+<div class="disclaimer">⚠️ 此分析基于用户视角（蹲点+大众点评可见信息）。<br>🟢=框架（竞争分析 5 力）/ 🟡=行业经验 / 🔴=主观判断</div>
+
+<h2>① 选最碍事那家</h2>
+<div class="block">
+<div class="row">
+  <div><label>对手店名</label><input id="cp_name" type="text" value="" placeholder="例：幸福西饼某分店"></div>
+  <div><label>距离你店</label><input id="cp_dist" type="number" value="500" placeholder="米"></div>
+</div>
+</div>
+
+<h2>② 8 维度打分（1~10）</h2>
+
+<div id="dims"></div>
+
+<button class="btn" onclick="calc()">⚔️ 分析对手</button>
+
+<div id="res" style="display:none;">
+
+<div class="block">
+<h3>对手实力评分</h3>
+<div class="bignum" id="o_score">--</div>
+<p style="margin:4px 0 0;font-size:14px;" id="o_lvl">--</p>
+</div>
+
+<div class="block">
+<h3>对手画像</h3>
+<table id="o_dim"></table>
+</div>
+
+<div class="block">
+<h3>命门（弱项）</h3>
+<div id="o_weak"></div>
+</div>
+
+<div class="block">
+<h3>📌 决策</h3>
+<div id="o_verdict"></div>
+</div>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+var dimDefs=[
+  {id:'d1',n:'位置',d:'主干道/路口/标志性建筑'},
+  {id:'d2',n:'门头醒目',d:'招牌大、灯光亮、店招清晰'},
+  {id:'d3',n:'客群匹配',d:'客群与你目标人群重叠度'},
+  {id:'d4',n:'产品款式',d:'SKU 丰富度 + 网红款覆盖'},
+  {id:'d5',n:'口味口碑',d:'大众点评 / 美团评分 4.5 以上？'},
+  {id:'d6',n:'价格定位',d:'客单价与你差异'},
+  {id:'d7',n:'包装/视觉',d:'店铺形象与产品视觉'},
+  {id:'d8',n:'营销活跃度',d:'小红书/抖音/微信群更新频率'},
+];
+
+(function buildDims(){
+  var html='';
+  dimDefs.forEach(function(d){
+    html+='<div class="dim"><h4>'+d.n+'<span style="font-size:11.5px;color:var(--muted);font-weight:400;" id="'+d.id+'_v">5 分</span></h4><p>'+d.d+'</p><input class="slider" id="'+d.id+'" type="range" min="1" max="10" value="5" oninput="this.parentElement.querySelector(\'span\').textContent=this.value+\' 分\'"></div>';
+  });
+  document.getElementById('dims').innerHTML=html;
+})();
+
+function F(id){return +(document.getElementById(id).value||0);}
+
+function calc(){
+  var score=0;
+  var rows='';
+  var weak=[];
+  var strong=[];
+  dimDefs.forEach(function(d){
+    var s=F(d.id);
+    score+=s;
+    if(s>=8)strong.push(d);
+    if(s<=4)weak.push(d);
+    rows+='<tr><td>'+d.n+'</td><td class="num">'+s+'</td></tr>';
+  });
+  document.getElementById('o_score').textContent=score;
+  var cls=score>=65?'r':score>=45?'y':'g';
+  document.getElementById('o_score').className='bignum '+(cls==='r'?'r':cls==='y'?'y':'g');
+  document.getElementById('o_score').style.color=(cls==='r'?'#dc2626':cls==='y'?'#ca8a04':'#16a34a');
+  document.getElementById('o_lvl').innerHTML=
+    cls==='r'?'<span class="tag tag-r">真老虎</span> 实力比你强不少' :
+    cls==='y'?'<span class="tag tag-y">势均力敌</span> 你有机会' :
+    '<span class="tag tag-g">纸老虎</span> 其实没你想的那么强';
+  document.getElementById('o_dim').innerHTML=rows+'<tr><th>总分（80 满）</th><td class="num">'+score+'</td></tr>';
+  // 命门
+  var wHtml='<p style="margin:0 0 8px;font-size:13px;color:var(--ink2);">下面是对手低于 5 分的维度——就是你的切入点</p>';
+  if(weak.length===0) wHtml+='<div class="disc-hi disc-y"><b>无明显弱项</b>——对手全维度都 5 分以上，难打。继续观察 1 个月看是否有差评漏出。</div>';
+  else {
+    var wActs={
+      d1:'对手位置虽好但客户绕路才到。你做"门口截流"：店招加 LED、外摆试吃、门口放价目表。',
+      d2:'对手门头不显眼。你做"沿街截流"：超长灯箱+亮色招牌，把客户眼球先抢到你这。',
+      d3:'对手客群不精准。你做"定向切入"：专攻其中一种，比如做"生日蛋糕专家"或"儿童蛋糕专家"。',
+      d4:'对手产品 SKU 旧。你做"网红担当"：每周 2 款小红书新品（卡通 IP / 慕斯 / 茶饮风）',
+      d5:'对手口味差。你做"试吃封杀"：门口大方试吃，让客户先尝再选，单次不用切大块。',
+      d6:'对手价格不符。你做"差异化定价"：要么更便宜（引流款 + 主利润款），要么更精品（包装升级）。',
+      d7:'对手包装差。你做"开盒惊喜"：精美包装 + 手写卡片，朋友圈裂变主要靠这一刻。',
+      d8:'对手营销弱。你做"内容覆盖"：抖音 / 小红书疯狂发，把流量导到店。'
+    };
+    weak.forEach(function(w){
+      wHtml+='<ul class="checklist"><li><div><b>'+w.n+'（'+w.d+'）</b><small>'+wActs[w.id]+'</small></div></li></ul>';
+    });
+  }
+  document.getElementById('o_weak').innerHTML=wHtml;
+  // verdict
+  var v='';
+  if(score>=65)v='<div class="disc-hi disc-r"><b>🛑 别冲动开</b>：对手是真老虎。建议先观察 6 个月以上等他犯错，或在他 1.5 km 之外开店规避直接竞争</div>';
+  else if(score>=45)v='<div class="disc-hi disc-y"><b>🟡 谨慎</b>：势均力敌。开的话要把上面命门列的招全做到，少一个都可能被压着打</div>';
+  else v='<div class="disc-hi disc-g"><b>✅ 可开</b>：他是纸老虎。开业前 3 个月集中火力把上面命门对应的招做到位</div>';
+  document.getElementById('o_verdict').innerHTML=v;
+  document.getElementById('res').style.display='block';
+}
+
+// load
+try{
+  var s=JSON.parse(localStorage.getItem('duishou_state_v1')||'{}');
+  Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el&&s[k]!==undefined){el.value=s[k];var v=document.getElementById(k+'_v');if(v)v.textContent=s[k]+' 分';}});
+}catch(e){}
+window.addEventListener('beforeunload',function(){
+  var s={};
+  document.querySelectorAll('input').forEach(function(el){if(el.id)s[el.id]=el.value;});
+  try{localStorage.setItem('duishou_state_v1',JSON.stringify(s));}catch(e){}
+});
+</script>
+</body>
+</html>
