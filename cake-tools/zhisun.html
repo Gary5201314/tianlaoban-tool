@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店治损 · 找亏损黑洞 | 自查宝盒</title>
+<meta name="description" content="蛋糕店原料过期、半成品损耗、报废率——看不见的亏最要命。这个工具帮你定位损耗黑洞。"
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#ea580c;--p:#a21caf;--bl:#2563eb;
+--warn:#b91c1c;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:28px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:19px;margin:30px 0 12px;color:var(--slate);font-weight:900;}
+h3{font-size:16px;margin:18px 0 8px;color:var(--slate);font-weight:700;}
+p{margin:8px 0;}
+.lede{color:var(--ink2);font-size:14.5px;margin-bottom:18px;}
+.hero{background:linear-gradient(135deg,#7c2d12,#ea580c);color:#fff7ed;padding:28px 22px;border-radius:16px;margin-bottom:24px;position:relative;overflow:hidden;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.hero::after{content:"💸";position:absolute;right:-20px;bottom:-40px;font-size:160px;opacity:.18;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disclaimer b{color:var(--warn);}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;}
+.loss-cat{border-left:5px solid var(--o);background:#fff;}
+.loss-cat h3{margin-top:0;}
+.loss-cat.s1{border-color:var(--o);}
+.loss-cat.s2{border-color:var(--y);}
+.loss-cat.s3{border-color:var(--p);}
+.loss-cat.s4{border-color:var(--bl);}
+.loss-cat.s5{border-color:var(--red);}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);display:block;margin:4px 0 4px;}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus,select:focus{outline:none;border-color:var(--o);}
+.btn{display:inline-block;padding:13px 22px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;width:100%;margin:8px 0;}
+.btn:hover{background:#c2410c;}
+.btn-ghost{background:#fff;color:var(--ink2);border:1px solid var(--line);}
+.result{display:none;margin-top:18px;}
+.result.on{display:block;}
+.bignum{font-size:42px;font-weight:900;color:var(--red);line-height:1;margin:6px 0;}
+.bignum.ok{color:var(--g);}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;margin-right:6px;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+.tag-b{background:#dbeafe;color:#1e40af;}
+.bar{height:14px;border-radius:7px;background:#f1f5f9;overflow:hidden;margin:8px 0;}
+.bar>div{height:100%;transition:width .4s;}
+.checklist{list-style:none;padding:0;margin:10px 0;}
+.checklist li{padding:9px 12px;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;gap:9px;font-size:14.5px;}
+.checklist li:last-child{border:0;}
+.checklist li::before{content:"✓";color:var(--g);font-weight:900;flex-shrink:0;margin-top:1px;}
+.checklist li b{display:block;color:var(--slate);font-size:14px;}
+.checklist li small{color:var(--ink2);}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px;}
+table th,table td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:13px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.warn-box{background:#fef2f2;border:2px solid var(--red);border-radius:10px;padding:14px 16px;margin:14px 0;}
+.warn-box b{color:var(--red);}
+.gauge{display:flex;gap:4px;margin:8px 0;}
+.gauge .s{flex:1;height:8px;border-radius:4px;background:#e5e7eb;}
+.legend{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+.dot-red{background:#dc2626;} .dot-y{background:#ca8a04;} .dot-g{background:#16a34a;}
+.hint{font-size:12.5px;color:var(--muted);margin-top:4px;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row,.row3{grid-template-columns:1fr;}.bignum{font-size:36px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>蛋糕店治损 · 找亏损黑洞</h1>
+  <div class="sub">看不见的浪费最要命——先治大黑洞，别在小钱上浪费</div>
+</div>
+
+<p class="lede">蛋糕店的"看不见的亏"通常占营业额 5~12%。原料过期、半成品报废、试吃浪费、退单、员工偷吃——这一笔笔都不大，但加起来能压垮一家店。</p>
+
+<div class="disclaimer">⚠️ <b>经验法则，没同行评议论文支撑</b>。每家店情况不同，数字只能参考不能照抄。<br>🟢 漏斗/AIDA 框架有学术支撑｜🟡 行业经验共识｜🔴 单店案例不可推广</div>
+
+<h2>① 填店的基本面（先估算，再分黑洞算）</h2>
+
+<div class="block">
+<h3>店基本信息</h3>
+<div class="row">
+  <div><label>月营业额（元）</label><input id="mr" type="number" value="80000" min="0"></div>
+  <div><label>净利率目标（%）</label><input id="tar" type="number" value="18" min="0" max="50"></div>
+</div>
+</div>
+
+<h2>② 5 大黑洞自查（按种类填损耗金额，单位：元/月）</h2>
+
+<div class="loss-cat s1 block">
+<h3>🥚 ① 原料过期报废（奶油、鸡蛋、面粉、巧克力、水果）</h3>
+<div class="row3">
+  <div><label>每周报废次数</label><input id="d1c" type="number" value="3" min="0"></div>
+  <div><label>每次平均金额（元）</label><input id="d1a" type="number" value="80" min="0"></div>
+  <div><label>这种浪费每月合计</label><input id="d1m" type="number" value="0" placeholder="自动算出" readonly style="background:#f8fafc;"></div>
+</div>
+<div class="hint">🟡 行业经验：原料报废占原料成本 5%~10%。超 10% 说明订货量没算准或 SKU 太多。</div>
+</div>
+
+<div class="loss-cat s2 block">
+<h3>🍰 ② 半成品报废（提前做的蛋糕、丹麦、慕斯底）</h3>
+<div class="row3">
+  <div><label>每周报废个数</label><input id="d2c" type="number" value="5" min="0"></div>
+  <div><label>每个成本（元）</label><input id="d2a" type="number" value="35" min="0"></div>
+  <div><label>这种浪费每月合计</label><input id="d2m" type="number" value="0" readonly style="background:#f8fafc;"></div>
+</div>
+<div class="hint">🟡 半成品报废的真正原因常常是当日销量预测偏高。蛋糕店判断逻辑：连续 3 天报废率超 12%，就必须降产量。</div>
+</div>
+
+<div class="loss-cat s3 block">
+<h3>🍫 ③ 试吃 + 员工餐 + 偷吃</h3>
+<div class="row3">
+  <div><label>每天试吃消耗（元）</label><input id="d3c" type="number" value="30" min="0"></div>
+  <div><label>员工餐/偷吃折算（元/天）</label><input id="d3a" type="number" value="40" min="0"></div>
+  <div><label>每月合计（元）</label><input id="d3m" type="number" value="0" readonly style="background:#f8fafc;"></div>
+</div>
+<div class="hint">🟡 行业共识：试吃合理比例 ≤ 营业额的 1%。员工餐/偷吃占 2% 以上就是管理黑洞，没人盯就是无底洞。</div>
+</div>
+
+<div class="loss-cat s4 block">
+<h3>📦 ④ 包装 + 切割 + 配送 + 退单损耗</h4>
+<div class="row3">
+  <div><label>每月包装报废（元）</label><input id="d4c" type="number" value="200" min="0"></div>
+  <div><label>退单/赔偿（元/月）</label><input id="d4a" type="number" value="150" min="0"></div>
+  <div><label>每月合计（元）</label><input id="d4m" type="number" value="0" readonly style="background:#f8fafc;"></div>
+</div>
+<div class="hint">🟡 包装报废大头是尺寸下错单。退单大头是配送超时或生日蛋糕迟到——这点要写到 SOP 里罚款约束骑手。</div>
+</div>
+
+<div class="loss-cat s5 block">
+<h3>🔥 ⑤ 设备折旧 + 报废 + 重新制作</h3>
+<div class="row3">
+  <div><label>每月制作失败（烤焦、塌腰等）</label><input id="d5c" type="number" value="200" min="0"></div>
+  <div><label>设备维修分摊（元/月）</label><input id="d5a" type="number" value="150" min="0"></div>
+  <div><label>每月合计（元）</label><input id="d5m" type="number" value="0" readonly style="background:#f8fafc;"></div>
+</div>
+<div class="hint">🟡 蛋糕店烤箱折旧是大头。塌腰/烤焦主要是醒发时间和温度没学好——这是培训成本（隐性），比材料贵。</div>
+</div>
+
+<button class="btn" onclick="compute()">📊 算总账，找黑洞</button>
+
+<div class="result" id="result">
+
+<h2>🩺 治损体检报告</h2>
+
+<div class="block">
+<h3>总损耗占比</h3>
+<div class="bignum" id="pctTotal">--</div>
+<div class="legend"><span class="dot dot-g"></span>&lt;5% 健康 &nbsp; <span class="dot dot-y"></span>5~10% 中度 &nbsp; <span class="dot dot-red"></span>&gt;10% 警戒</div>
+<div class="bar"><div id="barTotal" style="background:var(--g);width:0"></div></div>
+</div>
+
+<div class="block">
+<h3>五大黑洞排序（最多先治哪个）</h3>
+<table>
+<thead><tr><th>#</th><th>黑洞</th><th class="num">金额（元/月）</th><th class="num">占比</th><th>等级</th></tr></thead>
+<tbody id="rankTable"></tbody>
+</table>
+</div>
+
+<div class="block">
+<h3>💰 治好能省多少钱（按保守 30% 改善）</h3>
+<div class="bignum ok" id="saveMoney">--</div>
+<p style="margin:0;font-size:14px;color:var(--ink2);">这笔钱直接回到你的净利润里，不增加任何成本</p>
+</div>
+
+<div class="block">
+<h3>🎯 按你的大黑洞定制整改清单</h3>
+<div id="actions"></div>
+</div>
+
+<div class="block">
+<h3>📈 月度复盘节奏</h3>
+<table>
+<thead><tr><th>频率</th><th>做什么</th></tr></thead>
+<tbody>
+<tr><td>每周一</td><td>盘点上周损耗品类+金额，超阈值报警</td></tr>
+<tr><td>每月 1 号</td><td>把上五大黑洞填一次，算浪费率</td></tr>
+<tr><td>每季度</td><td>看趋势，连续 3 月占比上升就要换 SOP</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="disclaimer">⚠️ 本工具是<b>自助排查 prompt</b>，不是诊断仪器。复杂情况（高损耗+低毛利组合）建议请烘焙行业顾问面诊。<br>🟢=框架层（漏斗）/ 🟡=经验共识 / 🔴=单店案例</div>
+
+<button class="btn btn-ghost" onclick="clearAll()">↺ 清空重新测</button>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+/* ── 自动算小计 ─────────────────────────────────── */
+function fnum(id){var v=parseFloat(document.getElementById(id).value)||0;return v;}
+function update(){
+  // d1 = 每周次数 × 每次金额 × 4 周
+  document.getElementById('d1m').value = (fnum('d1c')*fnum('d1a')*4).toFixed(0);
+  // d2 = 每周个数 × 每个成本 × 4 周
+  document.getElementById('d2m').value = (fnum('d2c')*fnum('d2a')*4).toFixed(0);
+  // d3 = 每天两项 × 30 天
+  document.getElementById('d3m').value = ((fnum('d3c')+fnum('d3a'))*30).toFixed(0);
+  // d4 = 包装 + 退单（直接就是月度）
+  document.getElementById('d4m').value = (fnum('d4c')+fnum('d4a')).toFixed(0);
+  // d5 = 制作失败 + 维修
+  document.getElementById('d5m').value = (fnum('d5c')+fnum('d5a')).toFixed(0);
+}
+['d1c','d1a','d2c','d2a','d3c','d3a','d4c','d4a','d5c','d5a'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.addEventListener('input',update);
+});
+update();
+
+/* ── 核心算法（纯函数） ─────────────────────────── */
+function compute(inp){
+  var cats=[
+    {id:1,name:'原料过期报废',amount:inp.d1m},
+    {id:2,name:'半成品报废',amount:inp.d2m},
+    {id:3,name:'试吃/员工餐/偷吃',amount:inp.d3m},
+    {id:4,name:'包装/退单/赔偿',amount:inp.d4m},
+    {id:5,name:'制作失败/设备折旧',amount:inp.d5m},
+  ];
+  var total=cats.reduce(function(s,c){return s+c.amount;},0);
+  // 按金额排序
+  cats.sort(function(a,b){return b.amount-a.amount;});
+  var pct=inp.mr>0?total/inp.mr*100:0;
+  var save=total*0.3; // 保守 30% 改善空间（行业经验，无论文支撑）
+  return {total:total,pct:pct,cats:cats,save:save,mr:inp.mr};
+}
+
+function lvlOf(pct){return pct<5?'g':pct<=10?'y':'r';}
+function pctStr(p){return p.toFixed(1)+'%';}
+
+function computeRun(){
+  var inp={
+    mr:fnum('mr'),
+    tar:fnum('tar'),
+    d1m:fnum('d1m'), d2m:fnum('d2m'), d3m:fnum('d3m'), d4m:fnum('d4m'), d5m:fnum('d5m')
+  };
+  var r=compute(inp);
+  var lvl=lvlOf(r.pct);
+  // 大数字
+  document.getElementById('pctTotal').textContent=pctStr(r.pct);
+  document.getElementById('pctTotal').className='bignum '+(lvl==='g'?'ok':'');
+  var barPct=Math.min(r.pct,30)/30*100;
+  var barColor=lvl==='g'?'#16a34a':lvl==='y'?'#ca8a04':'#dc2626';
+  document.getElementById('barTotal').style.width=barPct+'%';
+  document.getElementById('barTotal').style.background=barColor;
+  // 排序表
+  var html='';
+  r.cats.forEach(function(c,i){
+    var p=r.total>0?c.amount/r.total*100:0;
+    var tg=p>40?'r':p>20?'y':'g';
+    var tag=p>40?'<span class="tag tag-r">大黑洞</span>':p>20?'<span class="tag tag-y">关注</span>':'<span class="tag tag-g">正常</span>';
+    html+='<tr><td>#'+(i+1)+'</td><td>'+c.name+'</td><td class="num">'+c.amount.toFixed(0)+'</td><td class="num">'+p.toFixed(1)+'%</td><td>'+tag+'</td></tr>';
+  });
+  document.getElementById('rankTable').innerHTML=html;
+  // 省钱
+  document.getElementById('saveMoney').textContent='¥ '+r.save.toFixed(0)+' /月';
+  // 整改清单
+  var top=r.cats[0];
+  var actMap={
+    1:'<ul class="checklist"><li><b>用 7 天销量预测订货量</b><small>把每天做的 SKU 销量记 7 天，预测明天做多少。降到上一天的 90% 起步。</small></li><li><b>易过期原料先进先出</b><small>奶油、鸡蛋入库贴日期标签，最近到的放最里面用。</small></li><li><b>每周对账</b><small>每周一盘点上周末过期品，记到本子上，连续 3 周同一种原料过期就调整订货量。</small></li></ul>',
+    2:'<ul class="checklist"><li><b>用历史数据定产量</b><small>周一~周五做上个月同时段销量的 80%，周末做 90%。第一个月试，看报废率。</small></li><li><b>半成品当日折扣</b><small>下午 5 点后剩的丹麦、面包打 5 折，标"现烤特价"——能卖 6 成，比报废强。</small></li><li><b>临期蛋糕处理 SOP</b><small>剩 2 天的切片做试吃盘，剩 1 天的直接送员工或半价——要写到员工手册里。</small></li></ul>',
+    3:'<ul class="checklist"><li><b>试吃设置上限</b><small>每天试吃盘 1~2 个，写到客流统计表上。超过要老板批。</small></li><li><b>员工餐折定额</b><small>每人每天 30 元封顶，超出自费。这是行业潜规则，要写在合同上。</small></li><li><b>摄像头 + 巡店</b><small>后厨装监控，每盘进出称重，每周扫一遍录像。</small></li></ul>',
+    4:'<ul class="checklist"><li><b>标准盒尺寸清单</b><small>把常用盒尺寸列成表，订单上注明的尺寸必须能对上号。下错单罚款。</small></li><li><b>退单 SOP</b><small>谁的责任就罚谁——配送超时罚骑手，做错款式罚师傅，写清楚。</small></li><li><b>生日蛋糕提前 1 天提示</b><small>加客户微信，头天下午 3 点确认"明天 X 点送达要准时"——避免当天催。</small></li></ul>',
+    5:'<ul class="checklist"><li><b>塌腰/烤焦复盘会</b><small>每周一开 15 分钟，把上周每件报废品的工序列表归类，多数集中在烤温时间。</small></li><li><b>新员工必须跟师傅 30 天</b><small>独立操作前要通过"3 件产品 0 报废"测试。这是隐性成本，省不得。</small></li><li><b>烤箱维护日历</b><small>每月清一次加热管，每季校一次温度计。温差过大是报废率上升的主因。</small></li></ul>'
+  };
+  document.getElementById('actions').innerHTML='<p>你的第 1 大黑洞是：<b>'+top.name+'（¥'+top.amount.toFixed(0)+'/月）</b></p>'+(actMap[top.id]||actMap[1]);
+  // 显示结果
+  document.getElementById('result').classList.add('on');
+  // 存档
+  try{localStorage.setItem('zhisun_state_v1',JSON.stringify(inp));}catch(e){}
+  window.scrollTo({top:document.getElementById('result').offsetTop-20,behavior:'smooth'});
+}
+
+function computeHandle(){computeRun();}
+
+function loadState(){
+  try{
+    var s=JSON.parse(localStorage.getItem('zhisun_state_v1')||'{}');
+    Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el&&s[k]!==undefined)el.value=s[k];});
+    update();
+  }catch(e){}
+}
+
+function clearAll(){
+  if(!confirm('清空所有填写的数字？'))return;
+  localStorage.removeItem('zhisun_state_v1');
+  location.reload();
+}
+
+loadState();
+</script>
+</body>
+</html>
