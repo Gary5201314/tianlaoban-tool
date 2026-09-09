@@ -580,8 +580,9 @@
   </div>
 
   <!-- 底部输入区 -->
-  <div class="forum-reply" style="padding:10px 12px;background:#fff;border-top:1px solid var(--line)">
-    <input id="bakeryAiInput" maxlength="200" placeholder="打字提问，或点麦克风语音说…"/>
+  <div class="forum-reply" style="padding:10px 12px;background:#fff;border-top:1px solid var(--line);position:relative">
+    <div id="bakeryAiSuggest" style="position:absolute;left:10px;right:10px;bottom:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 -4px 20px rgba(0,0,0,.10);display:none;z-index:99;overflow:hidden"></div>
+    <input id="bakeryAiInput" maxlength="200" placeholder="打字提问，或点麦克风语音说…" autocomplete="off"/>
     <button class="btn sm" id="bakeryAiMic" title="语音提问" style="flex:0 0 auto;font-size:18px">🎙️</button>
     <button class="btn sm" id="bakeryAiSendBtn" style="flex:0 0 auto">发送</button>
   </div>
@@ -2305,8 +2306,78 @@ async function baCallLLM(messages){
 }
 
 /* 发送按钮 */
-$("#bakeryAiSendBtn").onclick=()=>{ baAsk($("#bakeryAiInput").value); };
-$("#bakeryAiInput").addEventListener('keydown',e=>{ if(e.key==='Enter'){ baAsk($("#bakeryAiInput").value); } });
+$("#bakeryAiSendBtn").onclick=()=>{ baHideSuggest(); baAsk($("#bakeryAiInput").value); };
+$("#bakeryAiInput").addEventListener('keydown',e=>{ if(e.key==='Enter'){ baHideSuggest(); baAsk($("#bakeryAiInput").value); } else if(e.key==='Escape'){ baHideSuggest(); } });
+
+/* ===================== v7.10 打字联想：Top3 候选问题 ===================== */
+/* 高频问题池（与后续 RAG 知识库问题主干同源，可随库扩充） */
+const BAKERY_SUGGEST_Q=[
+"戚风蛋糕为什么会塌陷回缩？","戚风蛋糕开裂是怎么回事？","六寸戚风蛋糕的标准配方？","八寸戚风蛋糕配方和烘烤时间？","蛋糕胚为什么烤出来有腥味？",
+"海绵蛋糕和戚风的区别？","蛋糕卷为什么会掉皮开裂？","蛋糕卷怎么卷才不断裂？","轻乳酪蛋糕为什么会塌？","芝士蛋糕烤好后中间不熟怎么办？",
+"慕斯蛋糕吉利丁放多少合适？","慕斯蛋糕脱模怎么不粘？","慕斯为什么有冰渣口感？","千层蛋糕皮为什么会破？","千层皮烙出来太厚怎么办？",
+"蛋黄酥酥皮为什么不开酥？","泡芙为什么会塌陷？","泡芙面糊怎么才算炒到位？","马卡龙为什么会空心开裂？","曲奇饼干花纹为什么消失？",
+"饼干烤出来为什么发软不脆？","磅蛋糕为什么会中间塌？","面包发酵不起来是什么原因？","面包烤出来为什么发硬？","吐司为什么不长个组织粗糙？",
+"贝果要不要烫糖水？","淡奶油打发不起来怎么办？","淡奶油和植物奶油的区别？","淡奶油打发了怎么补救？","夏天淡奶油容易化怎么办？",
+"奶油霜和淡奶油的区别？","吉利丁片和吉利丁粉怎么换算？","黄油需要提前软化多久？","高筋低筋中筋面粉怎么选？","酵母用多了会怎样？",
+"泡打粉和小苏打的区别？","白砂糖可以换成糖粉吗？","巧克力怎么正确融化？","可可粉和巧克力有什么区别？","鸡蛋要提前回温吗？",
+"蛋白打发到什么样才算好？","烤箱温度怎么校准？","烤蛋糕为什么要用水浴法？","怎么判断蛋糕烤熟了？","蛋糕烤完为什么要倒扣？",
+"蛋糕胚能保存几天？","奶油蛋糕常温能放多久？","做好的蛋糕怎么运输不塌？","奶油蛋糕可以冷冻保存吗？","翻糖蛋糕能放几天？",
+"面包常温能放几天不变硬？","蛋糕店怎么定价？","蛋糕成本怎么算？","蛋糕店损耗怎么控制？","蛋糕外卖怎么打包防塌？",
+"蛋糕店怎么备货过节？","私房烘焙怎么接单？","家用烤箱和商用烤箱区别？","风炉和平炉的区别？","怎么拍出好看的蛋糕照片？",
+"奶油怎么保存？","蛋糕表面怎么防潮？","裱花嘴常用有哪几种？","裱花奶油用什么配方不容易化？","蛋糕怎么切才整齐？",
+"融化巧克力为什么会变粗糙？","面包机可以做吐司吗？","蛋糕做出来蛋腥味重怎么办？","植物奶油和动物奶油能混打吗？","开店需要办哪些证？"
+];
+/* 候选池 = 内置高频 + 老板自教知识问题（未来并入 RAG 知识库问题） */
+function baSuggestPool(){
+  const arr=[];
+  (bakeryKb||[]).forEach(i=>{ if(i&&i.q) arr.push(i.q); });
+  return arr.concat(BAKERY_SUGGEST_Q);
+}
+let baSuggestTimer=null;
+function baHideSuggest(){ const b=$("#bakeryAiSuggest"); if(b) b.style.display='none'; }
+function baSuggestUpdate(){
+  const inp=$("#bakeryAiInput"), box=$("#bakeryAiSuggest");
+  if(!inp||!box) return;
+  const s=inp.value.trim().toLowerCase();
+  if(!s){ box.style.display='none'; return; }
+  const scored=[];
+  baSuggestPool().forEach(q=>{
+    if(!q) return;
+    const lq=q.toLowerCase();
+    if(lq===s) return;
+    let score=0;
+    if(lq.includes(s)){ score=0.9 + 0.08*Math.min(1, s.length/lq.length); }
+    else{
+      let hit=0;
+      for(let i=0;i<s.length-1;i++){ if(lq.includes(s.slice(i,i+2))) hit++; }
+      score = 0.72*(hit/Math.max(s.length-1,1));
+    }
+    if(lq.startsWith(s)) score += 0.05;
+    if(score>=0.42) scored.push({q,score});
+  });
+  scored.sort((a,b)=>b.score-a.score);
+  const top=scored.slice(0,3);
+  if(!top.length){ box.style.display='none'; return; }
+  box.innerHTML = top.map((x,i)=>
+    '<div data-i="'+i+'" style="padding:10px 14px;font-size:13.5px;color:var(--ink);cursor:pointer;display:flex;gap:8px;align-items:center;border-bottom:'+(i<top.length-1?'1px solid var(--line)':'none')+'"'+
+    '><span style="flex:0 0 auto;opacity:.5;font-size:11px">🔍</span><span style="flex:1;line-height:1.5">'+esc(x.q)+'</span></div>'
+  ).join('');
+  box.style.display='block';
+  Array.from(box.children).forEach(el=>{
+    el.addEventListener('pointerdown',(ev)=>{
+      ev.preventDefault();
+      const v=top[+el.getAttribute('data-i')].q;
+      $("#bakeryAiInput").value=v;
+      baHideSuggest();
+      baAsk(v);
+    });
+  });
+}
+$("#bakeryAiInput").addEventListener('input',()=>{
+  clearTimeout(baSuggestTimer);
+  baSuggestTimer=setTimeout(baSuggestUpdate,120);
+});
+$("#bakeryAiInput").addEventListener('blur',()=>{ setTimeout(baHideSuggest,200); });
 
 /* 快捷问题 */
 $$("#bakeryAiQuick .ba-quick").forEach(q=>{
