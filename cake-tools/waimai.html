@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="Q4gQZ3MO9QFpHQiCIMradA">
+<head data-page-node-id="OF2OyXBWcxLCuJfHgZ0nNZ">
+<meta charset="UTF-8" data-page-node-id="Kpy0SIK4ip1Ji7fCXf5lUm">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="f8EfIBxymBcuxVTA5TbppF">
+<title>蛋糕店外卖三件套 · 平台选择 / 上线策略 / 差评管理</title>
+<meta name="description" content="蛋糕店外卖三件套:该不该上平台、怎么上线、差评怎么管——3 关自查,告诉你该不该上、怎么上、不上亏不亏。" data-page-node-id="1dgDxSdul2gZoVAHW1asDR">
+<style>
+:root{
+  --ink:#0f172a;--ink2:#475569;--muted:#7c8aa0;
+  --brand:#0ea5e9;--brand2:#0369a1;
+  --ok:#15803d;--okbg:#dcfce7;--warn:#d97706;--warnbg:#fef3c7;--bad:#b91c1c;--badbg:#fee2e2;
+  --bg:#f0f9ff;--card:#ffffff;--line:#bae6fd;--slate:#1e293b;
+  --c1:#0ea5e9;--c2:#a855f7;--c3:#ea580c;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+body{background:linear-gradient(180deg,#f0f9ff 0%,#fef3c7 100%);color:var(--ink);font-family:"PingFang SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.75;min-height:100vh;}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px 60px;}
+a{color:var(--brand);}
+b,strong{font-weight:800;}
+.hero{position:relative;background:linear-gradient(150deg,#0c4a6e 0%,#0369a1 50%,#0ea5e9 100%);color:#f0f9ff;border-radius:0 0 22px 22px;margin:0 -14px 20px;padding:30px 24px 26px;overflow:hidden;}
+.hero::after{content:"🛵";position:absolute;right:18px;bottom:-30px;font-size:160px;line-height:1;opacity:.14;}
+.hero .kicker{font-size:12px;letter-spacing:2px;color:#bae6fd;font-weight:800;margin-bottom:9px;}
+.hero h1{font-size:25px;font-weight:900;line-height:1.4;position:relative;z-index:2;}
+.hero .sub{margin-top:11px;font-size:14px;color:#bae6fd;line-height:1.85;position:relative;z-index:2;}
+.hero .sub b{color:#fff;}
+.hero-back{display:inline-flex;align-items:center;gap:6px;position:absolute;top:16px;left:16px;padding:8px 16px 8px 12px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.45);border-radius:999px;backdrop-filter:blur(6px);text-decoration:none;z-index:3;}
+.hero{padding-top:64px !important;}
+.intro{background:#fef3c7;border:1.5px dashed #fbbf24;border-radius:12px;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.7;margin-bottom:14px;}
+.intro b{color:var(--brand2);}
+.sec{margin:22px 0 8px;display:flex;align-items:center;gap:10px;}
+.sec .t{font-size:17px;font-weight:900;color:var(--slate);}
+.sec .bar{flex:1;height:1px;background:var(--line);}
+.lead{font-size:13.5px;color:var(--ink2);line-height:1.8;margin:6px 0 13px;}
+.lead b{color:var(--brand2);}
+.scorebar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:14px 0;}
+.scorebar .sc{border-radius:11px;padding:11px 5px;text-align:center;border:1.5px solid var(--line);}
+.scorebar .sc .scn{font-size:11px;font-weight:900;color:var(--ink2);}
+.scorebar .sc .scv{font-size:22px;font-weight:900;line-height:1.1;margin:2px 0 0;}
+.scorebar .sc.g{background:var(--okbg);border-color:#86efac;}.scorebar .sc.g .scv{color:var(--ok);}
+.scorebar .sc.y{background:var(--warnbg);border-color:#fcd34d;}.scorebar .sc.y .scv{color:#b45309;}
+.scorebar .sc.r{background:var(--badbg);border-color:#fca5a5;}.scorebar .sc.r .scv{color:var(--bad);}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 3px 14px rgba(14,165,233,.06);margin-bottom:12px;border-left:5px solid var(--line);}
+.stage.s1{border-left-color:var(--c1);}.stage.s2{border-left-color:var(--c2);}.stage.s3{border-left-color:var(--c3);}
+.stage .sh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:3px;}
+.stage .sh .sn{font-size:15.5px;font-weight:900;color:var(--slate);}
+.stage .sh .sk{font-size:12px;font-weight:800;color:#fff;border-radius:6px;padding:1px 9px;}
+.stage.s1 .sk{background:var(--c1);}.stage.s2 .sk{background:var(--c2);}.stage.s3 .sk{background:var(--c3);}
+.stage .sd{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:9px;}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-top:1px dashed #e0f2fe;cursor:pointer;}
+.chk:first-of-type{border-top:none;}
+.chk input{margin-top:2px;width:18px;height:18px;flex-shrink:0;accent-color:var(--brand);}
+.chk .ct{font-size:13.5px;color:var(--ink);line-height:1.55;}
+.chk .ct b{color:var(--brand2);}
+.result{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:20px 16px;box-shadow:0 4px 18px rgba(14,165,233,.10);margin-bottom:14px;}
+.verdict{border-radius:13px;padding:14px 16px;font-size:14px;line-height:1.85;border:2px solid;}
+.verdict.g{background:var(--okbg);border-color:#86efac;color:#14532d;}
+.verdict.y{background:var(--warnbg);border-color:#fcd34d;color:#78350f;}
+.verdict.r{background:var(--badbg);border-color:#fca5a5;color:#7f1d1d;}
+.verdict .vh{font-size:16px;font-weight:900;display:block;margin-bottom:4px;}
+.fix{margin-top:13px;background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:14px 15px;}
+.fix .ft{font-size:14.5px;font-weight:900;color:var(--slate);margin-bottom:4px;}
+.fix .fhh{font-size:12.5px;color:var(--ink2);margin-bottom:9px;font-style:italic;}
+.fix .fr{display:flex;gap:9px;padding:7px 0;border-top:1px solid #fde68a;font-size:13px;color:var(--ink2);line-height:1.65;}
+.fix .fr:first-of-type{border-top:none;}
+.fix .fr b{color:var(--brand2);}
+.fix .fr .fi{flex-shrink:0;}
+.cmp{background:#fffbeb;border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin:14px 0;font-size:12.5px;color:var(--ink2);line-height:1.75;}
+.cmp b{color:var(--brand2);}
+.disc{font-size:12px;color:var(--muted);line-height:1.7;background:#fff;border:1px dashed var(--line);border-radius:12px;padding:13px 15px;margin-top:16px;}
+.disc b{color:var(--ink2);}
+.backhome{margin-top:24px;text-align:center;}
+.backhome a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);color:#fff;font-size:14.5px;font-weight:800;border-radius:999px;text-decoration:none;}
+.foot{margin-top:18px;text-align:center;}
+.foot .tiny{font-size:12px;color:var(--muted);line-height:1.8;}
+</style>
+</head>
+<body data-page-node-id="uqt6a0FzSD4lKJFu2tcfcb">
+<div class="wrap" data-page-node-id="8LeZPpnHj7xiLadb37Mfvo">
+
+<div class="hero" data-page-node-id="wsiSxAfzWs5PWy5Xey5ZGJ">
+  <a class="hero-back" href="index.html" data-page-node-id="CYV5HzSV3hrCXzLK9btLgA"><span data-page-node-id="xOBBF8gBDYciVDput0WYkZ">←</span> 工具箱</a>
+  <div class="kicker" data-page-node-id="aLfEhW5xL4bOBLBrsxzh1H">蛋糕店救命用 · 外卖三件套</div>
+  <h1 data-page-node-id="QnDh4gmP8LzUG1ZAsPROro">蛋糕外卖,<span style="color:#fbbf24;" data-page-node-id="nuf9wHZ9JHop5DMR3l0fI7">该不该上</span>?</h1>
+  <div class="sub" data-page-node-id="sYIRI7a0tVXfBjHpR2ODkL">蛋糕不是必上外卖的品类(冷链、定制、配送损耗都比奶茶难),但<b data-page-node-id="H8BiFhC99v8g1UKsNdoTOb">3 公里内的生日蛋糕订单</b>你可能正在丢。下面 3 关自查,告诉你<b data-page-node-id="BiOvlQd2NHS29STXRhpYXg">该不该上、先上哪个、怎么上、差评怎么办</b>。</div>
+</div>
+
+<div class="intro" data-page-node-id="AZhBEJDjZRfzAB79svL3AJ">📌 <b data-page-node-id="5GFN4KCC8tgoMvE9TxoE9r">前提提示:</b>本工具把"该不该上外卖"分成 <b data-page-node-id="B851x3iCVSdGNqpByBFyr7">3 关</b>——平台选择 / 上线策略 / 差评管理。<b data-page-node-id="uQltd4S2D9GHnD715rQIjk">每关里有 6~7 条招,你已经做到了就勾上</b>。三关各自得分,告诉你哪一关最弱,补那一关。</div>
+
+<p class="lead" data-page-node-id="8BF6KtmpUxQj6KfCHKOAsj">勾选你<b data-page-node-id="pSdNpNuvmZqjy9e2BViudP">已经做到的</b>或<b data-page-node-id="VJ4JiaUfqGuAjWnGmPDS1y">你愿意尝试的</b>(工具不强求全做,只告诉你哪一关最该先补)。勾完直接看最差关 + 对症招。</p>
+
+<div class="sec" data-page-node-id="NsiAVrZnYDaUWCMWs5LBif"><span class="t" data-page-node-id="DtHS4nH5e8lSUf7HIlDDEV">①📋 三关自查</span><div class="bar" data-page-node-id="ggvAA7qHo1q2reVcao0tUJ"></div></div>
+
+<div class="stage s1" data-page-node-id="2WedsEdQyDbYTiaG5XnV11">
+  <div class="sh" data-page-node-id="1cF0W3SRSnLRITcCZ8rBpH"><span class="sn" data-page-node-id="5T5hz5KFoaujtGR44CpP6J">关一 · 平台该不该上 / 上哪个</span><span class="sk" data-page-node-id="G9X48wLKk4NLjWnr0sYx8U">先想清楚</span></div>
+  <div class="sd" data-page-node-id="nGGzoNSY871Ezv6JZ1jz5c">不是"上外卖就涨业绩",蛋糕是高客单 + 低频 + 重定制品类,选错平台白花钱。</div>
+  <label class="chk" data-page-node-id="HFuVws3eDRwTYpPJL5KFCL"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="2o035gZCs5TAoJMZvJTlqR"><span class="ct" data-page-node-id="rh5BCLLTtD7u3n5N90DdWv">算过<b data-page-node-id="d4vt7VT9mU5M0yBi8uR8Vk">外卖每单净到账</b>:售价 99 元扣平台 18%+ 配送 + 包装 + 损耗,到手 ≥45 元才有钱赚</span></label>
+  <label class="chk" data-page-node-id="sMklZu2Hn1EAUyCEAFLefr"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="TUiHKFIFmGvGiHbUxUsD69"><span class="ct" data-page-node-id="HIspFV4Hhn3zuHcm5Stqrh">有 <b data-page-node-id="CDK0FfxCpdNXVnBIR0XGHL">3 公里内稳定的生日蛋糕需求</b>(写字楼多 / 学校多 / 大型社区)</span></label>
+  <label class="chk" data-page-node-id="fLsTAUE92cQzMKZBih98YT"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="JcWsc9IpM8RBo8JcI6LOgx"><span class="ct" data-page-node-id="tU78MecZB51pa3NM0ulsGz"><b data-page-node-id="0DHS4WMdizRSz6TXBc1YRD">已经想清楚上哪个</b>:美团(覆盖广)/ 饿了么(商家活动多)/ 抖音(短视频引流)/ 自营小程序(利润高,流量靠自己)</span></label>
+  <label class="chk" data-page-node-id="iRCXyx5oAnGP4Cy2JEAPcS"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="aq4d4oiLzepYdsLB4D42zH"><span class="ct" data-page-node-id="ztUzbtWo0BpZxZfC79Irvv">团队有 <b data-page-node-id="RElaG4uMt7sWIGQLZQOKTF">专人接单 + 配送调度</b>(不是店主自己回消息)</span></label>
+  <label class="chk" data-page-node-id="FrnNZpWeHoe6dR550SFvUu"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="ZwmppNFIu9uWFBPYWXf0l9"><span class="ct" data-page-node-id="HRzmCpqNgrMJsCvBQRwIFy">能接受<b data-page-node-id="sTwmOLXgE0PfEmhYyZa6CH">首月低单量</b>(新店上线,平台会给 1~2 周流量扶持,之后靠你自己维护)</span></label>
+  <label class="chk" data-page-node-id="WBmBIzKVlo1OUqph1uuxM7"><input type="checkbox" data-s="1" onchange="calc()" data-page-node-id="nktH0LIaAjSo7MYcMIHXfj"><span class="ct" data-page-node-id="lx3tG7BX40gPYRycg0GBxi"><b data-page-node-id="9vrdY9xfZ5FvYU4FqRbTTE">做差异化的爆款</b>(动物奶油、当日现做、不参与满减/价格战)</span></label>
+</div>
+
+<div class="stage s2" data-page-node-id="yk93sSb64PMS1IVFZTkU4X">
+  <div class="sh" data-page-node-id="OmrC0S6QD4p43GdPLZW4SU"><span class="sn" data-page-node-id="GJh85Qmfm0RDXZeJsLG8N4">关二 · 上线策略</span><span class="sk" data-page-node-id="jB3pxQw6WuutFk48dvNFRr">开了店怎么排兵布阵</span></div>
+  <div class="sd" data-page-node-id="IhB3kEKNHkbNjRY2KA3JXz">蛋糕店外卖上线后,"评分 4.7+ / 主图诱 / 满减合理"三件套是命根。</div>
+  <label class="chk" data-page-node-id="NBXnw72lXQaQ3BHjMB0HqA"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="WsFhWTMEjgUXPYWxSDmTyH"><span class="ct" data-page-node-id="7Ppqpgow0DF4QZ3TnBTmbD"><b data-page-node-id="Xr2PwexnYgE7vCtvDAOXP1">主图是真实成品实拍</b>(不是品牌图 / 抠图),突出尺寸感(放个手掌 / 硬币对比)</span></label>
+  <label class="chk" data-page-node-id="dTyRZ9Nzdx6ZPqvPGBc6Rn"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="Fa7cRgyFO8NHXBfPyjzSW1"><span class="ct" data-page-node-id="TDAJHiTTV1Tl8OpEM66lH7">有 <b data-page-node-id="k9mfPuGAxLAcAAWftTselp">3 款 SKU 上线</b>:1 款引流(切片/小蛋糕)+ 1 款爆款(招牌生日)+ 1 款高客单(婚礼/寿宴)</span></label>
+  <label class="chk" data-page-node-id="2fk2ip1MwjyZD7ZMljPtmk"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="EKVTR0HfBK55TrzIQViVyG"><span class="ct" data-page-node-id="nWZwn5Dz6Su0IlF79Bvpih">满减设计<b data-page-node-id="ncxo0l1lIT8vR89yECJZeP">不内卷</b>(满 99 减 10 / 满 199 减 25),不参与大额满减(客人薅羊毛你亏)</span></label>
+  <label class="chk" data-page-node-id="m6IeclDi5KQVET1aPcyEv6"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="YSs2GnIqs36JjyWWOCaput"><span class="ct" data-page-node-id="jHe3MEPz7WpwUPDL6mE2oI"><b data-page-node-id="Ia6AOQ2CvG8FO7VPu0LNM6">评分护盘</b>:每张单附"加店主微信送 5 元下次券"请求 5 星好评,差评主动联系补偿</span></label>
+  <label class="chk" data-page-node-id="7KdReY0vZ6loKJNkbFYjYo"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="gVV73wDfcF1BZWsRBKQvab"><span class="ct" data-page-node-id="CbSZ0asF9c5GqHXjOhn0EZ">包装用 <b data-page-node-id="0CgAYeUXY3YbWGzciyBeKG">保温箱 + 防震卡扣 + 倾斜试片</b>(配送 30 分钟内奶油不塌)</span></label>
+  <label class="chk" data-page-node-id="BAYKdFtrsuHOzHFVJ9Rnlx"><input type="checkbox" data-s="2" onchange="calc()" data-page-node-id="IJuOG73fnUVzDGYEISXMVp"><span class="ct" data-page-node-id="ElniuYLUIS6HPvwZMYx5qW">产品说明写<b data-page-node-id="B4br4QpD7O7eCLYCoogcPZ">预订 + 配送规则</b>(提前 24h 订 / 配送范围 3km / 加急收 20 元)</span></label>
+</div>
+
+<div class="stage s3" data-page-node-id="eFR91g8llf3YNp3qOGGRCk">
+  <div class="sh" data-page-node-id="P7GZ7i5uThpSHhVjjgz7oT"><span class="sn" data-page-node-id="4dfOwuvVF6Yq1qHFxKoYWG">关三 · 差评管理</span><span class="sk" data-page-node-id="BLHkAZjEltGNM8W87NUaUj">差评出来怎么救</span></div>
+  <div class="sd" data-page-node-id="AiojDHf8dc001gk4Qp9Kxb">蛋糕差评杀伤巨大——生日送到的蛋糕有问题,是"事故级"差评。一条能掉 0.1 评分,流量立减。</div>
+  <label class="chk" data-page-node-id="Ewd6E1sWtK8RSdXrsaMqRZ"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="8pBiFvX4dBS7CrbSFF2xEv"><span class="ct" data-page-node-id="Va97QKxKYlCkUn4tZfS4vS"><b data-page-node-id="eIaYIbNqPUPFtCf1D5s0yt">差评 24 小时内回复</b>(不是模板,先道歉 + 提补偿方案)</span></label>
+  <label class="chk" data-page-node-id="5PLzyraJJZhaLDGAyBBjIW"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="KdlYsPo8uezUFc2VMYFTFX"><span class="ct" data-page-node-id="m041F5jCFfn2F4CkZkLsfL">有 <b data-page-node-id="K6x5kqW4uwOyQ9KjHIzZWd">差评归类表</b>:奶油塌 / 水果不鲜 / 尺寸不够 / 配送慢 / 味道差,每月统计成因</span></label>
+  <label class="chk" data-page-node-id="coOX1AxFF1n44VPGBjigG9"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="KKPt5blNEpGCJrStHTJxOe"><span class="ct" data-page-node-id="jjlxmIjjoHua8GKKrZ6G2E">店主电话<b data-page-node-id="U9TN8X3AgmAFG9bqxNmJDv">24 小时开机</b>,差评客人主动打过去补偿(重做 + 退一半)</span></label>
+  <label class="chk" data-page-node-id="tIQrAN6tmd5tA6ngbbj79a"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="RUqSA3QDhh6ydtPfKvlAUW"><span class="ct" data-page-node-id="5hM41pNUdEEEBLArWJK9Tq">遇到 <b data-page-node-id="Z6DJJxCKcQy9RaaHXk1hJD">恶意差评 / 同行刷</b>,截图证据 + 平台申诉通道会用</span></label>
+  <label class="chk" data-page-node-id="61OloAwXVjZ8wa0eP8vSKJ"><input type="checkbox" data-s="3" onchange="calc()" data-page-node-id="FlbUpttlhWFNYHLL65Sqpi"><span class="ct" data-page-node-id="nbVH4KqMdH513LPShfki2G">每次差评后,<b data-page-node-id="U7UmltHK5wLFkrNFWKDXna">改工艺 SOP</b>(下次不重复犯)而不是只补偿</span></label>
+</div>
+
+<div class="sec" data-page-node-id="Jlx5VjaCUF0zXJHqcd29yo"><span class="t" data-page-node-id="H4xr1YzCZN2Km9qrXcB9D5">🩺 自查报告</span><div class="bar" data-page-node-id="XBoi4AvWmfzxjH3di4nutN"></div></div>
+<div class="result" data-page-node-id="4hdw78MJlTIoneWPuDG2zl">
+  <div class="scorebar" id="scoreBar" data-page-node-id="nbrWnMbIFkhzBs9EFCOLzP">
+    <div class="sc" data-page-node-id="XiFhM6AuC3YpvEWsLroHZV"><div class="scn" data-page-node-id="nMylwAkfnW6AhEwWGYvqO0">平台选择</div><div class="scv" data-page-node-id="3eTfXgFLufHS7HsF5AwaRs">—</div></div>
+    <div class="sc" data-page-node-id="vO3PMEDkBpIeCOCNGEinwq"><div class="scn" data-page-node-id="3Cdvu4UNkp00zaookHSMAp">上线策略</div><div class="scv" data-page-node-id="iNH3wg68VAe0VPs7E98PIr">—</div></div>
+    <div class="sc" data-page-node-id="1qD0vPhZbpLHBqnLt3bC9d"><div class="scn" data-page-node-id="Apkn3rwoVC4fM0ZGdHWerC">差评管理</div><div class="scv" data-page-node-id="P17y8ZNeVAq77MpJRZUiSm">—</div></div>
+  </div>
+
+  <div class="verdict g" id="verdict" data-page-node-id="s4gQTNbQvnC4ykEeQaxzHh">勾选完 3 关,这里告诉你<b data-page-node-id="nS2Q8FAVOBv5MKHh6QAma0">最该先补哪关</b>。</div>
+
+  <div class="fix" id="fixBox" style="display:none;" data-page-node-id="mMiES4U0lmBJW0qdnQCA9O"></div>
+
+  <div style="text-align:center;margin-top:16px;" data-page-node-id="VWxEAjxMtLuhMQ5WhkWNfa"><a href="javascript:void(0)" onclick="resetAll()" style="font-size:13px;color:var(--muted);text-decoration:underline;" data-page-node-id="BWqVTR0Pf9i0jy6TlSSoPL">🔄 重置</a></div>
+</div>
+
+<div class="cmp" data-page-node-id="cH8SgotBVQzFnEBdwlNZpd">🆚 <b data-page-node-id="UaGdd6QyruzFgOlsEXzbOH">为啥不像漏斗那样"四关自查"?</b>因为外卖是<b data-page-node-id="UAsz3jN5dpmHk555MmJ0Vc">三个独立决策</b>——该不该上 / 怎么上 / 差了怎么办——不是顺序漏斗。三关之间互相影响,但<b data-page-node-id="JgFhXAxMTnHJ681zQ9iPjo">最该补的永远是分最低的那一关</b>(先想清楚再动手)。</div>
+
+<div class="disc" data-page-node-id="DvndrS6movUjxt11eDzdwB"><b data-page-node-id="iGTh7DFgC5gdjm0gKQIcA0">说明:</b>免费工具,数据存你浏览器里(localStorage),我们看不到。<b data-page-node-id="SFtLbQuasVy9lZqQZckjsS">本工具不替你注册平台、不替你写主图</b>。算法按"先想清楚、再动手、最后善后"的顺序给薄弱关建议——错顺序救不回来。</div>
+
+<div class="backhome" data-page-node-id="GfqiLStsU3GAZZoX79ap5j"><a href="index.html" data-page-node-id="jFEIrPvjENgBOH7hIe6E5x">← 回工具箱首页</a></div>
+<div class="foot" data-page-node-id="Vfg4BoeNfMNGotRejZT75O"><div class="tiny" data-page-node-id="PU6z0xEZ4LMaayUvYPR1IO">蛋糕店外卖三件套 · 仅供自查参考</div></div>
+
+</div>
+
+<script>
+var STORE='dgs_waimai_v1';
+var STAGES={
+  1:{name:'平台选择',color:'#0ea5e9'},
+  2:{name:'上线策略',color:'#a855f7'},
+  3:{name:'差评管理',color:'#ea580c'}
+};
+var FIXTIPS={
+  1:{title:'平台选择这关漏了:别一上来就 All in',
+     quote:'蛋糕是高客单 + 重定制 + 重体验,不上不一定亏,选错上了一定亏。',
+     tips:['💰 <b>先算每单净到账</b>:售价 99 元,扣平台 18%(≈18)+ 配送 5 元 + 包装 5 元 + 损耗均摊 8 元 ≈到手 60 元,再加人工 15 元 = 净利 45 元。如果这账算不平,先别上。',
+           '📍 <b>覆盖范围先小后大</b>:先开 3 公里配送就够了,跑熟再扩 5。3 公里内的写字楼 / 学校 / 大型社区是黄金区。',
+           '🎯 <b>新店先上美团,再加抖音</b>:美团客单稳定 / 抖音流量爆发但波动大。生日前 1 周是高峰,可以双平台同行。',
+           '🛠️ <b>必须有人值守</b>:外卖店是"客服 + 调度 + 包装" 三合一,店主自己干一周就焦头烂额——招一个兼职专管。',
+           '🚫 <b>别参与大额满减</b>:满 200 减 80 会把毛利全部吃掉。蛋糕不该走价格战,该走"当日鲜奶现做"的差异化。']},
+  2:{title:'上线策略这关漏了:开了店不等于有单',
+     quote:'首页 + 评分 + 包装决定新客转化率,这三件没想清楚,上线 = 浪费钱。',
+     tips:['🖼️ <b>主图必须真实</b>:用品店现拍的蛋糕实拍,带个手掌 / 硬币当尺寸参照,不要用品牌宣传图(顾客一眼看出假)。',
+           '🍰 <b>上 3 款就够</b>:1 款引流(切片 / 小蛋糕 39 元)+ 1 款爆款(招牌生日 99~199)+ 1 款高客单(婚礼寿宴 299+)。SKU 上多了反而没人看。',
+           '💴 <b>满减设计不内卷</b>:满 99 减 10 / 满 199 减 25 是健康线。不要满 100 减 50(同行都在这么干,你卷不过)。',
+           '⭐ <b>评分护盘最关键</b>:每张订单附手写卡片"加店主微信送 5 元下次券,求 5 星"(合规风险可控范围内)。',
+           '📦 <b>包装是必投资</b>:保温袋 + 防震卡扣 + 倾斜试片,这一套成本 5~8 元/单,但能把"奶油塌"差评减少 80%。',
+           '📋 <b>预订 + 配送规则写清楚</b>:避免"顾客问半天"——生日蛋糕必须提前 24h 订、急单 +20、配送 3km 外不送。']},
+  3:{title:'差评管理这关漏了:差评真的会带走你',
+     quote:'蛋糕差评是"事故"级——生日当场坏掉,等于"破坏了一家人的日子",顾客气到给差评是必然。',
+     tips:['⏰ <b>24 小时内必须回复</b>:不是模板句,先道歉("给您造成困扰真抱歉")+ 提补偿方案(重做一个 / 退一半)。',
+           '📋 <b>差评归类,每月统计</b>:奶油塌 / 水果不鲜 / 尺寸不够 / 配送慢 / 味道差,后三者跟产品 / 后两者跟运营。哪类多改哪类。',
+           '📞 <b>店主主动打电话</b>:差评客人最在乎的不是钱,是"你在不在乎我"。店主本人打过去致歉,80% 客人会改成 5 星。',
+           '🚫 <b>恶意差评 / 同行刷单会申诉</b>:截图订单时间 / 配送轨迹 / 沟通记录,在平台"申诉"入口提交,7 天内有结果。',
+           '🔧 <b>改工艺,别只补偿</b>:补偿完了 SOP 也要改——"奶油塌"是配送问题还是裱花问题?"尺寸不够"是称重问题还是下料问题?']}
+};
+
+function lvl(p){return p>=70?'g':(p>=40?'y':'r');}
+
+function compute(inp){
+  var pct={};
+  for(var s=1;s<=3;s++){pct[s]=inp.sc[s].tot>0?inp.sc[s].done/inp.sc[s].tot*100:0;}
+  var weak=1,weakPct=pct[1];
+  for(var s=2;s<=3;s++){if(pct[s]<weakPct-0.001){weak=s;weakPct=pct[s];}}
+  var anyChk=(inp.sc[1].done+inp.sc[2].done+inp.sc[3].done)>0;
+  var allFull=(pct[1]>=100&&pct[2]>=100&&pct[3]>=100);
+  return {pct:pct,weak:weak,weakPct:weakPct,anyChk:anyChk,allFull:allFull};
+}
+
+function calc(){
+  save();
+  var chkArr=Array.from(document.querySelectorAll('.chk input')).map(function(c){return c.checked?1:0;});
+  var sc={1:{done:0,tot:0},2:{done:0,tot:0},3:{done:0,tot:0}};
+  document.querySelectorAll('.chk input').forEach(function(c){
+    var s=parseInt(c.getAttribute('data-s'));
+    sc[s].tot++; if(c.checked) sc[s].done++;
+  });
+  var r=compute({sc:sc});
+  // 评分
+  var cells=document.querySelectorAll('#scoreBar .sc');
+  for(var s=1;s<=3;s++){
+    var cell=cells[s-1];
+    cell.className='sc '+lvl(r.pct[s]);
+    cell.querySelector('.scv').textContent=Math.round(r.pct[s])+'%';
+  }
+  // 诊断
+  var v=document.getElementById('verdict');
+  var fx=document.getElementById('fixBox');
+  if(!r.anyChk){
+    v.className='verdict g';
+    v.innerHTML='勾选完 3 关,这里告诉你<b>最该先补哪关</b>。';
+    fx.style.display='none';
+    return;
+  }
+  if(r.allFull){
+    v.className='verdict g';
+    v.innerHTML='<span class="vh">✅ 三关都准备好了,可以上</span>平台选择 / 上线策略 / 差评管理,你都做了——这是<b>完整的开业准备</b>。先小范围试 1 个月(只上美团,3 公里内),数据稳了再加平台。';
+    fx.style.display='none';
+    return;
+  }
+  var w=r.weak, st=STAGES[w], tip=FIXTIPS[w];
+  v.className='verdict '+(r.weakPct<40?'r':'y');
+  v.innerHTML='<span class="vh">🛑 最该先补「'+st.name+'」这一关</span>三关里,<b>'+st.name+'</b>的招你只使了 <b>'+Math.round(r.pct[w])+'%</b>(做到 '+sc[w].done+'/'+sc[w].tot+'),是最弱的一关。<b>'+tip.quote+'</b>——别急着上线了,这关补不全,后面差评来了更亏。';
+  fx.style.display='block';
+  var fh='<div class="ft">🔧 「'+st.name+'」这么补</div><div class="fhh">'+tip.quote+'</div>';
+  for(var i=0;i<tip.tips.length;i++){
+    fh+='<div class="fr"><span class="fi">▸</span><span>'+tip.tips[i]+'</span></div>';
+  }
+  // 次弱
+  var second=0,secondPct=101;
+  for(var s=1;s<=3;s++){if(s!==w && r.pct[s]<secondPct){second=s;secondPct=r.pct[s];}}
+  if(second && r.pct[second]<70){
+    fh+='<div class="fr" style="border-top:1px dashed #fdba74;margin-top:4px;"><span class="fi">📍</span><span>补完这关,<b>「'+STAGES[second].name+'」</b>(做到 '+sc[second].done+'/'+sc[second].tot+')也别松,可能也在拖。</span></div>';
+  }
+  fx.innerHTML=fh;
+}
+
+function save(){
+  try{
+    var s=[];
+    document.querySelectorAll('.chk input').forEach(function(c){s.push(c.checked?1:0);});
+    localStorage.setItem(STORE,JSON.stringify({chk:s}));
+  }catch(e){}
+}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORE));if(!s||!s.chk)return;
+    var cs=document.querySelectorAll('.chk input');
+    s.chk.forEach(function(v,i){if(cs[i])cs[i].checked=!!v;});
+  }catch(e){}
+}
+function resetAll(){
+  try{localStorage.removeItem(STORE);}catch(e){}
+  document.querySelectorAll('.chk input').forEach(function(c){c.checked=false;});
+  calc();
+}
+load();calc();
+</script>
+</body>
+</html>
