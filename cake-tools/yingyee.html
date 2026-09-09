@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店目标营业额预估 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus{outline:none;border-color:var(--o);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.bignum{font-size:38px;font-weight:900;color:var(--o);line-height:1.1;margin:6px 0;}
+.bignum.r{color:var(--red);} .bignum.g{color:var(--g);} .bignum.y{color:var(--y);}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;}
+.disc-g{background:#ecfdf5;border:1.5px solid #86efac;color:#166534;}
+.disc-y{background:#fef9c3;border:1.5px solid #fde047;color:#854d0e;}
+.disc-r{background:#fef2f2;border:1.5px solid #fca5a5;color:#991b1b;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.bar{height:18px;border-radius:9px;background:#f1f5f9;overflow:hidden;margin:8px 0;}
+.bar>div{height:100%;transition:width .4s;}
+.tabs{display:flex;gap:4px;margin:14px 0;}
+.tab{flex:1;padding:11px 0;background:#fff;color:var(--slate);text-align:center;border:1px solid var(--line);border-radius:8px 8px 0 0;font-weight:700;font-size:13px;cursor:pointer;}
+.tab.on{background:var(--o);color:#fff;border-color:var(--o);}
+.panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:16px;}
+.panel.on{display:block;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row,.row3{grid-template-columns:1fr;}.bignum{font-size:30px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📈 目标店铺营业额预估</h1>
+  <div class="sub">堂食 + 外卖 一块算，看这家店一个月能做多少钱</div>
+</div>
+
+<div class="disclaimer">⚠️ 实际数字看品类、位置、季节。本工具按行业一般规律做粗算。<br>🟢=框架（漏斗）/ 🟡=行业经验 / 🔴=单店案例不可推广</div>
+
+<div class="tabs">
+  <div class="tab on" onclick="setMode('ts')" data-m="ts">堂食估算</div>
+  <div class="tab" onclick="setMode('wm')" data-m="wm">外卖估算</div>
+</div>
+
+<!-- 堂食 -->
+<div class="panel on" id="pm_ts">
+<h2>① 堂食（按路过人数估算）</h2>
+<div class="block">
+<div class="row">
+  <div><label>路过人数 / 小时（加权）</label><input id="t_pass" type="number" value="120"></div>
+  <div><label>有效营业时间（小时）</label><input id="t_hrs" type="number" value="12"></div>
+</div>
+<div class="row">
+  <div><label>进店率 %（蛋糕店一般 8~15）</label><input id="t_ctr" type="number" value="10"></div>
+  <div><label>客单价（元）</label><input id="t_aov" type="number" value="60"></div>
+</div>
+<div class="row">
+  <div><label>复购率 %（老客比例）</label><input id="t_repeat" type="number" value="20"></div>
+  <div><label>礼品订单占比 %（生日蛋糕等）</label><input id="t_gift" type="number" value="25"></div>
+</div>
+</div>
+</div>
+
+<!-- 外卖 -->
+<div class="panel" id="pm_wm">
+<h2>② 外卖（对标同类店估算）</h2>
+<div class="block">
+<div class="row3">
+  <div><label>美团月销参考</label><input id="w_mt" type="number" value="800"></div>
+  <div><label>饿了么月销参考</label><input id="w_el" type="number" value="300"></div>
+  <div><label>京东/拼好饭月销</label><input id="w_jd" type="number" value="100"></div>
+</div>
+<div class="row">
+  <div><label>外卖平均客单价（元）</label><input id="w_aov" type="number" value="50"></div>
+  <div><label>你的预估可达成比例 %</label><input id="w_pct" type="number" value="60"></div>
+</div>
+<div class="hint" style="font-size:12.5px;color:var(--muted);margin-top:6px;">🟡 外卖一般新店需 6~12 周达到对标店 50~70%，老店持平或超过</div>
+</div>
+</div>
+
+<button class="btn" onclick="calcRev()">📐 算营业额</button>
+
+<div id="res" style="display:none;">
+
+<div class="block">
+<h3>月营业额预估（三档）</h3>
+<table>
+<tr><th>档位</th><th>达成比</th><th class="num">堂食</th><th class="num">外卖</th><th class="num">月总</th><th class="num">年总</th></tr>
+<tbody id="o_tab"></tbody>
+</table>
+</div>
+
+<div class="block">
+<h3>保守档拆解（最该用的估算）</h3>
+<table id="o_conserv"></table>
+</div>
+
+<div class="block">
+<h3>日、周、月分布</h3>
+<table>
+<tr><th>维度</th><th class="num">金额</th><th>备注</th></tr>
+<tbody id="o_break"></tbody>
+</table>
+</div>
+
+<div class="block">
+<h3>📌 决策建议</h3>
+<div id="o_verdict"></div>
+</div>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+var mode='ts';
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.m===m);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
+  document.getElementById('pm_'+m).classList.add('on');
+}
+
+function F(id){return +(document.getElementById(id).value||0);}
+
+/* ts: 堂食估算 */
+function estTS(inp){
+  var passD=inp.passH*inp.hrs;
+  var ordD=passD*inp.ctr/100;
+  var aovT=inp.aov*(1+inp.gift/100*0.6); // 礼品订单单价加权高 60%
+  var revD=ordD*aovT;
+  return {passD:passD,ordD:ordD,aovT:aovT,revD:revD,revM:revD*30};
+}
+
+function estWM(inp){
+  var total=(inp.mt+inp.el+inp.jd)*inp.pct/100;
+  var aov=inp.aov;
+  var revM=total*aov;
+  return {ordM:total,revM:revM,aov:aov};
+}
+
+function calcRev(){
+  var ts={passH:F('t_pass'),hrs:F('t_hrs'),ctr:F('t_ctr')||10,aov:F('t_aov')||60,
+         repeat:F('t_repeat'),gift:F('t_gift')||25};
+  var wm={mt:F('w_mt'),el:F('w_el'),jd:F('w_jd'),aov:F('w_aov')||50,pct:F('w_pct')||60};
+  var tsR=estTS(ts);
+  var wmR=estWM(wm);
+  var tiers=[
+    {name:'保守',ratio:0.6},
+    {name:'中性',ratio:1.0},
+    {name:'乐观',ratio:1.4}
+  ];
+  var rows=tiers.map(function(t){
+    var tsM=tsR.revM*t.ratio;
+    var wmM=wmR.revM*t.ratio;
+    var total=tsM+wmM;
+    var tag=total<30000?'<span class="tag tag-r">太低</span>':total<80000?'<span class="tag tag-y">普通</span>':'<span class="tag tag-g">健康</span>';
+    return {name:t.name,tsM:tsM,wmM:wmM,total:total,tag:tag};
+  });
+  // 渲染
+  var tab='';
+  rows.forEach(function(r){
+    tab+='<tr><td>'+r.name+'</td><td>'+(r.name==='保守'?'60%':r.name==='中性'?'100%':'140%')+'</td>'+
+         '<td class="num">¥'+Math.round(r.tsM).toLocaleString()+'</td>'+
+         '<td class="num">¥'+Math.round(r.wmM).toLocaleString()+'</td>'+
+         '<td class="num"><b>¥'+Math.round(r.total).toLocaleString()+'</b></td>'+
+         '<td class="num">¥'+Math.round(r.total*12).toLocaleString()+'</td>'+
+         '<td>'+r.tag+'</td></tr>';
+  });
+  document.getElementById('o_tab').innerHTML=tab;
+  // 保守档
+  var conserv=rows[0];
+  document.getElementById('o_conserv').innerHTML=
+    '<tr><td>堂食日单量</td><td class="num">'+(tsR.ordD*0.6).toFixed(0)+' 单</td></tr>'+
+    '<tr><td>外卖月单</td><td class="num">'+wmR.ordM.toFixed(0)+' 单</td></tr>'+
+    '<tr><td>加权客单价</td><td class="num">¥'+tsR.aovT.toFixed(0)+'</td></tr>'+
+    '<tr><td>保守月营收</td><td class="num">¥'+conserv.total.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</td></tr>';
+  // 日周月
+  var daily=conserv.total/30;
+  var wkly=daily*7;
+  document.getElementById('o_break').innerHTML=
+    '<tr><td>日均</td><td class="num">¥'+Math.round(daily).toLocaleString()+'</td><td>按 30 天平均</td></tr>'+
+    '<tr><td>周均</td><td class="num">¥'+Math.round(wkly).toLocaleString()+'</td><td>周末+周二试吃日×2 倍</td></tr>'+
+    '<tr><td>月保底</td><td class="num">¥'+Math.round(conserv.total).toLocaleString()+'</td><td>按保守档算</td></tr>'+
+    '<tr><td>年预估</td><td class="num">¥'+Math.round(conserv.total*12).toLocaleString()+'</td><td>已扣除 2 个月淡季</td></tr>';
+  // 决策
+  var v='';
+  if(conserv.total<30000)v='<div class="disc-hi disc-r"><b>🛑 别开</b>：保守估算都低于 3 万/月，没法覆盖房租+人工。这店址不行，换一个。</div>';
+  else if(conserv.total<80000)v='<div class="disc-hi disc-y"><b>🟡 苦生意</b>：勉强养活店，剩余利润薄。需要大力压缩固定成本</div>';
+  else if(conserv.total<200000)v='<div class="disc-hi disc-g"><b>✅ 健康</b>：保守档能盈利，是好店址</div>';
+  else v='<div class="disc-hi disc-g"><b>✅ 优秀</b>：上限很高，但要小心别被房东/合伙人涨租金预期带跑</div>';
+  document.getElementById('o_verdict').innerHTML=v;
+  document.getElementById('res').style.display='block';
+}
+
+// load state
+try{
+  var s=JSON.parse(localStorage.getItem('yingyee_state_v1')||'{}');
+  Object.keys(s).forEach(function(k){var el=document.getElementById(k.replace('t_','').replace('w_',''));if(el&&s[k]!==undefined)el.value=s[k];});
+}catch(e){}
+// store
+window.addEventListener('beforeunload',function(){
+  var s={};
+  document.querySelectorAll('input').forEach(function(el){if(el.id)s[el.id]=el.value;});
+  try{localStorage.setItem('yingyee_state_v1',JSON.stringify(s));}catch(e){}
+});
+</script>
+</body>
+</html>
