@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>蛋糕店成本结构分析器 | 自查宝盒</title>
+<style>
+:root{--ink:#1f2937;--ink2:#475569;--muted:#94a3b8;--line:#e5e7eb;--card:#fff;--bg:#fff7ed;--slate:#0f172a;
+--red:#dc2626;--g:#16a34a;--y:#ca8a04;--o:#d97706;--p:#a21caf;--bl:#2563eb;}
+*{box-sizing:border-box;}
+body{margin:0;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:var(--ink);background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+h1{font-size:26px;margin:8px 0 6px;color:var(--slate);}
+h2{font-size:18px;margin:26px 0 10px;font-weight:900;color:var(--slate);}
+.hero{background:linear-gradient(135deg,#7c2d12,#d97706);color:#fff7ed;padding:26px 22px;border-radius:16px;margin-bottom:22px;}
+.hero h1{color:#fff;}
+.hero .sub{opacity:.85;font-size:14px;}
+.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+label{font-size:13px;color:var(--ink2);}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fff;}
+input:focus{outline:none;border-color:var(--o);}
+.btn{display:block;width:100%;padding:14px;background:var(--o);color:#fff;border:none;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;margin:14px 0;}
+.bignum{font-size:48px;font-weight:900;color:var(--o);line-height:1;margin:6px 0;}
+.bignum.g{color:var(--g);} .bignum.y{color:var(--y);} .bignum.r{color:var(--red);}
+.disclaimer{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);padding:10px 14px;border-radius:10px;margin:14px 0;}
+.disc-hi{padding:13px 16px;margin:14px 0;border-radius:10px;font-size:14px;border-left:5px solid var(--o);}
+.disc-g{background:#ecfdf5;border-color:#16a34a;color:#166534;}
+.disc-y{background:#fef9c3;border-color:#ca8a04;color:#854d0e;}
+.disc-r{background:#fef2f2;border-color:#dc2626;color:#991b1b;}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;}
+.tag-r{background:#fef2f2;color:var(--red);}
+.tag-y{background:#fef9c3;color:#854d0e;}
+.tag-g{background:#dcfce7;color:#166534;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table th,table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+table th{background:#f8fafc;color:var(--slate);font-weight:700;font-size:12.5px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.bar{height:18px;border-radius:9px;background:#f1f5f9;overflow:hidden;margin:8px 0;}
+.bar>div{height:100%;transition:width .4s;}
+.legend{font-size:13px;color:var(--ink2);margin:6px 0;}
+.legend span{display:inline-block;margin-right:14px;}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;padding:20px 0;border-top:1px solid var(--line);}
+@media(max-width:480px){.row{grid-template-columns:1fr;}.bignum{font-size:36px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📊 蛋糕店成本结构分析</h1>
+  <div class="sub">看你的店真正健康不——对照同行基线，盯住偏高项</div>
+</div>
+
+<div class="disclaimer">⚠️ "健康基线"是行业经验值，不是论文。可能偏差 ±5%。<br>🟢=框架（成本结构）/ 🟡=行业经验基线 / 🔴=单店案例</div>
+
+<h2>① 填本月数据</h2>
+
+<div class="block">
+<div class="row">
+  <div><label>店型</label>
+    <select id="y_type">
+      <option value="street">街边店</option>
+      <option value="mall">商场店</option>
+      <option value="wj">外卖档口</option>
+    </select>
+  </div>
+  <div><label>月营业额（元）</label><input id="y_rev" type="number" value="100000"></div>
+</div>
+</div>
+
+<div class="block">
+<h3>变动成本（随营收变）</h3>
+<div class="row">
+  <div><label>食材 / 原料（元/月）</label><input id="y_food" type="number" value="0"></div>
+  <div><label>包装 / 外卖袋 / 辅料</label><input id="y_pkg" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>平台抽佣（如美团 6%）</label><input id="y_pt" type="number" value="0"></div>
+  <div><label>损耗 / 报废</label><input id="y_loss" type="number" value="0"></div>
+</div>
+</div>
+
+<div class="block">
+<h3>固定成本（每月都要付）</h3>
+<div class="row">
+  <div><label>房租</label><input id="y_zf" type="number" value="0"></div>
+  <div><label>人工（所有月薪总和）</label><input id="y_rg" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>水电燃气</label><input id="y_sd" type="number" value="0"></div>
+  <div><label>营销 / 推广</label><input id="y_mkt" type="number" value="0"></div>
+</div>
+<div class="row">
+  <div><label>设备折旧（设备/60 月）</label><input id="y_dpr" type="number" value="0"></div>
+  <div><label>杂项 / 包装 / 维修</label><input id="y_misc" type="number" value="0"></div>
+</div>
+</div>
+
+<button class="btn" onclick="calc()">📊 算成本结构</button>
+
+<div id="res" style="display:none;">
+
+<div class="block">
+<h3>真实净利率</h3>
+<div class="bignum" id="o_rate">--</div>
+<p style="margin:4px 0 0;font-size:13px;color:var(--ink2);">对照同行健康线 <b id="o_baseline"></b> 你属于：<b id="o_lvl"></b></p>
+</div>
+
+<div class="block">
+<h3>成本结构分布</h3>
+<div class="bar"><div id="b_food" style="background:#ea580c;"></div></div>
+<div class="bar"><div id="b_pkg" style="background:#ca8a04;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_pt" style="background:#a21caf;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_loss" style="background:#fbbf24;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_zf" style="background:#2563eb;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_rg" style="background:#dc2626;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_sd" style="background:#0d9488;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_mkt" style="background:#7c3aed;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_dpr" style="background:#0284c7;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_misc" style="background:#64748b;margin-top:-2px;"></div></div>
+<div class="bar"><div id="b_profit" style="background:#16a34a;margin-top:-2px;"></div></div>
+<p class="legend">
+<span style="color:#ea580c">■食材</span>
+<span style="color:#ca8a04">■包装</span>
+<span style="color:#a21caf">■平台抽佣</span>
+<span style="color:#fbbf24">■损耗</span>
+<span style="color:#2563eb">■房租</span>
+<span style="color:#dc2626">■人工</span>
+<span style="color:#0d9488">■水电</span>
+<span style="color:#7c3aed">■营销</span>
+<span style="color:#0284c7">■折旧</span>
+<span style="color:#64748b">■杂项</span>
+<span style="color:#16a34a">■净利润</span>
+</p>
+</div>
+
+<div class="block">
+<h3>详细数字</h3>
+<table>
+<thead><tr><th>项目</th><th class="num">金额（元）</th><th class="num">占比 %</th><th>同行基线</th><th>评估</th></tr></thead>
+<tbody id="o_tab"></tbody>
+</table>
+<p style="margin:6px 0 0;font-size:12.5px;color:var(--muted);" id="bl"></p>
+</div>
+
+<div class="block">
+<h3>📌 拖后腿的那一项，整改建议</h3>
+<div id="o_action"></div>
+</div>
+
+</div>
+
+<footer>🔒 数据只存在你手机本地（localStorage），不上传服务器</footer>
+</div>
+
+<script>
+/* 同行基线（蛋糕店, % of revenue) */
+var baseline={
+  street:{food:[30,38],pkg:[3,5],pt:[3,8],loss:[4,8],zf:[10,18],rg:[18,25],sd:[2,4],mkt:[3,6],dpr:[2,4],misc:[1,3],rate:[10,18],name:'街边店'},
+  mall:{food:[28,35],pkg:[5,8],pt:[3,8],loss:[3,6],zf:[18,28],rg:[15,22],sd:[2,4],mkt:[5,10],dpr:[2,4],misc:[1,3],rate:[5,12],name:'商场店'},
+  wj:{food:[25,32],pkg:[6,10],pt:[15,25],loss:[3,6],zf:[5,10],rg:[8,15],sd:[2,3],mkt:[6,10],dpr:[2,3],misc:[1,2],rate:[5,12],name:'外卖档口'}
+};
+var keys=[
+  {id:'food',n:'食材',color:'#ea580c'},
+  {id:'pkg',n:'包装',color:'#ca8a04'},
+  {id:'pt',n:'平台抽佣',color:'#a21caf'},
+  {id:'loss',n:'损耗',color:'#fbbf24'},
+  {id:'zf',n:'房租',color:'#2563eb'},
+  {id:'rg',n:'人工',color:'#dc2626'},
+  {id:'sd',n:'水电',color:'#0d9488'},
+  {id:'mkt',n:'营销',color:'#7c3aed'},
+  {id:'dpr',n:'设备折旧',color:'#0284c7'},
+  {id:'misc',n:'杂项',color:'#64748b'}
+];
+var actionMap={
+  food:{low:'食材占比过低可能偷工减料，长期会丢口碑',high:'食材占比过高，检查是否原料采购价偏高或偷换低价货（蒙牛换地方牌）'},
+  pkg:{low:'包装占比过低，包装太简陋影响送礼场景',high:'包装贵了，考虑统一下单谈批发 / 通用尺寸替代'},
+  pt:{low:'抽佣低：可能没开外卖或自配',high:'抽佣高是正常的，但 ≥10% 要查满减/红包返点是否让利过度'},
+  loss:{low:'损耗低于 4%——你已经做得很好了',high:'损耗过高，去 <a href="zhisun.html">治损器</a> 查 5 大黑洞'},
+  zf:{low:'房租低——好店址',high:'房租超过营收 18%，考虑重谈 / 换铺'},
+  rg:{low:'人工极低，可能一人多岗过载',high:'人工超 25%，要么减员要么提人效'},
+  sd:{low:'水电低',high:'电高查烤箱/冷柜是否老旧；气高查烤炉温度设定'},
+  mkt:{low:'营销投入低，新客进不来',high:'营销超 10% 看 ROI，单次推广获客成本要算'},
+  dpr:{low:'设备老但折旧低',high:'设备折旧高（设备贵），要做长期摊销'},
+  misc:{low:'管理费控得好',high:'杂项偏高，查偷吃 / 偷拿'}
+};
+
+function F(id){return +(document.getElementById(id).value||0);}
+
+function calc(){
+  var rev=F('y_rev')||1;
+  var type=document.getElementById('y_type').value;
+  var bl=baseline[type];
+  var items={};
+  var totalCost=0;
+  keys.forEach(function(k){
+    var v=F('y_'+k.id);
+    items[k.id]={val:v,p:v/rev*100,name:k.name,color:k.color};
+    totalCost+=v;
+  });
+  var profit=rev-totalCost;
+  var rate=profit/rev*100;
+  document.getElementById('o_rate').textContent=rate.toFixed(1)+'%';
+  var baselineClass=bl.rate[1];
+  var cls=rate>=bl.rate[1]?'g':rate>=bl.rate[0]?'y':'r';
+  document.getElementById('o_rate').className='bignum '+cls;
+  document.getElementById('o_baseline').textContent=bl.rate[0]+'~'+bl.rate[1]+'%';
+  document.getElementById('o_lvl').innerHTML=cls==='g'?'<span class="tag tag-g">健康</span>':cls==='y'?'<span class="tag tag-y">一般</span>':'<span class="tag tag-r">危险</span>';
+  // 比例条
+  var all={...items,profit:rate};
+  ['food','pkg','pt','loss','zf','rg','sd','mkt','dpr','misc','profit'].forEach(function(k){
+    var el=document.getElementById('b_'+k);
+    if(el){
+      if(k==='profit')el.style.width=Math.max(0,rate).toFixed(1)+'%';
+      else el.style.width=(items[k].p).toFixed(1)+'%';
+    }
+  });
+  // 详细表
+  var rows='';
+  keys.forEach(function(k){
+    var it=items[k.id];
+    var b=bl[k.id];
+    var ok=it.p>=b[0]&&it.p<=b[1];
+    var devClass=ok?'tag-g':it.p>b[1]?'tag-r':'tag-y';
+    var devText=ok?'<span class="tag tag-g">OK</span>':it.p>b[1]?'<span class="tag tag-r">偏高</span>':'<span class="tag tag-y">偏低</span>';
+    var range=b[1]>b[0]?(b[0]+'~'+b[1]+'%'):b[0]+'% 左右';
+    rows+='<tr><td>'+it.name+'</td><td class="num">¥'+it.val.toLocaleString()+'</td><td class="num">'+it.p.toFixed(1)+'%</td><td>'+range+'</td><td>'+devText+'</td></tr>';
+  });
+  rows+='<tr><th>净利润</th><th class="num">¥'+profit.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</th><th class="num">'+rate.toFixed(1)+'%</th><th>'+bl.rate[0]+'~'+bl.rate[1]+'%</th><th>--</th></tr>';
+  document.getElementById('o_tab').innerHTML=rows;
+  document.getElementById('bl').textContent='基线：'+bl.name;
+  // 整改建议 - 找最大超出基线（绝对差）的项
+  var worst=null;var worstDev=0;
+  keys.forEach(function(k){
+    var it=items[k.id];
+    var b=bl[k.id];
+    var dev=it.p>b[1]?it.p-b[1]:(it.p<b[0]?b[0]-it.p:0);
+    if(dev>worstDev){worstDev=dev;worst=k;}
+  });
+  if(!worst||worstDev<1)document.getElementById('o_action').innerHTML='<div class="disc-hi disc-g"><b>✅ 没看到明显异常</b>——所有项都在基线内。继续保持，定期复核。</div>';
+  else document.getElementById('o_action').innerHTML='<div class="disc-hi disc-y"><b>⚠ 最该整治的是 <span style="color:#dc2626">'+items[worst.id].name+'</span></b>（你 '+items[worst.id].p.toFixed(1)+'%，基线 '+bl[worst.id][0]+'~'+bl[worst.id][1]+'%，差 '+(items[worst.id].p-bl[worst.id][1]>0?(items[worst.id].p-bl[worst.id][1]).toFixed(1):0)+'%）</div><p style="margin:10px 0;">'+actionMap[worst.id].high+'</p>';
+  document.getElementById('res').style.display='block';
+}
+
+// load
+try{
+  var s=JSON.parse(localStorage.getItem('jingying_state_v1')||'{}');
+  Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el&&s[k]!==undefined)el.value=s[k];});
+}catch(e){}
+window.addEventListener('beforeunload',function(){
+  var s={};
+  document.querySelectorAll('input,select').forEach(function(el){if(el.id)s[el.id]=el.value;});
+  try{localStorage.setItem('jingying_state_v1',JSON.stringify(s));}catch(e){}
+});
+</script>
+</body>
+</html>
