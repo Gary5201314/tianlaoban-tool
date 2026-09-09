@@ -916,34 +916,47 @@ async function arkFetch(url,opts){
   return await fetch(finalUrl,opts);
 }
 
-/* ===================== 真实豆包图生图 ===================== */
+/* ===================== 真实豆包图生图（v9.2：429 限额自动降级到 4.0） ===================== */
 async function callSeedream(prompt,imageBase64,seed){
-  const body = {
-    model: cfg.imgModel,
-    prompt: prompt,
-    /* v6.3 修复：seedream-5.0 size 总像素下限为 2560x1440=3686400，1024x1024 会被拒（InvalidParameter）。
-       1440x2560 = 精确 9:16 竖版 + 合法下限，按张计费价格不变 */
-    size: '1440x2560',
-    response_format: 'url',
-    watermark: false
+  const buildBody = (model) => {
+    const body = {
+      model: model,
+      prompt: prompt,
+      /* v6.3 修复：seedream-5.0 size 总像素下限为 2560x1440=3686400，1024x1024 会被拒（InvalidParameter）。
+         1440x2560 = 精确 9:16 竖版 + 合法下限，按张计费价格不变 */
+      size: '1440x2560',
+      response_format: 'url',
+      watermark: false
+    };
+    if(imageBase64){ body.image = imageBase64; }
+    if(seed!==undefined){ body.seed = seed; }
+    return body;
   };
-  if(imageBase64){ body.image = imageBase64; }
-  if(seed!==undefined){ body.seed = seed; }
+  const attempt = async (model) => {
+    const r = await arkFetch(cfg.imgUrl,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer '+cfg.arkKey
+      },
+      body: JSON.stringify(buildBody(model))
+    });
+    return { r, txt: r.ok ? '' : await r.text().catch(()=>'') };
+  };
 
-  const r = await arkFetch(cfg.imgUrl,{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'Authorization':'Bearer '+cfg.arkKey
-    },
-    body: JSON.stringify(body)
-  });
+  /* v9.2：主模型若触发账号「安全体验模式」限额（429 SetLimitExceeded），自动降级到 Seedream-4.0 续命 */
+  const FALLBACK_MODEL = 'doubao-seedream-4-0-250828';
+  let { r, txt } = await attempt(cfg.imgModel);
+  if(!r.ok && r.status===429 && /SetLimitExceeded|reached the set inference limit/i.test(txt) && cfg.imgModel!==FALLBACK_MODEL){
+    console.warn('[seedream] 主模型触发限额，自动降级到', FALLBACK_MODEL);
+    const fb = await attempt(FALLBACK_MODEL);
+    r = fb.r; txt = fb.txt;
+  }
   if(!r.ok){
-    const txt = await r.text().catch(()=>'');
     // 友好提示（消费者视角，不外泄技术细节）
     let hint = '（请稍后重试，或联系客服）';
     if(r.status===401||r.status===403) hint = '（服务维护中，请稍后重试或联系客服）';
-    else if(r.status===429) hint = '（请求太频繁，稍等几秒再试）';
+    else if(r.status===429) hint = '（生成排队中，稍等几秒再试）';
     throw new Error('HTTP '+r.status+': '+(txt.slice(0,120)||r.statusText)+' '+hint);
   }
   const j = await r.json();
@@ -1995,18 +2008,32 @@ $("#testCfgBtn").onclick=async()=>{
   $("#cfgStatus").style.display="block";
   $("#testCfgBtn").disabled=true;
   try{
-    const r = await arkFetch(cfg.imgUrl,{
+    /* v9.2：测试时若主模型触发账号限额（429 SetLimitExceeded），自动降级到 Seedream-4.0 验证连通性 */
+    const tryBody=(m)=>JSON.stringify({model:m,prompt:"a tiny red apple on white background, studio lighting",size:"2048x2048",response_format:"url",watermark:false}) /* v6.3: 512x512 低于 seedream-5.0 总像素下限会 400 */;
+    let r = await arkFetch(cfg.imgUrl,{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.arkKey},
-      body:JSON.stringify({model:cfg.imgModel,prompt:"a tiny red apple on white background, studio lighting",size:"2048x2048",response_format:"url",watermark:false}) /* v6.3: 512x512 低于 seedream-5.0 总像素下限会 400 */
+      body:tryBody(cfg.imgModel)
     });
+    let usedModel=cfg.imgModel;
+    if(!r.ok&&r.status===429){
+      const t0=await r.text().catch(()=>'');
+      if(/SetLimitExceeded|reached the set inference limit/i.test(t0)&&cfg.imgModel!=='doubao-seedream-4-0-250828'){
+        usedModel='doubao-seedream-4-0-250828';
+        r = await arkFetch(cfg.imgUrl,{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.arkKey},
+          body:tryBody(usedModel)
+        });
+      }
+    }
     if(!r.ok){
       const t=await r.text().catch(()=>'');
       throw new Error('HTTP '+r.status+' · '+(t.slice(0,150)||r.statusText));
     }
     const j=await r.json();
     if(!j.data||!j.data[0]||!j.data[0].url) throw new Error('返回数据无 url：'+JSON.stringify(j).slice(0,150));
-    $("#cfgStatus").innerHTML="✅ 连接成功 · 测试图：<br><img src='"+j.data[0].url+"' style='width:100%;border-radius:8px;margin-top:6px'>";
+    $("#cfgStatus").innerHTML="✅ 连接成功"+(usedModel!==cfg.imgModel?"（主模型限额，已用 4.0 验证）":"")+" · 测试图：<br><img src='"+j.data[0].url+"' style='width:100%;border-radius:8px;margin-top:6px'>";
     $("#cfgStatus").className="note ok";
     updateApiBadge(true);
     bumpImg(1,0.22);
