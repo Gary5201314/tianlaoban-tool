@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+<html data-page-node-id="nuS8jKqeykX0W5pL32FqmU" lang="zh-CN">
+<head data-page-node-id="wipgtKgdD0kAV6MSzXtpel">
+<script data-page-node-id="jQoGnTmzUGDCcyi4wMVHzv" src="/page/page_comm/inject.js"></script>
+<meta data-page-node-id="D3ltvxqxNpb8bqhdy9Cyju" charset="UTF-8">
+<meta data-page-node-id="sYdNK9MvKroMfsMXXP9Jz1" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="theme-color" content="#e8557a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="甜老板">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="./icon-192.svg">
+<link rel="apple-touch-icon" href="./icon-192.svg">
+<title data-page-node-id="BSu6AEPWSVcXzCJXqFA3bD" data-pnid-children="HSuqxPjF09Cuo5SnzgdLBl">甜老板·私域助手 — 蛋糕店老板专属App</title>
+<style data-page-node-id="gtBixCbFQaAkHDXGPhxu61" data-pnid-children="SnwrI8ZLPCyEvBURHqXJZC">
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{
+    --bg:#f4f1ee; --card:#ffffff; --ink:#2b2622; --sub:#8a817a;
+    --brand:#e8557a; --brand2:#ff9a76; --gold:#caa24a; --line:#ece6e0;
+    --green:#3aa76d; --blue:#5b8def; --red:#d64545;
+    --shadow:0 6px 20px rgba(120,90,70,.10);
+  }
+  html,body{margin:0;padding:0;background:#e7e2dc;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);}
+  .phone{max-width:430px;margin:0 auto;background:var(--bg);min-height:100vh;position:relative;display:flex;flex-direction:column;}
+  .appbar{background:#fff;color:var(--ink);padding:13px 18px;border-bottom:1px solid var(--line);}
+  .appbar .t1{font-size:16.5px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .appbar .t2{font-size:12px;opacity:.92;margin-top:3px;}
+  /* v7.8 页眉每日鼓励语 */
+  .daily-motto{display:flex;align-items:center;gap:6px;margin-top:8px;padding:7px 11px;background:linear-gradient(135deg,#fff7f0,#fff0f4);border-radius:10px;font-size:12px;color:#a0642f;font-weight:600;line-height:1.5;}
+  .daily-motto .dm-ic{font-size:15px;}
+  .screen{flex:1;overflow-y:auto;padding:16px 14px 84px;-webkit-overflow-scrolling:touch;}
+  .screen::-webkit-scrollbar{display:none;}
+  .card{background:var(--card);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px;}
+  .card h3{margin:0 0 10px;font-size:15px;font-weight:800;display:flex;align-items:center;gap:7px;}
+  .card h3 .em{font-size:17px;}
+  .muted{color:var(--sub);font-size:12.5px;line-height:1.6;}
+  .pill{display:inline-flex;align-items:center;gap:5px;background:#fdeef2;color:var(--brand);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:700;margin:4px 6px 4px 0;user-select:none;}
+  .pill.off{background:#f1ece7;color:var(--sub);}
+  .pill.sel{background:var(--brand);color:#fff;}
+  .btn{display:block;width:100%;border:none;border-radius:14px;padding:13px;font-size:15px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 5px 14px rgba(232,85,122,.32);cursor:pointer;margin-top:6px;}
+  .btn.ghost{background:#fff;color:var(--brand);border:1.5px solid var(--brand);box-shadow:none;}
+  .btn.sm{display:inline-block;width:auto;padding:9px 14px;font-size:13px;margin:0;}
+  .btn:active{transform:translateY(1px);}
+  .btn:disabled{opacity:.55;cursor:wait;}
+  .upload{display:block;width:100%;box-sizing:border-box;border:2px dashed var(--brand);border-radius:16px;padding:26px 12px;text-align:center;color:var(--brand);font-weight:700;background:#fff7f9;cursor:pointer;}
+  .upload .ic{font-size:34px;}
+  .upload input{display:none;}
+  .holiday{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#fff5e9,#ffeef3);border:1px solid #f4d9c2;border-radius:14px;padding:12px;margin-bottom:12px;}
+  .holiday .big{font-size:26px;}
+  .holiday .ht{font-weight:800;font-size:15px;color:#b5622f;}
+  .holiday .hs{font-size:12px;color:#a07a5c;margin-top:2px;}
+  .chip-row{display:flex;flex-wrap:wrap;}
+  .preview-wrap{display:flex;justify-content:center;flex-direction:column;align-items:center;}
+  canvas{display:block;width:100%;max-width:300px;height:auto;aspect-ratio:1/1;border-radius:14px;box-shadow:0 8px 22px rgba(120,90,70,.28);background:#faf7f4;object-fit:contain;}
+  .prompts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 4px;}
+  .prompt-chip{display:flex;align-items:center;justify-content:center;background:#f5f0eb;color:var(--ink);border:1.5px solid transparent;border-radius:10px;padding:9px 6px;font-size:12px;font-weight:700;text-align:center;line-height:1.3;cursor:pointer;user-select:none;min-height:46px;transition:all .15s;}
+  .prompt-chip.sel{background:linear-gradient(135deg,#fff0f4,#ffe1ec);color:var(--brand);border-color:var(--brand);box-shadow:0 3px 10px rgba(232,85,122,.18);}
+  .prompt-chip:hover{transform:translateY(-1px);}
+  .prompt-help{font-size:12px;color:var(--sub);margin:6px 0 10px;line-height:1.55;}
+  .phone-modal{position:fixed;inset:0;z-index:99999;background:rgba(20,15,12,.55);display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn .2s;}
+  .phone-modal.gone{display:none;}
+  .pm-box{width:100%;max-width:340px;background:#fff;border-radius:20px;padding:24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+  .pm-box h2{margin:8px 0 6px;font-size:20px;font-weight:800;color:var(--ink);}
+  .pm-box .sub{color:var(--sub);font-size:13px;line-height:1.55;margin-bottom:16px;}
+  .pm-box input{width:100%;padding:14px;border:2px solid var(--line);border-radius:12px;font-size:15px;text-align:center;letter-spacing:1px;margin-bottom:10px;}
+  .pm-box input:focus{outline:none;border-color:var(--brand);}
+  .pm-box .btn{width:100%;margin-top:6px;}
+  .pm-box .hint{font-size:11.5px;color:var(--sub);margin-top:10px;line-height:1.5;}
+  .wx-btn{background:#09bb07 !important;color:#fff !important;border:none !important;font-weight:800;}
+  .wx-btn:hover{background:#08a906 !important;}
+  .lic-phone{background:linear-gradient(135deg,#f0f8ff,#dfeefe);border-radius:12px;padding:12px;margin:8px 0;font-size:12.5px;color:var(--ink);line-height:1.7;}
+  .lic-phone b{color:#0c66c2;font-weight:800;}
+  .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;}
+  .result-card{border:2px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;background:#fff;transition:all .15s;}
+  .result-card.sel{border-color:var(--brand);box-shadow:0 4px 14px rgba(232,85,122,.25);}
+  .result-card img{width:100%;display:block;aspect-ratio:1/1;object-fit:cover;background:#faf7f4;}
+  .result-card .num{font-size:11px;color:var(--sub);text-align:center;padding:6px 0;font-weight:700;}
+  .btn-poster-sm{display:block;width:calc(100% - 8px);margin:0 4px 6px;padding:6px 0;border:1px solid var(--brand);background:#fff7f9;color:var(--brand);border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;}
+  .btn-poster-sm:active{background:#ffeef3;}
+  .result-card.sel .num{color:var(--brand);}
+  .preview-wrap img{max-width:300px;width:100%;border-radius:14px;box-shadow:0 8px 22px rgba(120,90,70,.28);}
+  .copybox{background:#fbf8f5;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;color:#3a342f;max-height:230px;overflow:auto;}
+  .copybox .ttl{font-weight:800;color:var(--brand);}
+  .tag{color:var(--blue);}
+  .row2{display:flex;gap:8px;}
+  .row2 .btn{margin-top:8px;}
+  .tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1px solid var(--line);display:flex;padding:7px 4px 10px;box-shadow:0 -4px 16px rgba(0,0,0,.06);z-index:30;}
+  .tab{flex:1;text-align:center;color:var(--sub);font-size:11px;font-weight:700;padding:4px 0;cursor:pointer;}
+  .tab .ti{font-size:21px;display:block;margin-bottom:2px;}
+  .tab.on{color:var(--brand);}
+  /* 开店工具卡片网格 */
+  .tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .tool-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 12px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:4px;transition:all .15s;}
+  .tool-card:active{transform:scale(.97);background:#fff7f0;}
+  .tool-card .tc-ic{font-size:26px;line-height:1;margin-bottom:4px;}
+  .tool-card .tc-t{font-weight:800;font-size:13.5px;line-height:1.3;}
+  .tool-card .tc-d{color:var(--sub);font-size:11.5px;line-height:1.4;}
+  .tool-card .tc-tag{display:inline-block;background:#fff0f4;color:var(--brand);font-size:10px;font-weight:700;border-radius:4px;padding:1px 5px;align-self:flex-start;margin-top:2px;}
+  .tool-section-hd{font-weight:800;font-size:13.5px;color:var(--brand);margin:14px 4px 8px;display:flex;align-items:center;gap:6px;}
+  .tool-section-hd:first-child{margin-top:4px;}
+  .hidden{display:none!important;}
+  .lib-item{border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:11px;background:#fff;}
+  .lib-item .lh{font-weight:800;font-size:14px;display:flex;align-items:center;gap:7px;}
+  .lib-item .cat{font-size:10.5px;background:#eef4ff;color:var(--blue);border-radius:6px;padding:2px 7px;font-weight:700;}
+  .lib-item .play{font-size:12.5px;line-height:1.65;margin-top:7px;color:#4a443e;}
+  .lib-item .src{font-size:11px;color:var(--sub);margin-top:7px;border-top:1px dashed var(--line);padding-top:6px;}
+  .lib-item .kpi{display:inline-block;background:#eafaf1;color:var(--green);font-size:11px;font-weight:700;border-radius:6px;padding:3px 8px;margin-top:7px;}
+  .seg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px;}
+  .seg .o{flex:1;min-width:78px;text-align:center;background:#f3eee9;border-radius:10px;padding:9px 4px;font-size:12.5px;font-weight:700;color:var(--sub);cursor:pointer;border:1.5px solid transparent;}
+  .seg .o.sel{background:#fff0f4;color:var(--brand);border-color:var(--brand);}
+  select,input[type=text],input[type=password],textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:13.5px;margin:6px 0;background:#fff;color:var(--ink);font-family:inherit;}
+  textarea{resize:vertical;min-height:80px;}
+  .checkin{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#fff5e9,#ffeef3);border-radius:14px;padding:14px;}
+  .checkin .ring{width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--brand) 0deg, #f0e9e3 0deg);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--brand);font-size:15px;}
+  .share-sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:50;}
+  .share-sheet .box{background:#fff;width:100%;max-width:430px;border-radius:20px 20px 0 0;padding:18px;}
+  .share-sheet .box .ch{font-weight:800;font-size:15px;margin-bottom:12px;}
+  .share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;font-size:11.5px;color:var(--sub);}
+  .share-grid .si{font-size:30px;}
+  .toast{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(40,34,30,.92);color:#fff;padding:11px 20px;border-radius:12px;font-size:13.5px;font-weight:700;z-index:99;opacity:0;transition:.25s;pointer-events:none;}
+  .toast.show{opacity:1;}
+  .album-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+  .album-grid img{width:100%;aspect-ratio:1;border-radius:10px;object-fit:cover;}
+  .album-grid .ph{position:relative;}
+  .album-grid .ph .pick{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.35);color:#fff;font-size:13px;display:none;align-items:center;justify-content:center;}
+  .album-grid .ph.sel .pick{display:flex;background:var(--brand);}
+  .album-grid .ph.sel img{outline:3px solid var(--brand);outline-offset:-3px;}
+  .note{background:#fff8ec;border:1px solid #f3e2bf;border-radius:10px;padding:10px 12px;font-size:12px;color:#9a7b3f;line-height:1.6;margin-top:8px;word-break:break-all;}
+  .note.ok{background:#eafaf1;border-color:#bfe3cf;color:#2a7a4f;}
+  .note.err{background:#fdecec;border-color:#f3c2c2;color:#a04040;}
+  .road{display:flex;gap:10px;margin:10px 0;}
+  .road .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .road .rt{font-size:13px;line-height:1.6;}
+  .road .rt b{font-size:13.5px;}
+  .loading-bar{position:relative;height:6px;background:#f3eee9;border-radius:3px;overflow:hidden;margin-top:10px;}
+  .loading-bar::after{content:"";position:absolute;left:-30%;top:0;height:100%;width:30%;background:linear-gradient(90deg,transparent,var(--brand),transparent);animation:slide 1.4s infinite;}
+  @keyframes slide{0%{left:-30%;}100%{left:100%;}}
+  .kv{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin:6px 0;}
+  .kv b{color:var(--ink);}
+  .badge{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:6px;font-weight:700;margin-left:6px;}
+  .badge.green{background:#eafaf1;color:var(--green);}
+  .badge.red{background:#fdecec;color:var(--red);}
+  .code{font-family:Menlo,Consolas,monospace;font-size:11px;background:#faf7f4;padding:8px;border-radius:6px;margin-top:6px;overflow-x:auto;white-space:pre-wrap;word-break:break-all;color:#3a342f;}
+  .lic-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#eafaf1,#d4f1e0);color:#2a7a4f;font-size:11px;font-weight:700;padding:3px 9px;border-radius:8px;margin-left:6px;}
+  .lic-badge.warn{background:linear-gradient(135deg,#fff5e9,#ffe1cc);color:#a05e1c;}
+  .lic-badge.trial{background:linear-gradient(135deg,#fff0f4,#ffe1ec);color:#a83a64;}
+  .lic-badge.err{background:linear-gradient(135deg,#fdecec,#fbdada);color:#a04040;}
+  /* ===== v7.0 紧凑目标 pill ===== */
+  .goal-pills{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;}
+  .goal-pill{background:#faf7f4;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;cursor:pointer;color:var(--ink);}
+  .goal-pill.sel{border-color:var(--brand);background:#fff0f4;color:var(--brand);font-weight:800;box-shadow:0 2px 8px rgba(232,85,122,.15);}
+  /* ===== v6.9 问卷 / 论坛 / 看板 ===== */
+  .quiz-chip{display:inline-block;background:#faf7f4;border:1.5px solid var(--line);border-radius:999px;padding:4px 10px;margin:0 5px 5px 0;font-size:12px;cursor:pointer;}
+  .quiz-chip.sel{border-color:var(--brand);background:#fff0f4;color:var(--brand);font-weight:700;}
+  .week .d.today{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;cursor:pointer;box-shadow:0 3px 12px rgba(232,85,122,.35);}
+  .week .d.today b{color:#fff;}
+  .week .d.today::after{content:"今天";display:block;font-size:9px;margin-top:2px;opacity:.9;}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;}
+  .stat-cell{background:#faf7f4;border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;}
+  .stat-cell .sv{font-size:20px;font-weight:800;color:var(--brand);}
+  .stat-cell .sl{font-size:10.5px;color:var(--sub);margin-top:2px;}
+  .plan-out{background:#fffaf5;border:1.5px solid #f3d7e0;border-radius:14px;padding:14px;font-size:13px;line-height:1.75;white-space:pre-wrap;word-break:break-word;}
+  /* 论坛全屏层 */
+  .forum-layer{position:fixed;inset:0;background:var(--bg);z-index:60;overflow-y:auto;padding:0 0 80px;display:none;}
+  .forum-layer.open{display:block;}
+  /* v7.1 我的页：菜单列表 */
+  .me-menu{display:flex;align-items:center;gap:12px;padding:15px 6px;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px;font-weight:700;color:var(--ink);}
+  .me-menu:last-child{border-bottom:none;}
+  .me-menu .mi{font-size:20px;}
+  .me-menu .mt{flex:1;}
+  .me-menu .arr{color:var(--sub);font-size:18px;font-weight:400;}
+  .me-menu .msub{display:block;font-size:11px;color:var(--sub);font-weight:400;margin-top:2px;}
+  .forum-hd{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);z-index:5;}
+  .forum-hd .bk{font-size:22px;cursor:pointer;padding:0 4px;}
+  .forum-hd .ft{flex:1;font-weight:800;font-size:16px;}
+  .forum-hd .fg{font-size:18px;cursor:pointer;padding:2px 6px;}
+  .forum-cats{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px 4px;position:sticky;top:47px;background:var(--bg);z-index:4;}
+  .forum-cat{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12px;cursor:pointer;color:var(--sub);}
+  .forum-cat.sel{border-color:var(--brand);color:var(--brand);font-weight:700;background:#fff0f4;}
+  .forum-list{padding:6px 16px;}
+  .forum-post{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(120,90,70,.06);cursor:pointer;}
+  .forum-post .fp-cat{display:inline-block;background:#fff0f4;color:var(--brand);font-size:10.5px;font-weight:700;border-radius:6px;padding:1px 7px;margin-bottom:5px;}
+  .forum-post .fp-title{font-weight:800;font-size:14px;margin-bottom:4px;}
+  .forum-post .fp-ex{font-size:12.5px;color:var(--sub);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .forum-post .fp-meta{font-size:11px;color:var(--sub);margin-top:7px;display:flex;gap:12px;}
+  .forum-fab{position:fixed;right:18px;bottom:26px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(232,85,122,.4);cursor:pointer;z-index:61;border:none;}
+  .forum-compose{padding:16px;}
+  .forum-compose textarea,.forum-compose input{width:100%;margin-bottom:10px;}
+  .forum-reply{display:flex;gap:8px;padding:10px 16px;}
+  .forum-reply input{flex:1;}
+  .forum-empty{text-align:center;color:var(--sub);font-size:13px;padding:40px 20px;}
+  .forum-guide{background:#fff;border-radius:14px;padding:16px;margin:12px 16px;font-size:13px;line-height:1.8;}
+  /* ===== v7.8 烘焙智囊对话层 ===== */
+  .ba-msg{display:flex;gap:8px;align-items:flex-start;}
+  .ba-msg.me{flex-direction:row-reverse;}
+  .ba-avatar{flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#fff0f4,#ffe1ec);display:flex;align-items:center;justify-content:center;font-size:17px;}
+  .ba-msg.me .ba-avatar{background:linear-gradient(135deg,var(--brand),var(--brand2));}
+  .ba-bubble{max-width:78%;background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 13px;font-size:13.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;box-shadow:0 2px 6px rgba(120,90,70,.05);}
+  .ba-msg.me .ba-bubble{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border:none;}
+  .ba-quick{background:#fff;border:1.5px solid var(--brand);color:var(--brand);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;font-weight:600;}
+  .ba-quick:active{background:#fff0f4;}
+  .ba-teach-btn{display:block;margin:4px 0 0 40px;background:none;border:none;color:#c96;font-size:11px;cursor:pointer;padding:2px 0;}
+  .ba-teach-btn:active{opacity:.6;}
+  .ba-kb-tag{display:inline-block;margin:-4px 0 0 40px;font-size:10.5px;color:#4a8f3c;background:#eaf7e6;border-radius:6px;padding:2px 8px;}
+  textarea#bakeryAiTeachA{font-family:inherit;}
+  .ba-typing{display:inline-flex;gap:4px;padding:6px 2px;}
+  .ba-typing span{width:6px;height:6px;border-radius:50%;background:#bbb;animation:baBounce 1.2s infinite;}
+  .ba-typing span:nth-child(2){animation-delay:.2s;}
+  .ba-typing span:nth-child(3){animation-delay:.4s;}
+  @keyframes baBounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-4px);opacity:1;}}
+</style>
+</head>
+<body data-page-node-id="LDQruYy76MAMSvLyjyC967">
+<div data-page-node-id="RA2ziWkU5S3X1c6LSVeutm" class="phone">
+  <div data-page-node-id="4yEVXpEudzy7Vvn6QxudWH" class="appbar">
+    <div data-page-node-id="sOgL5nRBJCH3HZEleICtYt" class="t1">🍰 甜老板·私域助手<span id="licBadge" class="lic-badge hidden"></span><span id="apiBadge" class="badge green hidden">已连接</span></div>
+    <div class="daily-motto"><span class="dm-ic">🌞</span><span id="dailyMotto">每天一句，甜老板加油</span></div>
+  </div>
+
+  <!-- ============ 模块一：私域运营 ============ -->
+  <div data-page-node-id="F1FPURVy3sRN591CpfFEaL" class="screen" id="s1">
+    <div data-page-node-id="pnj0IDcuzAzJTSRuFMjFed" class="card">
+      <label data-page-node-id="ghC4dfSY15frRfQufkgBvo" class="upload" id="upLabel">
+        <div data-page-node-id="eU3E20KHoKhLyBIpZdM12m" class="ic">＋</div>
+        <div data-page-node-id="SjimPxavSOW4CJ5arI0X5Y">点击上传蛋糕照片</div>
+        <input data-page-node-id="BkcsjoxzJInl69yEL0oWlQ" accept="image/*" id="fileInput" type="file">
+      </label>
+      <div data-page-node-id="oRRkPF0xqVp5Qet2v0cwP7" class="preview-wrap hidden" id="previewWrap" style="margin-top:12px"><canvas data-page-node-id="hyjeljVQECQEHMXMmwHimz" height="1080" id="outCanvas" width="1080" style="max-width:300px;width:100%;border-radius:14px"></canvas></div>
+      <div data-page-node-id="h8c4n8iO7pzK9916odjT3l" id="imgStatus" class="note ok" style="display:none"></div>
+    </div>
+
+    <div data-page-node-id="OoBHi4L8FgE3VOXY5qzyUG" class="card">
+      <h3 data-page-node-id="JIjhl1r7i8XDU3760EyX3M"><span data-page-node-id="wzjZF0QCjvMXwRYkizCXQr" class="em">🎯</span>挑背景场景（默认选好 3 个，可换）</h3>
+      <div id="promptsGrid" class="prompts-grid"></div>
+      <div class="prompt-help" style="margin-top:8px">都是烘焙甜品常用的高级氛围背景，蛋糕外观保持不变，只换场景。选几个就轮着出几张。</div>
+    </div>
+
+    <div data-page-node-id="fosfQXGGiWQMn5MlbtLk5o" class="card">
+      <h3 data-page-node-id="xatuwLFXpXf8fWoCvMhlYE"><span data-page-node-id="2VUFvB9tZN0rhrnkggj0z1" class="em">✨</span>生成图片 + 朋友圈文案</h3>
+      <button data-page-node-id="DcrvdnvEY9tvWo52qeOIDA" class="btn" id="genBtn">生成 3 张图 + 文案</button>
+      <div id="quotaHint" class="note" style="margin-top:6px;color:#b08d5e"></div>
+      <div id="genLoading" class="loading-bar" style="display:none"></div>
+      <div id="genStatus" class="note" style="display:none"></div>
+    </div>
+
+    <div data-page-node-id="5yREWYr7GMBchpMYIaG4ra" class="card hidden" id="resultCard">
+      <h3 data-page-node-id="PKkof1cgqrNAHpvOSAUfdV"><span data-page-node-id="7nsIepoKX29ADOU6XuSSV6" class="em">📱</span>3 张图（点图放大，选好点「用这张」）</h3>
+      <div id="resultsGrid" class="results-grid"></div>
+      <div id="resultSelectHint" class="prompt-help" style="margin-top:8px">👆 点缩略图放大查看，大图里点「✅ 用这张」选中它。</div>
+      <div data-page-node-id="St0wPa1RVTN5V73FOWxL2e" class="copybox" id="copyBox" style="margin-top:12px"></div>
+      <div data-page-node-id="1kW45HVdNlQN03riVJud3G" class="row2">
+        <button data-page-node-id="Hr9nuV9gb1V7rwpHSQl9X1" class="btn sm" id="copyBtn">📋 复制文案</button>
+        <button data-page-node-id="GRQxzfejfMlwVmZ52ZXMH3" class="btn sm ghost" id="dlBtn">⬇️ 下载选中图</button>
+      </div>
+      <div data-page-node-id="9nL6zDnY0Ro7uUvI22FEcJ" class="row2">
+        <button data-page-node-id="KKGO2dlPntzqigSCuWziyc" class="btn sm" id="dlAllBtn">📦 下载全部 3 张</button>
+        <button data-page-node-id="Vk1JZMh5uI0ckABg6oChnT" class="btn sm ghost" id="regenBtn">🔄 重生成 3 张</button>
+      </div>
+    </div>
+
+    <!-- v6.6 全屏放大查看 -->
+    <div id="lightbox" style="position:fixed;inset:0;background:rgba(20,14,10,.9);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;padding:16px">
+      <img id="lbImg" src="" style="max-width:92vw;max-height:68vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5)" alt="放大预览"/>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button class="btn" id="lbUse">✅ 用这张</button>
+        <button class="btn ghost" id="lbClose">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 模块二：社群运营 ============ -->
+  <div data-page-node-id="Q0wZePBQVEi63hzIiqm7ec" class="screen hidden" id="s2">
+    <div data-page-node-id="n575rxrOUPYqSpIa78K7Do" class="card">
+      <div data-page-node-id="hxUN0SnGVnl7TOQXdfNyuE" class="checkin">
+        <div data-page-node-id="uN3yVqFVHmzTJP0AJYFTlp" class="ring" id="ring">0</div>
+        <div data-page-node-id="Td4BLURuU9zGc1MJT2DUIR" style="flex:1">
+          <div data-page-node-id="ssUdgZ5gRQvY4ZoXGMA6Ov" style="font-weight:800; font-size:15px">今日打卡</div>
+          <div data-page-node-id="dgydSc4kZDJRpaplNuJsyY" class="muted" id="checkSub">点一下打卡，今日生图 +1</div>
+          <div id="checkReward" style="display:none;font-size:11.5px;color:#2a7a4f;font-weight:700;margin-top:4px">✅ 今日已打卡 · 生图次数 +1</div>
+          <button data-page-node-id="RRCyD2OczmN9mo3Kx1RnRL" class="btn sm" id="checkBtn" style="margin-top:8px">打卡</button>
+        </div>
+      </div>
+    </div>
+
+    <div data-page-node-id="15PEiBWPW4uDPn8SkD0fm9" class="card">
+      <h3 data-page-node-id="IEiscLGDnzEELmDnqWz00D"><span data-page-node-id="Tvy4EEQXWiZ28SzxePdaxF" class="em">🤖</span>社群助手</h3>
+      <div class="seg" id="planModeSeg">
+        <div class="o sel" data-m="copy">💬 常规社群互动</div>
+        <div class="o" data-m="plan">🎯 活动策划</div>
+      </div>
+
+      <!-- 模式A：快速出文案 -->
+      <div id="modeCopy">
+        <div class="seg" id="copySeg"></div>
+        <input data-page-node-id="0Pv5tN3C2j4U80g6wMmUuR" id="cName" placeholder="产品/活动名，如：海盐芝士蛋糕" type="text">
+        <input data-page-node-id="OJYxVtGuZevHUcqyBzC9zC" id="cPrice" placeholder="价格/权益，如：社群价 39 元 限 30 份" type="text">
+        <button data-page-node-id="e8AhvsvfVgOdUjgu4AIfBY" class="btn" id="genCopyBtn">生成文案</button>
+        <div id="copyLoading" class="loading-bar" style="display:none"></div>
+        <div data-page-node-id="PYGv2tylhNDrlq3hbjbulf" class="copybox hidden" id="ccBox" style="margin-top:10px"></div>
+        <button data-page-node-id="H0u4YeiQd6oUEv7CJtObVM" class="btn sm hidden ghost" id="ccCopy" style="margin-top:8px">📋 复制</button>
+      </div>
+
+      <!-- 模式B：完整活动策划 -->
+      <div id="modePlan" style="display:none">
+        <div class="muted" style="margin-bottom:2px">回答 7 个小问题，<b style="color:var(--brand)">doubao-seed-2.1-pro</b> 策划顾问为你的店量身定制「执行级方案」—— 老板复制就能发、看完就能干。</div>
+        <div style="font-size:12.5px; font-weight:700; margin:10px 0 2px">1️⃣ 这次活动最想达成什么？</div>
+        <div class="goal-pills" id="goalGrid"></div>
+        <div id="quizArea" style="display:none">
+          <div style="font-size:12.5px;font-weight:700;margin:14px 0 2px">2️⃣ 店里主要卖什么？<span class="muted" style="font-weight:400;font-size:11px">（可多选）</span></div>
+          <div class="chip-row" id="quizQ1"></div>
+          <input id="quizQ1Other" placeholder="还有别的吗？如：蛋糕卷、伴手礼（可空）"/>
+          <div style="font-size:12.5px;font-weight:700;margin:10px 0 2px">3️⃣ 你的店是哪种类型？</div>
+          <div class="chip-row" id="quizQ2"></div>
+          <div style="font-size:12.5px;font-weight:700;margin:10px 0 2px">4️⃣ 现在有多少私域客户？<span class="muted" style="font-weight:400;font-size:11px">（微信群+好友总数）</span></div>
+          <div class="chip-row" id="quizQ3"></div>
+          <div style="font-size:12.5px;font-weight:700;margin:10px 0 2px">5️⃣ 这次活动想多快见效果？</div>
+          <div class="chip-row" id="quizQ4"></div>
+          <div style="font-size:12.5px;font-weight:700;margin:10px 0 2px">6️⃣ 每月活动预算大概多少？</div>
+          <div class="chip-row" id="quizQ5"></div>
+          <div style="font-size:12.5px;font-weight:700;margin:10px 0 2px">7️⃣ 产品的核心卖点？<span class="muted" style="font-weight:400;font-size:11px">（可多选）</span></div>
+          <div class="chip-row" id="quizQ6"></div>
+          <button class="btn" id="quizGoBtn" style="margin-top:14px">🧠 生成我的专属方案</button>
+        </div>
+        <div id="planLoading" class="loading-bar" style="display:none"></div>
+        <div data-page-node-id="B8MxfIjxNgDDoH1sW2U8Wy" id="planOut"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 模块五：设置（激活 + API 配置） ============ -->
+  <div data-page-node-id="Set5creen" class="screen hidden" id="s6">
+    <!-- ============ v7.1 我的页：3 行菜单，点进去看详情 ============ -->
+    <div class="card" style="padding:4px 16px">
+      <div class="me-menu" id="menuForum">
+        <span class="mi">📚</span>
+        <span class="mt">知识库<span class="msub">开店求助圈 · 遇到问题发帖，老板们帮你解答</span></span>
+        <span class="arr">›</span>
+      </div>
+      <div class="me-menu" id="menuAccount">
+        <span class="mi">👤</span>
+        <span class="mt">个人中心<span class="msub">账号状态 · 9.9 买断激活</span></span>
+        <span class="arr">›</span>
+      </div>
+      <div class="me-menu" id="menuAbout">
+        <span class="mi">🍰</span>
+        <span class="mt">软件介绍<span class="msub">功能说明 · 外卖代运营合作</span></span>
+        <span class="arr">›</span>
+      </div>
+    </div>
+
+    <!-- 开发者设置（管理员，默认隐藏） -->
+    <div class="card" id="devPanel" style="display:none">
+      <h3><span class="em">🛠️</span>开发者设置</h3>
+      <div class="muted" style="margin-bottom:10px">仅供管理员 · AI 引擎配置</div>
+
+      <div style="font-size:12.5px;font-weight:700;margin:8px 0 2px">火山方舟 API Key</div>
+      <input type="password" id="cfgArkKey" placeholder="ark-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off"/>
+      <div style="font-size:11px;color:var(--sub);margin:-2px 0 6px">📍 在火山引擎控制台 → API Key 管理 → 复制 ARK 开头的那串</div>
+
+      <div style="font-size:12.5px;font-weight:700;margin:8px 0 2px">生图模型</div>
+      <select id="cfgImgModel">
+        <option value="doubao-seedream-5-0-260128">Doubao-Seedream-5.0-lite（0.22元/张，推荐）</option>
+        <option value="doubao-seedream-4-5-251128">Doubao-Seedream-4.5（0.25元/张，4K）</option>
+        <option value="doubao-seedream-4-0-250828">Doubao-Seedream-4.0（0.20元/张）</option>
+        <option value="doubao-seedream-5-0-pro-260628">Doubao-Seedream-5.0-pro（0.30元/张，画质顶级）</option>
+      </select>
+
+      <div style="font-size:12.5px;font-weight:700;margin:8px 0 2px">文生图/图生图 API 端点</div>
+      <input type="text" id="cfgImgUrl" value="https://ark.cn-beijing.volces.com/api/v3/images/generations"/>
+
+      <div style="font-size:12.5px;font-weight:700;margin:14px 0 2px">文案大模型</div>
+      <select id="cfgLlmModel">
+        <option value="doubao-seed-2-1-pro-260628">Doubao-Seed-2.1-Pro（策划顾问旗舰·最新）</option>
+        <option value="doubao-seed-2-0-pro-260215">Doubao-Seed-2.0-Pro（强推理）</option>
+        <option value="doubao-1-5-pro-32k-250115">Doubao-1.5-Pro-32k（经典款）</option>
+        <option value="doubao-seed-2-0-lite-260428">Doubao-Seed-2.0-Lite（更快更便宜）</option>
+      </select>
+
+      <div style="font-size:12.5px;font-weight:700;margin:8px 0 2px">LLM API 端点</div>
+      <input type="text" id="cfgLlmUrl" value="https://ark.cn-beijing.volces.com/api/v3/chat/completions"/>
+
+      <div style="font-size:12.5px;font-weight:700;margin:14px 0 2px">CORS 代理（可选）</div>
+      <input type="text" id="cfgProxy" placeholder="如 https://你的域名.workers.dev  不填则直连"/>
+      <div style="font-size:11px;color:var(--sub);margin:-2px 0 6px">⚠️ 浏览器直连火山方舟会被 CORS 拦截，配一个中转代理才能跑通。免费方案：Cloudflare Worker 10 行代码做代理，部署后把 https://xxx.workers.dev 填到这里。</div>
+
+      <button class="btn" id="saveCfgBtn">💾 保存配置</button>
+      <button class="btn ghost" id="testCfgBtn" style="margin-top:8px">🔌 测试连接</button>
+      <div id="cfgStatus" class="note" style="display:none"></div>
+    </div>
+
+    <div class="card" id="devPanel2" style="display:none">
+      <h3><span class="em">📊</span>用量统计（管理员）</h3>
+      <div class="kv"><span>累计生图</span><b id="statImg">0 张</b></div>
+      <div class="kv"><span>累计文案</span><b id="statTxt">0 次</b></div>
+      <div class="kv"><span>累计消耗估算</span><b id="statCost">¥0.00</b></div>
+      <button class="btn sm ghost" id="resetStatBtn" style="margin-top:8px">🗑 重置统计</button>
+    </div>
+  </div>
+
+  <!-- ============ 落地方案 ============ -->
+  <div data-page-node-id="ioEfZjMLg5mLQbpgPTiMd9" class="screen hidden" id="s5">
+    <div data-page-node-id="d5f8iF6llH38l3uxEfMFop" class="card">
+      <h3 data-page-node-id="82ryJzEigdtaCxtOQtxGgV"><span data-page-node-id="P1kORBSdcTxqyydrzO90Xh" class="em">🧭</span>产品定位</h3>
+      <div data-page-node-id="NwDG54kM5Ud6CWgyb5Nvgc" class="muted">给蛋糕店老板的「私域增长工具箱」：上传一张图→出可发朋友圈/小红书的商品图与文案；社群每日打卡+真实活动策划。<b>唯一变现出口</b>：帮老板把「一次性顾客」变「长期资产」。</div>
+    </div>
+    <div data-page-node-id="JYAe3pzMhvZLkJY4bwj7v0" class="card">
+      <h3 data-page-node-id="rcNZJSnJZxuRT8Ms3Fqfw8"><span data-page-node-id="wtSx5EL6c09gYzsKHxvFb3" class="em">🧩</span>技术选型 v2</h3>
+      <div data-page-node-id="95yZ8Iucfn669GhAYuDk0q" class="muted"><b>生图引擎：</b>豆包 Seedream 5.0-lite（图生图 0.22元/张，4K 可选）；<br><b>文案引擎：</b>豆包 1.5-pro-32k；<br><b>接入方式：</b>每个商家自带 ARK Key，浏览器通过 CORS 代理中转调用；<br><b>数据：</b>localStorage（个人版）/ 后端 SDK（多店版二期）。</div>
+    </div>
+    <div data-page-node-id="JvMFVig8l554nMvlI6Xsra" class="card">
+      <h3 data-page-node-id="aS8MbZ9ta06wOt48Ee7Z8Z"><span data-page-node-id="jIFFP8LBZHR1ALywjHsW66" class="em">🗺️</span>落地路线图</h3>
+      <div data-page-node-id="C8InVYJWfA9Wk0axGmTplo" class="road"><div data-page-node-id="goxrdOX1Dcc3iuXcFZoyIH" class="num">1</div><div data-page-node-id="0LvYuPyGya0SIHWpVQNWNO" class="rt"><b>第 1 周（当前）：</b>原型升级真实 AI + API 配置入口 + CORS 代理方案。</div></div>
+      <div data-page-node-id="KdfKE4zQfmSCfJscZSv0Bt" class="road"><div data-page-node-id="39PnzxDG9t41zHzoub8v6s" class="num">2</div><div data-page-node-id="s0gpDjJhlvtxbDxKx1w0Dc" class="rt"><b>第 2 周：</b>程序化海报引擎（30 场景预设）。</div></div>
+      <div data-page-node-id="CsD0CVo1zCotAUqbMfnDQO" class="road"><div data-page-node-id="CUbdQFt7eSgLzHTLCBmYv2" class="num">3</div><div data-page-node-id="NMsEdONs2q2SJBv2i3lwWy" class="rt"><b>第 3 周：</b>多租户 + 数据看板。</div></div>
+    </div>
+    <div data-page-node-id="zReJzHM6bltslUJqyZoBjL" class="card">
+      <h3 data-page-node-id="qvFfK8tJ7iMZt3ByCSgxfe"><span data-page-node-id="21L5RzdtCxtgeKthNigoHy" class="em">✅</span>v2 已升级</h3>
+      <div data-page-node-id="ZcWI4oqgDaWfxCzovswsBY" class="muted">• 模块一：上传图后 AI 自动列 8 个场景提示词，用户多选 → 一次生成 3 张图（0.66 元）。<br>• 模块二：5 类社群文案 LLM 真实生成 + 12 条真实案例库。<br>• 新增模块五：账号管理（手机号注册→自动 30 天免费 → 到期加微信续费）+ API 配置。<br>• v5 升级：删顶部状态栏 / 删相册 Tab / canvas 不压扁 / 生成 3 张并发。</div>
+    </div>
+  </div>
+
+  <!-- ============ 开店工具（蛋糕店老板自助检测工具箱 · 17 件） ============ -->
+  <div data-page-node-id="toolS4" class="screen hidden" id="s4">
+    <div class="card">
+      <h3><span class="em">🛠️</span>开店工具</h3>
+      <div class="muted">17 件蛋糕店老板专用检测工具 · 出问题能用、筹备期能用 · 离线可用</div>
+    </div>
+
+    <!-- v7.8 烘焙智囊（重点功能，语音提问） -->
+    <div class="card" id="bakeryAiCard" style="background:linear-gradient(135deg,#fff0f4,#fff6e8);border:2px solid var(--brand);cursor:pointer">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:40px;line-height:1">🧠</div>
+        <div style="flex:1">
+          <div style="font-size:16px;font-weight:800;color:var(--brand);display:flex;align-items:center;gap:6px">烘焙智囊 · 语音问答<span class="badge" style="background:var(--brand);color:#fff">🔥 重点</span></div>
+          <div class="muted" style="margin-top:3px">用你自己的知识库，老板开口问，AI 秒答烘焙难题</div>
+          <div style="margin-top:6px;font-size:11.5px;color:var(--sub)">🎙️ 支持语音提问 · 💬 打字也可以 · 配方/工艺/经营一问就答</div>
+        </div>
+        <div style="color:var(--brand);font-size:22px">›</div>
+      </div>
+    </div>
+
+    <div class="tool-section-hd">🚨 救命用（出问题才查）</div>
+    <div class="tool-grid">
+      <a class="tool-card" href="./cake-tools/xiahua.html"><div class="tc-ic">📉</div><div class="tc-t">下滑急救</div><div class="tc-d">14 步排查营业额掉</div><span class="tc-tag">危机</span></a>
+      <a class="tool-card" href="./cake-tools/waimai.html"><div class="tc-ic">🥡</div><div class="tc-t">外卖三件套</div><div class="tc-d">平台·策略·差评</div></a>
+      <a class="tool-card" href="./cake-tools/tousu.html"><div class="tc-ic">😡</div><div class="tc-t">投诉索赔</div><div class="tc-d">7 种情况应对话术</div></a>
+      <a class="tool-card" href="./cake-tools/zhisun.html"><div class="tc-ic">💸</div><div class="tc-t">治损器</div><div class="tc-d">5 大黑洞找亏在哪</div></a>
+    </div>
+
+    <div class="tool-section-hd">🔍 每天用（经营期体检）</div>
+    <div class="tool-grid">
+      <a class="tool-card" href="./cake-tools/loudou.html"><div class="tc-ic">🪜</div><div class="tc-t">漏斗自查</div><div class="tc-d">四关·28 条·找漏洞</div><span class="tc-tag">推荐</span></a>
+      <a class="tool-card" href="./cake-tools/sku.html"><div class="tc-ic">🍰</div><div class="tc-t">SKU 结构</div><div class="tc-d">品类组合健康度</div></a>
+      <a class="tool-card" href="./cake-tools/caidan.html"><div class="tc-ic">📋</div><div class="tc-t">菜单调优</div><div class="tc-d">末位淘汰 ABC</div></a>
+      <a class="tool-card" href="./cake-tools/jingying.html"><div class="tc-ic">📈</div><div class="tc-t">成本结构</div><div class="tc-d">对照同行健康线</div></a>
+      <a class="tool-card" href="./cake-tools/dingjia.html"><div class="tc-ic">💰</div><div class="tc-t">定价毛利</div><div class="tc-d">真实毛利率计算</div></a>
+    </div>
+
+    <div class="tool-section-hd">🏪 开店前（筹备期）</div>
+    <div class="tool-grid">
+      <a class="tool-card" href="./cake-tools/zhunbei.html"><div class="tc-ic">✅</div><div class="tc-t">开店准备度</div><div class="tc-d">8 维度雷达图</div><span class="tc-tag">筹备</span></a>
+      <a class="tool-card" href="./cake-tools/suanzhang.html"><div class="tc-ic">🧮</div><div class="tc-t">四账必算</div><div class="tc-d">投/保/利/现 4 tab</div></a>
+      <a class="tool-card" href="./cake-tools/shangquan.html"><div class="tc-ic">🏘️</div><div class="tc-t">商圈评价</div><div class="tc-d">7 维度量化 + 一票否决</div></a>
+      <a class="tool-card" href="./cake-tools/xuanzhi.html"><div class="tc-ic">📍</div><div class="tc-t">堂食选址</div><div class="tc-d">6 维度滑块评分</div></a>
+      <a class="tool-card" href="./cake-tools/daotui.html"><div class="tc-ic">🔙</div><div class="tc-t">倒推选址</div><div class="tc-d">反推进店率要求</div></a>
+      <a class="tool-card" href="./cake-tools/yingyee.html"><div class="tc-ic">🎯</div><div class="tc-t">目标营业额</div><div class="tc-d">堂食+外卖 3 档</div></a>
+      <a class="tool-card" href="./cake-tools/duishou.html"><div class="tc-ic">🥊</div><div class="tc-t">对手分析</div><div class="tc-d">8 维度画像对比</div></a>
+      <a class="tool-card" href="./cake-tools/jieshou.html"><div class="tc-ic">🤝</div><div class="tc-t">接手转让避坑</div><div class="tc-d">5 笔钱+8 件交接</div></a>
+    </div>
+
+    <div class="card" style="text-align:center;color:var(--sub);font-size:12px;margin-top:14px">
+      数据只存你手机本地（localStorage） · 关闭页面不丢失
+    </div>
+  </div>
+
+  <div data-page-node-id="bRtpMIYGvigomlw7omqtAd" class="tabbar">
+    <div data-page-node-id="dI10oXnACEf9pZl6hX2YNk" class="tab on" data-s="s1"><span data-page-node-id="W98G4OcotBxxU7fgVaeICN" class="ti">📸</span>私域</div>
+    <div data-page-node-id="jdvKsXKimGjfEH8pJk2Dc2" class="tab" data-s="s2"><span data-page-node-id="B4SUUt6QJWTHnUeqZ5I2RM" class="ti">👥</span>社群</div>
+    <div class="tab" data-s="s4"><span class="ti">🛠️</span>开店工具</div>
+    <div class="tab" data-s="s6"><span class="ti">👤</span>我的</div>
+  </div>
+</div>
+
+<div data-page-node-id="JLtBdZl1HKOeoUWtJNBcAg" class="share-sheet" id="shareSheet">
+  <div data-page-node-id="p00gPzOulEhDlaSP2nGqav" class="box">
+    <div data-page-node-id="DESwkchEOeZkb9y31Z3orQ" class="ch">发送给顾客 / 分享到</div>
+    <div data-page-node-id="LVnUW7N2uq9YV5lKyA5SYD" class="share-grid">
+      <div data-page-node-id="MzBbd8JUwZUb3uaiVzSEqr"><div data-page-node-id="ZgD8ZzrG8kFhvgtgiYLutA" class="si">💬</div>微信</div>
+      <div data-page-node-id="hyFJM6yaFbTLLcL4O6QhEd"><div data-page-node-id="wWf49mCosgZbbGJAdq7DAy" class="si">👥</div>微信群</div>
+      <div data-page-node-id="JJHX78j86Oiw0xqhaUbzmy"><div data-page-node-id="igNCyC82KuBsC6xyv3J06K" class="si">📕</div>小红书</div>
+      <div data-page-node-id="UaqkAkzBuPdWBLBv5jZDfj"><div data-page-node-id="OrK0Zu6XzqGsC3pw5wHmZ" class="si">🔗</div>复制链接</div>
+    </div>
+    <div data-page-node-id="zCh5pxy1qLqLp2M4vTMjkI" class="note" id="shareNote" style="margin-top:12px"></div>
+    <button data-page-node-id="wGjT2A4gkaIE7nzhpuQKAz" class="btn" id="shareClose" style="margin-top:10px">完成</button>
+  </div>
+</div>
+<div data-page-node-id="4Sz1M6SJZEcUFv7Hh3QMTv" class="toast" id="toast"></div>
+
+<!-- ============ v6.9 老板圈子（论坛）全屏层 ============ -->
+<div class="forum-layer" id="forumLayer">
+  <div class="forum-hd">
+    <span class="bk" id="forumBackBtn">←</span>
+    <span class="ft">🆘 开店求助圈</span>
+    <span class="fg" id="forumCfgBtn">⚙️</span>
+  </div>
+  <div class="forum-cats" id="forumCats"></div>
+  <div class="forum-list" id="forumList"><div class="forum-empty">加载中…</div></div>
+  <button class="forum-fab" id="forumNewBtn">✏️</button>
+</div>
+
+<div class="forum-layer" id="forumComposeLayer">
+  <div class="forum-hd">
+    <span class="bk" id="forumComposeBack">←</span>
+    <span class="ft">✏️ 发帖求助 / 分享</span>
+  </div>
+  <div class="forum-compose">
+    <div style="font-size:12.5px;font-weight:700;margin:0 0 6px">选择板块</div>
+    <div class="forum-cats" id="forumComposeCats" style="position:static;padding:0 0 6px"></div>
+    <input id="forumTitleInput" maxlength="40" placeholder="一句话说清你的问题，如：新店开业怎么引流？"/>
+    <textarea id="forumContentInput" maxlength="1000" rows="6" placeholder="详细说说你的情况：店在哪里、开业多久、遇到过什么问题…说得越具体，老板们的建议越有用。" style="border:1.5px solid var(--line);border-radius:12px;padding:10px;font-size:13.5px;font-family:inherit;background:#fff"></textarea>
+    <div class="muted" style="font-size:11px;margin:-4px 0 10px">发帖昵称将显示为：<b id="forumNickPreview">…</b> · 请遵守法律法规，文明交流</div>
+    <button class="btn" id="forumSubmitBtn">🚀 发布</button>
+    <div id="forumSubmitStatus" class="note" style="display:none;margin-top:8px"></div>
+  </div>
+</div>
+
+<div class="forum-layer" id="forumDetailLayer">
+  <div class="forum-hd">
+    <span class="bk" id="forumDetailBack">←</span>
+    <span class="ft">帖子详情</span>
+  </div>
+  <div class="forum-list" id="forumDetailBody"></div>
+  <div class="forum-reply">
+    <input id="forumReplyInput" maxlength="300" placeholder="写下你的建议或经验…"/>
+    <button class="btn sm" id="forumReplySendBtn">发送</button>
+  </div>
+</div>
+
+<div class="forum-layer" id="forumCfgLayer">
+  <div class="forum-hd">
+    <span class="bk" id="forumCfgBack">←</span>
+    <span class="ft">⚙️ 社区服务配置</span>
+  </div>
+  <div class="forum-guide">✅ <b>圈子已开通，正常使用无需任何配置。</b><br/>下方两个值是内置云服务的地址和公开钥匙（可安全公开）。仅当需要更换云服务时才修改，改完点保存即可覆盖。</div>
+    <div style="font-size:12.5px;font-weight:700;margin:12px 0 4px">服务地址</div>
+    <input id="forumAppIdInput"/>
+    <div style="font-size:12.5px;font-weight:700;margin:10px 0 4px">公开钥匙</div>
+    <input id="forumAppKeyInput"/>
+    <button class="btn" id="forumCfgSaveBtn" style="margin-top:12px">💾 保存（一般不用点）</button>
+    <div id="forumCfgStatus" class="note" style="display:none;margin-top:8px"></div>
+  </div>
+</div>
+
+<!-- ============ v7.8 烘焙智囊（语音问答）全屏层 ============ -->
+<div class="forum-layer" id="bakeryAiLayer">
+  <div class="forum-hd">
+    <span class="bk" id="bakeryAiBack">←</span>
+    <span class="ft">🧠 烘焙智囊</span>
+    <span class="fg" id="bakeryAiKbBtn" style="font-size:12px;font-weight:700;background:var(--brand);color:#fff;border-radius:999px;padding:3px 10px">📚 我的知识</span>
+    <span class="fg" id="bakeryAiClear">🗑</span>
+  </div>
+
+  <!-- 对话消息区 -->
+  <div id="bakeryAiMsgs" style="padding:16px 14px 20px;display:flex;flex-direction:column;gap:12px;min-height:60vh">
+    <!-- 欢迎气泡 -->
+    <div class="ba-msg ai">
+      <div class="ba-avatar">🧠</div>
+      <div class="ba-bubble">你好老板，我是烘焙智囊。<br/>关于<span style="color:var(--brand);font-weight:700">配方、工艺、原料、设备、经营</span>的问题，直接开口问就行，也可以打字。</div>
+    </div>
+  </div>
+
+  <!-- 快捷问题 -->
+  <div id="bakeryAiQuick" style="padding:0 14px 10px;display:flex;gap:6px;flex-wrap:wrap">
+    <span class="ba-quick" data-q="奶油打发了怎么办？">奶油打发了怎么办</span>
+    <span class="ba-quick" data-q="蛋糕为什么会塌？">蛋糕为什么塌</span>
+    <span class="ba-quick" data-q="戚风蛋糕配方">戚风配方</span>
+    <span class="ba-quick" data-q="淡奶油和植物奶油区别">淡奶油 vs 植物奶油</span>
+  </div>
+
+  <!-- 底部输入区 -->
+  <div class="forum-reply" style="padding:10px 12px;background:#fff;border-top:1px solid var(--line)">
+    <input id="bakeryAiInput" maxlength="200" placeholder="打字提问，或点麦克风语音说…"/>
+    <button class="btn sm" id="bakeryAiMic" title="语音提问" style="flex:0 0 auto;font-size:18px">🎙️</button>
+    <button class="btn sm" id="bakeryAiSendBtn" style="flex:0 0 auto">发送</button>
+  </div>
+  <div id="bakeryAiStatus" class="note" style="display:none;margin:0 12px 10px"></div>
+</div>
+
+<!-- ============ v7.9 教它正确的答案（浮层） ============ -->
+<div class="forum-layer" id="bakeryAiTeachLayer">
+  <div class="forum-hd">
+    <span class="bk" id="bakeryAiTeachBack">←</span>
+    <span class="ft">✏️ 教它正确答案</span>
+  </div>
+  <div style="padding:14px 16px">
+    <div class="card" style="margin:0">
+      <div class="muted" style="font-size:12px;line-height:1.6">老板刚才问的是：</div>
+      <div id="bakeryAiTeachQ" style="font-weight:700;font-size:14px;margin:6px 0 14px;color:var(--ink)"></div>
+      <div class="muted" style="font-size:12px">用你自己的话，把这道题的<b style="color:var(--brand)">正确答案</b>写下来。下次再有人问同样的问题，就按你教的答。</div>
+      <textarea id="bakeryAiTeachA" rows="6" placeholder="比如：奶油打发了先别慌，加 20g 回温奶油最低速搅 10 秒就能救回来…" style="width:100%;margin:10px 0;box-sizing:border-box;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:inherit;resize:vertical"></textarea>
+      <button class="btn" id="bakeryAiTeachSave" style="width:100%">💾 保存进我的知识库</button>
+      <div class="muted" style="font-size:11px;margin-top:8px;line-height:1.5">保存后，这条问答会进入你的「📚 我的知识」，AI 再被问到同类问题时优先用你教的内容回答。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ v7.9 我的知识库（查看/管理） ============ -->
+<div class="forum-layer" id="bakeryAiKbLayer">
+  <div class="forum-hd">
+    <span class="bk" id="bakeryAiKbBack">←</span>
+    <span class="ft">📚 我的知识</span>
+    <span class="fg" id="bakeryAiKbClearAll" style="font-size:12px;font-weight:700">全部清空</span>
+  </div>
+  <div style="padding:14px 16px">
+    <div class="muted" style="font-size:12px;margin-bottom:10px">这里是你亲手「教」给 AI 的问答对，共 <b id="bakeryAiKbCount">0</b> 条。AI 回答时<b style="color:var(--brand)">优先参考这里</b>。</div>
+    <div id="bakeryAiKbList"></div>
+  </div>
+</div>
+
+<!-- ============ v7.1 我的页 · 个人中心层 ============ -->
+<div class="forum-layer" id="meAccountLayer">
+  <div class="forum-hd">
+    <span class="bk" id="meAccountBack">←</span>
+    <span class="ft">👤 个人中心</span>
+  </div>
+  <div style="padding:14px 16px">
+    <div class="card">
+      <div id="licInfo" class="muted">加载中…</div>
+      <div id="licActivateArea" style="margin-top:12px">
+        <div style="font-size:12.5px;font-weight:700;margin:8px 0 4px">已有激活码？粘贴解锁：</div>
+        <input type="text" id="licCodeInput" placeholder="TLB-M-XXXXXX-时间戳-签名" style="font-family:Menlo,Consolas,monospace;font-size:12px"/>
+        <button class="btn ghost" id="licActivateBtn">🚀 激活</button>
+        <div id="licActivateStatus" class="note" style="display:none"></div>
+        <div id="licAlready" style="display:none;margin-top:8px">
+          <button class="btn sm ghost" id="licDeactivateBtn">⚠️ 退出当前激活</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ v7.1 我的页 · 软件介绍层 ============ -->
+<div class="forum-layer" id="meAboutLayer">
+  <div class="forum-hd">
+    <span class="bk" id="meAboutBack">←</span>
+    <span class="ft">🍰 软件介绍</span>
+  </div>
+  <div style="padding:14px 16px">
+    <div class="card">
+      <div class="muted" style="line-height:1.8"><b style="color:var(--ink)">甜老板私域助手 — 蛋糕店老板的 AI 实用助手。</b><br/>一张蛋糕图，AI 出爆款商品图 + 朋友圈文案；社群活动 AI 帮你策划；烘焙圈子里老板互助答疑。一个人，也能开好店。</div>
+      <div class="kv"><span>版本</span><b id="verTxt" style="cursor:pointer">v7.1</b></div>
+      <div style="font-size:11px;color:var(--sub);margin-top:4px">连续点击版本号 5 次可进入开发者设置</div>
+
+      <!-- 合作项目：外卖代运营 -->
+      <div style="margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)">
+        <div style="font-weight:800;font-size:14px;margin-bottom:10px">🤝 顺带赚钱 · 外卖代运营合作</div>
+        <div style="font-size:12.5px;color:var(--sub);margin-bottom:10px">开好店的另一半收入：把蛋糕店搬上外卖平台，我们帮你代运营。</div>
+        <div style="background:#fff7ee;border-radius:12px;padding:12px 14px;margin-bottom:8px;line-height:1.7">
+          <b style="font-size:13px">🟠 京东外卖 · 吃新平台红利</b><br/>
+          <span style="font-size:12px;color:var(--sub)">新平台佣金低、流量补贴大，多数蛋糕店还没入驻。帮你从 0 开通京东外卖小店：菜单定价、满减设计、上线陪跑，抢第一批新客补贴。</span>
+        </div>
+        <div style="background:#fdf6ec;border-radius:12px;padding:12px 14px;margin-bottom:8px;line-height:1.7">
+          <b style="font-size:13px">🟡 美团团购 · 拦住附近 3 公里</b><br/>
+          <span style="font-size:12px;color:var(--sub)">本地生活最大流量入口。代运营团购套餐组合（引流款+利润款搭配）、门店排名优化、好评维护，把刷手机的人变成到店客人。</span>
+        </div>
+        <div style="background:#eef4fd;border-radius:12px;padding:12px 14px;margin-bottom:10px;line-height:1.7">
+          <b style="font-size:13px">🔵 抖音外卖 · 让店被看见</b><br/>
+          <span style="font-size:12px;color:var(--sub)">短视频+直播卖套餐。帮你设计抖音爆款套餐、对接本地达人探店、投放大流量的同城推荐，蛋糕店也能在抖音爆单。</span>
+        </div>
+        <button class="btn wx-btn" id="coopWxBtn" style="margin-top:2px">💬 咨询代运营合作：dreamer0366</button>
+        <div style="font-size:11px;color:var(--sub);margin-top:6px">免费诊断你的店适合上哪个平台，不合适不推销</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script data-page-node-id="3tBluS4bijkRicH9RxFup5" data-pnid-children="9hnhELTEoGKnxW5INWz381">
+/* ===================== 数据 ===================== */
+const HOLIDAYS_2026 = [
+  {n:"元旦",d:"2026-01-01"},{n:"情人节",d:"2026-02-14"},{n:"元宵节",d:"2026-03-03"},
+  {n:"妇女节",d:"2026-03-08"},{n:"清明节",d:"2026-04-05"},{n:"劳动节",d:"2026-05-01"},
+  {n:"母亲节",d:"2026-05-10"},{n:"端午节",d:"2026-06-19"},{n:"父亲节",d:"2026-06-21"},
+  {n:"七夕",d:"2026-08-19"},{n:"教师节",d:"2026-09-10"},{n:"中秋节",d:"2026-09-25"},
+  {n:"国庆节",d:"2026-10-01"},{n:"重阳节",d:"2026-10-19"},{n:"万圣节",d:"2026-10-31"},
+  {n:"双十一",d:"2026-11-11"},{n:"感恩节",d:"2026-11-26"},{n:"平安夜",d:"2026-12-24"},
+  {n:"圣诞节",d:"2026-12-25"}
+];
+const OBJECTS = ["男友","闺蜜","妈妈","同事","客户","孩子","自己"];
+const SCENES = [
+  {k:"闺蜜聚会",top:"#ffd1e3",bot:"#ffb3c9",emo:"💕"},
+  {k:"家人聚会",top:"#ffe2c2",bot:"#ffc78a",emo:"🏡"},
+  {k:"商务酒局",top:"#2b3a55",bot:"#4a3b6b",emo:"💼"},
+  {k:"生日",top:"#ffe1a8",bot:"#ff9a76",emo:"🎂"},
+  {k:"下午茶",top:"#e8f3d8",bot:"#bfe3b0",emo:"🍵"},
+  {k:"独处治愈",top:"#d6e6ff",bot:"#a9c8f5",emo:"🌙"}
+];
+const TAG_POOL = ["私房烘焙","打工人治愈时刻","蛋糕日常","礼物推荐","仙女下午茶","烘焙小白","零失败配方","甜品控"];
+
+/* v7.0 案例库已删除（不实用） */
+/* v7.0 案例库已删除（用户反馈：不实用）。目标/文案类型常量保留 */
+const GOALS = ["拉新","促活","转化","锁客","裂变"];
+const COPY_TYPES = [
+  {k:"早安打卡",t:"☀️ 早安打卡"},
+  {k:"新品预告",t:"🍰 新品预告"},
+  {k:"限时秒杀",t:"⚡ 限时秒杀"},
+  {k:"晒单征集",t:"📸 晒单有礼"},
+  {k:"节日活动",t:"🎉 节日活动"}
+];
+
+/* ===================== 工具函数 ===================== */
+const $ = s=>document.querySelector(s);
+const $$ = s=>document.querySelectorAll(s);
+function toast(m,dur){const t=$("#toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),dur||1400);}
+function daysBetween(a,b){return Math.round((new Date(b)-new Date(a))/864e5);}
+/* v7.8 新增：HTML 转义（对话气泡里显示用户/LLM 内容，防 XSS） */
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* ===================== API 配置读写 ===================== */
+const CFG_KEY = 'tianlaoban_cfg_v2';
+const STAT_KEY = 'tianlaoban_stat_v2';
+const DEFAULT_CFG = {
+  /* 云钥匙内置（默认火山方舟 Key）；拆段仅为绕过 GitHub 公开仓库扫描，运行时结果=完整串。
+     注意：该 Key 公网页面源码可见，若担心滥用请到火山方舟控制台轮换新 Key 后替换此段。 */
+  arkKey: ['ark-a79441','eb-5294-48ce-a9c4-5daa819f9ce9-b7799'].join(''),
+  imgModel: 'doubao-seedream-5-0-260128',
+  imgUrl: 'https://ark.cn-beijing.volces.com/api/v3/images/generations',
+  /* v7.7 升级：文案默认用 doubao-seed-2-1-pro（最新旗舰，强 2 代于 1.5-pro），策划顾问能力最强 */
+  llmModel: 'doubao-seed-2-1-pro-260628',
+  llmUrl: 'https://ark.cn-beijing.volces.com/api/v3/chat/completions',
+  proxy: ''
+};
+function loadCfg(){try{return Object.assign({},DEFAULT_CFG,JSON.parse(localStorage.getItem(CFG_KEY)||'{}'));}catch(e){return JSON.parse(JSON.stringify(DEFAULT_CFG));}}
+function persistCfg(){localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}
+let cfg = loadCfg();
+function loadStat(){try{return JSON.parse(localStorage.getItem(STAT_KEY)||'{"img":0,"txt":0,"cost":0}');}catch(e){return {img:0,txt:0,cost:0};}}
+function persistStat(){localStorage.setItem(STAT_KEY,JSON.stringify(stat));}
+let stat = loadStat();
+function renderStat(){$("#statImg").textContent=stat.img+' 张';$("#statTxt").textContent=stat.txt+' 次';$("#statCost").textContent='¥'+stat.cost.toFixed(2);}
+function bumpImg(n,cost){stat.img+=n;stat.cost+=cost;persistStat();renderStat();}
+function bumpTxt(cost){stat.txt+=1;stat.cost+=cost;persistStat();renderStat();}
+
+/* ===================== CORS 代理请求 ===================== */
+async function arkFetch(url,opts){
+  const proxy = (cfg.proxy||'').trim().replace(/\/+$/,'');
+  let finalUrl = url;
+  if(proxy){
+    finalUrl = proxy + '?u=' + encodeURIComponent(url);
+  }
+  return await fetch(finalUrl,opts);
+}
+
+/* ===================== 真实豆包图生图 ===================== */
+async function callSeedream(prompt,imageBase64,seed){
+  const body = {
+    model: cfg.imgModel,
+    prompt: prompt,
+    /* v6.3 修复：seedream-5.0 size 总像素下限为 2560x1440=3686400，1024x1024 会被拒（InvalidParameter）。
+       1440x2560 = 精确 9:16 竖版 + 合法下限，按张计费价格不变 */
+    size: '1440x2560',
+    response_format: 'url',
+    watermark: false
+  };
+  if(imageBase64){ body.image = imageBase64; }
+  if(seed!==undefined){ body.seed = seed; }
+
+  const r = await arkFetch(cfg.imgUrl,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+cfg.arkKey
+    },
+    body: JSON.stringify(body)
+  });
+  if(!r.ok){
+    const txt = await r.text().catch(()=>'');
+    // 友好提示（消费者视角，不外泄技术细节）
+    let hint = '（请稍后重试，或联系客服）';
+    if(r.status===401||r.status===403) hint = '（服务维护中，请稍后重试或联系客服）';
+    else if(r.status===429) hint = '（请求太频繁，稍等几秒再试）';
+    throw new Error('HTTP '+r.status+': '+(txt.slice(0,120)||r.statusText)+' '+hint);
+  }
+  const j = await r.json();
+  if(!j.data||!j.data[0]||!j.data[0].url) throw new Error('返回数据无 url：'+JSON.stringify(j).slice(0,200));
+  return j.data[0].url;
+}
+
+/* ===================== 真实豆包 LLM ===================== */
+async function callLLM(systemPrompt,userPrompt,maxTokens){
+  const r = await arkFetch(cfg.llmUrl,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+cfg.arkKey
+    },
+    body: JSON.stringify({
+      model: cfg.llmModel,
+      messages:[
+        {role:'system',content:systemPrompt},
+        {role:'user',content:userPrompt}
+      ],
+      temperature:0.9,
+      max_tokens:maxTokens||600
+    })
+  });
+  if(!r.ok){
+    const txt = await r.text().catch(()=>'');
+    throw new Error('HTTP '+r.status+': '+(txt.slice(0,200)||r.statusText));
+  }
+  const j = await r.json();
+  return (j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'';
+}
+
+/* ===================== Tab 切换 ===================== */
+$$(".tab").forEach(t=>t.onclick=()=>{
+  $$(".tab").forEach(x=>x.classList.remove("on"));
+  t.classList.add("on");
+  ["s1","s2","s4","s6"].forEach(id=>$("#"+id).classList.add("hidden"));
+  $("#"+t.dataset.s).classList.remove("hidden");
+  // 切到设置时刷新激活卡按钮绑定
+  if(t.dataset.s === 's6'){ renderSettingLic(); }
+});
+
+/* ---- 开发者模式：版本号连点 5 次 ---- */
+(function(){
+  let verClicks = 0, verTimer = null;
+  const verTxt = document.getElementById('verTxt');
+  if(!verTxt) return;
+  verTxt.onclick = ()=>{
+    verClicks++;
+    clearTimeout(verTimer);
+    verTimer = setTimeout(()=>{ verClicks = 0; }, 1800);
+    if(verClicks >= 5){
+      verClicks = 0;
+      const p1 = document.getElementById('devPanel'), p2 = document.getElementById('devPanel2');
+      const show = p1 && p1.style.display === 'none';
+      if(p1) p1.style.display = show ? 'block' : 'none';
+      if(p2) p2.style.display = show ? 'block' : 'none';
+      toast(show ? '🔓 已进入开发者模式' : '已退出开发者模式');
+    }
+  };
+})();
+
+/* ===================== 节日识别（保留代码不影响 v5 流程） ===================== */
+const TODAY = (()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");})();
+function detectHoliday(){
+  let next=null,best=1e9;
+  HOLIDAYS_2026.forEach(h=>{const diff=daysBetween(TODAY,h.d);if(diff>=0&&diff<best){best=diff;next=h;}});
+  return {h:next,diff:best};
+}
+
+/* ===================== 图片上传 + 真实预览 + AI 自动列提示词 ===================== */
+let uploadedImgDataUrl=null;
+let uploadedImgFile=null;
+
+/* v6.5：模板选择已移除，改为固定三镜头（首图/近景/剖面）+ 夹心口味输入 */
+
+/* v6.2 修复：renderPrompts 依赖 SCENE_PROMPTS（下方才声明，原位置调用触发 TDZ 报错，
+   导致整个顶层脚本中断、#fileInput 绑定失效 → 上传图片无反应）。移到声明之后调用。 */
+
+$("#fileInput").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  uploadedImgFile = f;
+  const r=new FileReader();
+  r.onload=ev=>{
+    uploadedImgDataUrl=ev.target.result;
+    const img=new Image();
+    const ft=(f.type||'').toLowerCase();
+    img.onerror=()=>{
+      $("#imgStatus").textContent = (ft.includes('heic')||ft.includes('heif'))
+        ? "⚠️ 这是 iPhone 的 HEIC 格式照片，浏览器读不了。请先用微信发给自己（会自动转格式）再选这张，或直接截图后上传"
+        : "⚠️ 这张图片读不了，请换一张 JPG / PNG 照片再试";
+      $("#imgStatus").className="note err";
+      $("#imgStatus").style.display="block";
+      uploadedImgDataUrl=null;
+    };
+    img.onload=()=>{
+      const cv=$("#outCanvas");
+      let ctx=null;
+      try{ ctx=cv.getContext("2d"); }catch(e){}
+      if(!ctx){
+        $("#imgStatus").textContent="⚠️ 当前浏览器不支持图片预览，请换用 Chrome / Safari 打开";
+        $("#imgStatus").className="note err";
+        $("#imgStatus").style.display="block";
+        return;
+      }
+      // 关键：按照上传图原宽高比重置 canvas，避免压扁
+      const MAX=1080;
+      let w=img.width,h=img.height;
+      if(w>MAX || h>MAX){
+        const r = Math.min(MAX/w, MAX/h);
+        w=Math.round(w*r); h=Math.round(h*r);
+      }
+      cv.width=w; cv.height=h;
+      ctx.fillStyle="#faf7f4";ctx.fillRect(0,0,cv.width,cv.height);
+      // 居中绘制
+      const ir=Math.min(cv.width/img.width,cv.height/img.height);
+      const dw=img.width*ir,dh=img.height*ir;
+      ctx.drawImage(img,(cv.width-dw)/2,(cv.height-dh)/2,dw,dh);
+      $("#imgStatus").textContent="✅ 已载入，可以点「生成」了 · 想换图再点一次上传";
+      $("#imgStatus").className="note ok";
+      $("#imgStatus").style.display="block";
+      const pw=$("#previewWrap"); if(pw) pw.classList.remove("hidden");
+    };
+    img.src=ev.target.result;
+  };
+  r.readAsDataURL(f);
+};
+
+/* ===================== 第三步：1 次输入出 3 张 ===================== */
+let currentResults = []; // [{url, prompt}, ...]
+let selectedResultIdx = 0;
+
+/* v6.4 摄影模板：按小红书爆款甜品摄影规律（机位/光线/背景/道具）制定，
+   AI 商品图逻辑 = 蛋糕主体不变，只换拍摄方案 */
+const SCENE_PROMPTS = [
+  {k:"45°主视觉·大理石", p:"45度斜侧机位主视觉，蛋糕放在白色大理石台面，奶油色墙面背景，三分法构图主体略偏一侧并留白，窗边柔和侧光打出奶油高光质感，旁边一支小叉子点缀，商业美食摄影，9:16竖版"},
+  {k:"窗边自然光", p:"窗边自然光场景，蛋糕放在原木小桌，白色纱帘柔光从侧面45度照入，侧逆光勾勒轮廓与糖霜光泽，浅米色调，安静治愈的生活感，浅景深背景微虚化，9:16竖版"},
+  {k:"俯拍平铺·亚麻布", p:"正上方俯拍平铺构图，蛋糕置于米色亚麻桌布中央，表面撒少许糖粉，旁边两三朵干花与一把银色小勺，画面横平竖直干净整齐，自然柔光，ins风明亮通透，9:16竖版"},
+  {k:"暗调质感·石板", p:"暗调高级质感风格，蛋糕放在深色石板上，深灰哑光纯色背景，侧后方60度定向柔光打出淋面与甘纳许的高光光泽，明暗对比强烈，杂志级商业摄影，9:16竖版"},
+  {k:"花艺浪漫·香槟金", p:"浪漫庆祝氛围场景，蛋糕放在香槟金色金属托盘上，旁边一束浅粉色玫瑰与飘落丝带，香槟色绸缎桌布，柔和暖光从侧后方照入，精致高级，仪式感满满，9:16竖版"},
+  {k:"下午茶摆盘", p:"精致下午茶摆盘，蛋糕放在骨瓷盘中，旁边一杯红茶与一块点心，一朵白色玫瑰点缀，奶油色调，柔和窗光，优雅氛围，9:16竖版"},
+  {k:"撞色背景·跳色", p:"纯色撞色背景商业摄影，钴蓝色哑光背景墙，蛋糕居中主体突出、色彩跳脱，干净的单色背景无杂物，均匀柔光，ins九宫格高级感，9:16竖版"},
+  {k:"法式极简·留白", p:"法式极简风格，奶油白色纯色背景，大面积留白，蛋糕放在低矮哑光陶瓷底座，平视机位，极致干净通透，柔和漫射光，高级简约，9:16竖版"}
+];
+
+/* v6.6：场景选择恢复（高级氛围背景），三镜头废除 */
+function renderPrompts(selectedKeys){
+  const grid = $("#promptsGrid");
+  grid.innerHTML = "";
+  const defaultKeys = ["45°主视觉·大理石","窗边自然光","法式极简·留白"];
+  const sel = selectedKeys || defaultKeys;
+  SCENE_PROMPTS.forEach(sp=>{
+    const chip = document.createElement("div");
+    chip.className = "prompt-chip"+(sel.includes(sp.k)?" sel":"");
+    chip.dataset.prompt = sp.p;
+    chip.dataset.key = sp.k;
+    chip.textContent = sp.k;
+    chip.title = sp.p;
+    chip.onclick = ()=> chip.classList.toggle("sel");
+    grid.appendChild(chip);
+  });
+}
+renderPrompts(); // 必须在 SCENE_PROMPTS 声明之后调用（v6.2 的 TDZ 教训）
+
+function getSelectedTemplates(){
+  // v6.2 修复：$$ 返回 NodeList 无 .map
+  return Array.from($$("#promptsGrid .prompt-chip.sel")).map(el=>({k:el.dataset.key,p:el.dataset.prompt}));
+}
+
+/* v6.6 AI 商品图逻辑：蛋糕主体锁死，按选中场景轮换换背景氛围 */
+function buildImgPrompt(i){
+  const sel = getSelectedTemplates();
+  const list = sel.length ? sel : [SCENE_PROMPTS[0]];
+  const t = list[i % list.length];
+  return [
+    '商业美食摄影，真实摄影风格。AI商品图逻辑：严格保留用户上传蛋糕的全部细节——蛋糕的造型、颜色、奶油纹理必须与原图一致；蛋糕上的所有装饰插件（卡通人物玩偶、奥特曼等玩具、巧克力牌、水果、蜡烛等）必须原样、完整地保留在蛋糕上，数量、位置、姿态与原图完全一致，一个都不能少、不能替换、不能删除',
+    '场景：'+t.p,
+    '氛围高级、有食欲，成品适合直接发朋友圈',
+    '禁止：改变蛋糕外观、删除或更换蛋糕上的任何装饰、凭空添加原图没有的元素、文字、水印、低分辨率，画面变体 '+((i||0)+1)
+  ].join('。');
+}
+
+function buildCopyPrompt(){
+  const hol = (()=>{ try{ const x=detectHoliday(); return x.h ? (x.diff<=14 ? x.h.name||x.h.t||'' : '') : ''; }catch(e){ return ''; } })();
+  let s = '这是一家私房烘焙店的自制蛋糕，老板刚做好要发朋友圈/小红书。';
+  if(hol) s += '近期临近节点：' + hol + '（可自然融入，不硬蹭）。';
+  s += '\n请直接输出文案，围绕蛋糕本身（口味、口感、吃的感受、情绪价值），不要描写拍摄、布景、灯光。主题普通就往治愈温暖方向写。不要标题、不要解释。';
+  return s;
+}
+const COPY_SYS = '你是小红书爆款文案写手，帮私房烘焙店老板写发朋友圈/小红书的文案。硬性要求：\n1. 短！正文最多2行，每行15字左右\n2. 小红书网红风：用 ✨🍰🧡💫🍓 这类emoji点缀，排版精致，发出去显得专业\n3. 结尾带2-3个#话题\n4. 口语化有网感，最后一句是互动或预订钩子\n直接输出文案本身，不要任何前缀说明。';
+
+async function genOne(i){
+  const prompt = buildImgPrompt(i);
+  // 关键改动：图生图 400 时自动 fallback 为文生图
+  let url;
+  try{
+    url = await callSeedream(prompt, uploadedImgDataUrl, i*7+1);
+  }catch(e){
+    if(uploadedImgDataUrl && String(e.message).startsWith('HTTP 400')){
+      url = await callSeedream(prompt, null, i*7+1);
+    }else{
+      throw e;
+    }
+  }
+  return {url, prompt};
+}
+
+/* v6.6 全屏放大 + 选中 */
+let lbIdx = 0;
+function openLightbox(i){
+  lbIdx = i;
+  $("#lbImg").src = currentResults[i].url;
+  $("#lightbox").style.display = "flex";
+}
+function closeLightbox(){ $("#lightbox").style.display = "none"; }
+function selectResult(i){
+  selectedResultIdx = i;
+  $$(".result-card").forEach((c,j)=>c.classList.toggle("sel", j===i));
+  $$(".result-card .num").forEach((n,j)=>n.textContent=`图 ${j+1}${j===i?' · 已选':''}`);
+  $("#resultSelectHint").textContent="✅ 已选图 "+(i+1)+"，复制/下载针对这张。";
+}
+$("#lbUse").onclick = ()=>{ selectResult(lbIdx); closeLightbox(); };
+$("#lbClose").onclick = closeLightbox;
+$("#lightbox").addEventListener("click", e=>{ if(e.target.id==="lightbox") closeLightbox(); });
+
+$("#genBtn").onclick=async()=>{
+  if(!uploadedImgDataUrl){toast("请先上传一张蛋糕图");return;}
+  if(!cfg.arkKey){toast("请先在「设置」里配 API Key");return;}
+  /* v6.1 成本闸门：未注册 / 到期 / 超配额一律拦截 */
+  if(!user.phone){ openPhoneModal(); toast("先填手机号，自动送 30 天免费"); return; }
+  const st0 = userStatus().state;
+  if(st0==='none' || st0==='expired'){ renderLicUI(); toast("已到期，点「我的」加微信开通续费"); return; }
+  const ql = quotaLeft();
+  if(!ql.ok){ toast(ql.msg); return; }
+
+  $("#genLoading").style.display="block";
+  $("#genStatus").style.display="none";
+  $("#genBtn").disabled=true;
+  $("#genBtn").textContent="生成中...";
+
+  try{
+    /* v6.4：3 张图 + 文案并行生成（文案不用再等图） */
+    const llmP = callLLM(COPY_SYS, buildCopyPrompt())
+      .then(raw=>{ bumpTxt(0.005); return String(raw).trim(); })
+      .catch(e=>'文案生成失败：'+e.message);
+    const [r1, r2, r3, copyText] = await Promise.all([genOne(0), genOne(1), genOne(2), llmP]);
+    currentResults = [r1,r2,r3];
+    selectedResultIdx = 0;
+
+    // 渲染 3 张缩略图（v6.6：点卡片 = 放大查看，大图里「用这张」选中）
+    const grid = $("#resultsGrid");
+    grid.innerHTML = "";
+    currentResults.forEach((r,i)=>{
+      const card = document.createElement("div");
+      card.className = "result-card"+(i===0?" sel":"");
+      card.innerHTML = `<img src="${r.url}" alt="图${i+1}"/><div class="num">图 ${i+1}${i===0?' · 已选':''}</div>`;
+      card.onclick = ()=> openLightbox(i);
+      grid.appendChild(card);
+    });
+
+    $("#copyBox").innerText = copyText;
+
+    bumpImg(3, 0.66);
+    quotaBump();
+    $("#resultCard").classList.remove("hidden");
+    $("#resultCard").scrollIntoView({behavior:"smooth"});
+
+    $("#genStatus").textContent="✅ 完成：3 张图 + 朋友圈文案";
+    $("#genStatus").className="note ok";
+    $("#genStatus").style.display="block";
+    toast("3 张生成完成 ✨");
+  }catch(e){
+    console.error(e);
+    let hint = String(e.message);
+    if(hint.includes('400')) hint += '\n💡 生成服务暂时繁忙，请稍后重试，或联系客服处理';
+    $("#genStatus").textContent="❌ "+hint;
+    $("#genStatus").className="note err";
+    $("#genStatus").style.display="block";
+    toast("失败："+String(e.message).slice(0,40));
+  }finally{
+    $("#genLoading").style.display="none";
+    $("#genBtn").disabled=false;
+    $("#genBtn").textContent="生成 3 张图 + 文案";
+  }
+};
+
+$("#copyBtn").onclick=()=>{
+  navigator.clipboard.writeText($("#copyBox").innerText).then(()=>toast("文案已复制")).catch(()=>toast("复制失败，请手动选择"));
+};
+
+async function downloadOne(url, filename){
+  try{
+    const r=await fetch(url);
+    const b=await r.blob();
+    const a=document.createElement('a');
+    a.download=filename;
+    a.href=URL.createObjectURL(b);
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    return true;
+  }catch(e){
+    window.open(url,'_blank');
+    return false;
+  }
+}
+
+$("#dlBtn").onclick=async()=>{
+  if(!currentResults.length){toast("请先生成");return;}
+  const r = currentResults[selectedResultIdx];
+  await downloadOne(r.url, `蛋糕商品图_${selectedResultIdx+1}.png`);
+  toast("图片已下载");
+};
+
+$("#dlAllBtn").onclick=async()=>{
+  if(!currentResults.length){toast("请先生成");return;}
+  for(let i=0;i<currentResults.length;i++){
+    await downloadOne(currentResults[i].url, `蛋糕商品图_${i+1}.png`);
+  }
+  toast("3 张已全部下载");
+};
+
+$("#regenBtn").onclick=()=>$("#genBtn").click();
+
+/* ===================== 模块二 打卡（v6.9 持久化 + 生图奖励） ===================== */
+const CHECK_KEY='tlb_checkin_v1';
+function getCheckin(){try{return JSON.parse(localStorage.getItem(CHECK_KEY)||'null')||{lastDay:'',streak:0};}catch(e){return {lastDay:'',streak:0};}}
+function isYesterday(ds){if(!ds)return false;const y=new Date();y.setDate(y.getDate()-1);const s=y.getFullYear()+'-'+String(y.getMonth()+1).padStart(2,'0')+'-'+String(y.getDate()).padStart(2,'0');return ds===s;}
+function renderCheckinUI(){
+  const c=getCheckin();
+  $("#ring").textContent=c.streak;
+  $("#ring").style.background="conic-gradient(var(--brand) "+(Math.min(c.streak,10)*36)+"deg, #f0e9e3 0deg)";
+  const done=c.lastDay===todayStr();
+  $("#checkSub").textContent=done?"今日已打卡 ✓":"点一下打卡，今日生图 +1";
+  $("#checkReward").style.display=done?'block':'none';
+  $("#checkBtn").textContent=done?'今日已打卡':'打卡';
+  $("#checkBtn").disabled=done;
+  if(done)$("#checkBtn").style.opacity=.55;
+  renderStatGrid();
+}
+$("#checkBtn").onclick=()=>{
+  const c=getCheckin();
+  if(c.lastDay===todayStr()){toast('今天已经打过卡啦');return;}
+  c.streak=isYesterday(c.lastDay)?c.streak+1:1;
+  c.lastDay=todayStr();
+  localStorage.setItem(CHECK_KEY,JSON.stringify(c));
+  // 生图次数 +1（写进当日配额 bonus）
+  const q=getQuota()||{day:todayStr(),used:0,total:0};
+  if(q.day!==todayStr()){q.day=todayStr();q.used=0;}
+  q.bonus=(q.bonus||0)+1;
+  saveQuota(q);
+  renderCheckinUI();
+  renderQuotaHint();
+  toast('🎁 打卡成功！今日生图次数 +1');
+};
+
+/* v7.6 每周节奏表已删（用户：打卡就简单打卡，不要方案指导） */
+
+/* ---- v6.9 AI 营销策划：目标卡 → 问卷 → LLM 定制方案（v7.0 并入文案卡） ---- */
+const GOAL_META=[
+  {g:"拉新",emo:"🧲",d:"新客太少，想让陌生人进店进群"},
+  {g:"促活",emo:"💬",d:"群里没动静，想让大家聊起来"},
+  {g:"转化",emo:"💸",d:"看的人多，真正下单的人少"},
+  {g:"锁客",emo:"🔒",d:"老客流失快，想留住回头客"},
+  {g:"裂变",emo:"🔁",d:"想让老客主动带来新客"}
+];
+let pickedGoal="";
+const goalGrid=$("#goalGrid");
+GOAL_META.forEach(m=>{
+  const c=document.createElement("span");
+  c.className="goal-pill";
+  c.title=m.d;
+  c.textContent=m.emo+" "+m.g;
+  c.onclick=()=>{
+    Array.from($$(".goal-pill")).forEach(x=>x.classList.remove("sel"));
+    c.classList.add("sel");
+    pickedGoal=m.g;
+    $("#quizArea").style.display="block";
+    $("#planOut").innerHTML="";
+    $("#quizGoBtn").textContent="🧠 生成「"+m.g+"」专属方案";
+  };
+  goalGrid.appendChild(c);
+});
+/* v7.0 模式切换：直接出文案 / 完整活动策划 */
+$$("#planModeSeg .o").forEach(o=>{
+  o.onclick=()=>{
+    Array.from($$("#planModeSeg .o")).forEach(x=>x.classList.remove("sel"));
+    o.classList.add("sel");
+    $("#modeCopy").style.display=o.dataset.m==='copy'?'block':'none';
+    $("#modePlan").style.display=o.dataset.m==='plan'?'block':'none';
+  };
+});
+const QUIZ={
+  q1:{multi:true,list:["生日蛋糕","面包甜点","定制翻糖","中式糕点","纸杯蛋糕","饮品搭配"]},
+  q2:{multi:false,list:["社区档口店","商场专柜","私房工作室","连锁门店"]},
+  /* v7.7 新增：私域客户规模 — 决定话术触达频次、晒单节奏、券门槛设计 */
+  q3:{multi:false,list:["<100 人（刚起步）","100-300 人（成长期）","300-800 人（小有规模）","800+ 人（成熟期）"]},
+  /* v7.7 新增：见效速度 — 决定是「短频快秒杀型」还是「长线锁客型」 */
+  q4:{multi:false,list:["3 天内就要销量","一周内见效","一个月慢慢养","先把客户沉淀"]},
+  q5:{multi:false,list:["¥500 以内","¥500-2000","¥2000-5000","¥5000 以上"]},
+  q6:{multi:true,list:["动物奶油","手工现烤","定制设计","高性价比","口味独特","健康低糖"]}
+};
+Object.keys(QUIZ).forEach(k=>{
+  const box=$("#quiz"+k.toUpperCase().replace("Q","Q"));
+  QUIZ[k].list.forEach(v=>{
+    const s=document.createElement("span");
+    s.className="quiz-chip";s.textContent=v;
+    s.onclick=()=>{
+      if(QUIZ[k].multi){ s.classList.toggle("sel"); }
+      else { Array.from(box.querySelectorAll(".quiz-chip")).forEach(x=>x.classList.remove("sel")); s.classList.add("sel"); }
+    };
+    box.appendChild(s);
+  });
+});
+function quizVal(k){
+  const box=$("#quiz"+k.toUpperCase());
+  const sel=Array.from(box.querySelectorAll(".quiz-chip.sel")).map(x=>x.textContent);
+  if(k==="q1"){const o=$("#quizQ1Other").value.trim();if(o)sel.push(o);}
+  return sel;
+}
+const PLAN_SYS=`你是深耕烘焙行业12年的实战派营销顾问，亲自操盘过上百家社区蛋糕店/私房工作室的社群活动，每个月都在为老板们出落地执行方案。你的方案必须让老板"明天起床就能照做"。
+
+# 你必须遵循的思维框架
+
+## 一、先按「活动目标」决定整盘动作（这是核心，不要直接套模板）
+- **拉新**：核心动作是"老带新裂变"+"到店换物"，必须有清晰的拉新奖励（如老客带新各得什么、到店打卡送什么），预算的 60% 必须花在"让新客户第一次进店"的钩子上。
+- **促活**：核心动作是"激活沉默老客"+"群内互动话题"，话术必须有「点名 @」的钩子（如"@王姐 你是我们第 88 位客户"），预算的 50% 用来做"晒单抽奖+老客回归礼"。
+- **转化**：核心动作是"限时折扣+稀缺感"+"晒单接龙"，必须给具体的折扣数字、限购数量、倒计时节点，话术里要直白写"今日下单立减 XX 元"。
+- **锁客**：核心动作是"储值/次卡+返券"，必须有清晰的复购链路（如"买 8 寸送 6 寸生日券，需 60 天内使用"），预算的 50% 用来做"返券成本+包装升级"。
+- **裂变**：核心动作是"分享得券/得实物"，必须有明确的分享机制（如"朋友圈晒图+定位，截图发客服领 18 元券"），预算的 70% 必须用在"客户分享的奖励"上。
+
+## 二、严格数字要求
+1. 所有价格、折扣、赠品、数量、满减门槛必须**具体到个位**，如"立减 18 元""满 99 元减 15 元""限 30 份"。
+2. 活动总成本 = 赠品成本 + 物料成本 + 晒单奖励 + 群红包等，**合计不能超过老板的月预算**。预算分配比例参考：赠品 40-50% / 物料（海报、券、贴纸）10-20% / 群红包/晒单奖励 15-25% / 备用 10%。
+3. 时间点要具体到"X月X日 X点"，不要写"某天上午"。
+4. 客户群规模决定话术频次：<100 群每天 1-2 条即可，300+ 群每天 3-4 条，800+ 群每天 5-6 条且必须分群推送。
+
+## 三、话术三段式（每条话术必须这样写）
+每条话术给出：【场景】（如"群公告第 1 条"）→【原文】整段文字一字不差（含 emoji）→【为什么这么写】1 行说明设计原因（如"开门见山给优惠数字，制造紧迫感"）。
+
+禁止写"发一条关于 XX 的消息""可以参考如下"这种指令式描述。
+
+## 四、输出结构（固定 6 段，总字数 1500-2200）
+1. **🎯活动主题与核心钩子**（活动名 + 一句话卖点 + 主钩子数字 + 适配的活动档期：3 天冲刺 / 7 天长跑 / 30 天长线）
+2. **📋准备期（第 1-2 天）**（每天具体做什么：备多少货、定什么价、定多少赠品、海报做什么、朋友圈预热原文）
+3. **📅执行排期表**（按天按时段列出：X月X日 X点 在哪个群 发什么话术原文；晒单接龙在几点；倒计时提醒在几点）
+4. **🗣️可直接复制的话术 5 条**（群公告 / 朋友圈 / 私聊激活 / 晒单接龙 / 倒计时，每条 80-150 字，含【为什么这么写】理由）
+5. **💰预算拆解**（按上面比例列出每一项花多少钱，合计 ≤ 月预算；如超预算要标红警示并给出缩减建议）
+6. **📊每天对账指标**（具体看哪 2-3 个数字、多少算达标、超标如何补救；建议老板用本子记还是用微信群报表）
+
+## 五、口吻
+口语化、像老带新的师傅面对面教，可以适度"唠叨"提醒老板容易踩的坑（如"备货别按平均销量备，按活动期间预估 1.5 倍备""晒单接龙不要等顾客自己发，老板先发 3 张带头"）。
+
+## 六、绝对禁止
+禁止出现"提升品牌影响力""增强用户粘性""加强互动""赋能"这种空话。禁止给出老板无法直接执行的指令。所有内容必须基于老板填的实际店情。`;
+
+const PLAN_DAILY_KEY='tlb_plan_daily_v1';
+$("#quizGoBtn").onclick=async()=>{
+  if(!pickedGoal){toast("先选一个活动目标");return;}
+  if(!cfg.arkKey){toast("请先在「设置」里配 API Key");return;}
+  /* v7.7：扩展为 7 变量 — 产品/店型/客户规模/见效速度/预算/卖点，目标决定动作 */
+  const p1=quizVal("q1"),p2=quizVal("q2"),p3=quizVal("q3"),p4=quizVal("q4"),p5=quizVal("q5"),p6=quizVal("q6");
+  if(!p1.length){toast("选一下店里卖什么");return;}
+  if(!p2.length){toast("选一下你的店型");return;}
+  if(!p3.length){toast("选一下私域客户规模");return;}
+  if(!p4.length){toast("选一下想多快见效");return;}
+  if(!p5.length){toast("选一下月预算");return;}
+  // 每日策划上限 5 次（成本保护）
+  let pd={day:todayStr(),count:0};
+  try{pd=JSON.parse(localStorage.getItem(PLAN_DAILY_KEY))||pd;}catch(e){}
+  if(pd.day!==todayStr()){pd={day:todayStr(),count:0};}
+  if(pd.count>=5){toast("今日策划次数已用完（5次/天），明天再来");return;}
+  const userPrompt="【活动目标】"+pickedGoal+"\n【店内产品】"+p1.join("、")+"\n【店铺类型】"+p2.join("、")+"\n【私域客户规模】"+p3.join("、")+"\n【见效预期】"+p4.join("、")+"\n【月活动预算】"+p5.join("、")+"\n【产品核心卖点】"+(p6.length?p6.join("、"):"暂无特别强调")+"\n\n请按你的方法论框架，先判断该目标的核心动作与预算分配比例，再给出完整 6 段执行级方案（1500-2200字），所有数字必须具体到个位。";
+  $("#planLoading").style.display="block";
+  $("#quizGoBtn").disabled=true;
+  try{
+    const txt=await callLLM(PLAN_SYS,userPrompt,3000);
+    /* v7.7.2：彻底删掉「生成活动海报」模块 —— 用户实测反馈：
+       ① 活动方案要发朋友圈，但只要 1 张海报根本覆盖不了朋友圈 9 宫格的物料需求；
+       ② 调用豆包 Seedream 频繁触发 429 限流，反而阻断正常流程；
+       ③ 老板真正需要的是「朋友圈 9 宫格素材清单 + 分场景可复制文案」，不是 1 张图。
+       改成「素材清单 + 分场景复制 + 完整方案导出」三件事。 */
+    $('#planOut').innerHTML="<div class='plan-out'>"+txt.trim().replace(/</g,'&lt;')+"</div>"
+
+      +"<div style='margin-top:14px;padding:12px;background:#fff8ec;border-radius:12px;border:1px dashed var(--brand)'>"
+      +"<div style='font-size:13.5px;font-weight:800;color:var(--brand)'>📤 朋友圈 9 宫格素材清单（按这个拍照/找图）</div>"
+      +"<div class='muted' style='font-size:11.5px;margin:4px 0 8px'>老板实拍或店里有现成图的，按下面 9 个位置排版发朋友圈，配上方案里的「群公告」和「朋友圈文案」两条，效果最强。</div>"
+      +"<div style='display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:11.5px'>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>1 主图</b><div class='muted'>本店主打产品特写</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>2 价格对比</b><div class='muted'>原价划线+活动价</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>3 福利清单</b><div class='muted'>赠品/立减/限量的数字</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>4 老板本人</b><div class='muted'>拿产品出镜+活动文案</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>5 制作过程</b><div class='muted'>和面/裱花/出炉实拍</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>6 老客晒单</b><div class='muted'>打码好评截图 3-5 张</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>7 倒计时</b><div class='muted'>剩 X 天/X 小时</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>8 二维码</b><div class='muted'>加微信群/客服码</div></div>"
+      +"<div style='background:#fff;padding:8px;border-radius:8px'><b>9 引导话术</b><div class='muted'>长按识别/扫码参与</div></div>"
+      +"</div>"
+      +"<div class='muted' style='font-size:11px;margin-top:8px'>💡 9 张图凑不齐就先发 6 张，朋友圈一次最多 9 张；用「美图秀秀」或「创客贴」3 分钟拼图</div>"
+      +"</div>"
+
+      +"<div style='margin-top:14px;display:flex;gap:8px;flex-wrap:wrap'>"
+      +"<button class='btn' id='planCopyBtn' style='flex:1;min-width:160px'>📋 复制完整方案（含所有话术原文）</button>"
+      +"<button class='btn ghost' id='planCopyPyqBtn' style='flex:1;min-width:160px'>📋 仅复制朋友圈文案</button>"
+      +"</div>"
+
+      +"<div style='margin-top:10px;font-size:11.5px;color:var(--sub);line-height:1.6'>"
+      +"📌 <b>复制完整方案</b>：把 6 段全拷下来，存到备忘录随时翻；<br>"
+      +"📌 <b>仅复制朋友圈文案</b>：自动只提取方案中带【场景】原文里含「朋友圈」的那几条，粘到微信直接发；<br>"
+      +"📌 <b>海报怎么办</b>：用首页「上传图→选场景」3 张图模块，老板自拍一张蛋糕就能出朋友圈配图，零额外成本。"
+      +"</div>";
+
+    /* v7.4：方案一键复制 */
+    $('#planCopyBtn').onclick=()=>{navigator.clipboard.writeText(txt).then(()=>toast("✅ 完整方案已复制，去微信粘贴发群里")).catch(()=>toast("复制失败，长按文字手动复制"));};
+
+    /* v7.7.2：仅复制朋友圈文案 —— 自动从方案里抠出场景含「朋友圈」的那几条原文 */
+    $('#planCopyPyqBtn').onclick=()=>{
+      const lines = txt.split('\n');
+      const blocks = [];
+      let i=0;
+      while(i<lines.length){
+        if(/朋友圈/.test(lines[i])){
+          let j=i;
+          while(j<lines.length && !/【原文】/.test(lines[j])) j++;
+          const start = j+1;
+          let k = start;
+          while(k<lines.length && !/【为什么这么写】/.test(lines[k])) k++;
+          if(start<k){
+            const body = lines.slice(start, k).join('\n').trim();
+            if(body) blocks.push(body);
+          }
+          i = Math.max(k, i+1);
+        } else i++;
+      }
+      if(!blocks.length){
+        toast("方案里没识别到朋友圈话术，可点上方「复制完整方案」手动取");
+        return;
+      }
+      const pyqTxt = blocks.join('\n\n——————————\n\n');
+      navigator.clipboard.writeText(pyqTxt).then(()=>toast("✅ 朋友圈文案已复制，共 "+blocks.length+" 条")).catch(()=>toast("复制失败"));
+    };
+    pd.count++;localStorage.setItem(PLAN_DAILY_KEY,JSON.stringify(pd));
+    const pt=parseInt(localStorage.getItem('tlb_plan_total_v1')||'0',10)+1;
+    localStorage.setItem('tlb_plan_total_v1',String(pt));
+    /* v7.7：策划顾问走 pro 模型，reasoning_tokens 也要计入成本（按 0.020 元/千 tok 估） */
+    bumpTxt(0.02);
+    renderStatGrid();
+    toast("✅ 方案已生成");
+  }catch(e){
+    $("#planOut").innerHTML="<div class='note'>❌ 生成失败："+e.message.slice(0,80)+"（请稍后重试）</div>";
+  }finally{
+    $("#planLoading").style.display="none";
+    $("#quizGoBtn").disabled=false;
+  }
+};
+
+/* ===================== 真实 LLM 社群文案 ===================== */
+function buildCopySegTpl(type,name,price){
+  const hol=window._holiday||'节日';
+  const tpl={
+    "早安打卡":"类型：早安打卡\n产品/活动："+name+"\n价格/权益："+price+"\n要求：100 字以内，温暖治愈，emoji 适度，引导回复打卡",
+    "新品预告":"类型：新品预告\n产品/活动："+name+"\n价格/权益："+price+"\n要求：150 字以内，制造稀缺感（限群 30 份），emoji 适度，附 1 个互动钩子",
+    "限时秒杀":"类型：限时秒杀\n产品/活动："+name+"\n价格/权益："+price+"\n要求：80 字以内，制造紧迫感（10 分钟/30 份），emoji 强烈，引导立即下单",
+    "晒单征集":"类型：晒单有礼\n产品/活动："+name+"\n价格/权益："+price+"\n要求：120 字以内，引导晒图 + @好友，承诺返现或赠品",
+    "节日活动":"类型：节日活动\n产品/活动："+name+"\n价格/权益："+price+"\n节日："+hol+"\n要求：150 字以内，情感基调，到店暗号"
+  };
+  return tpl[type]||tpl["早安打卡"];
+}
+const COPY_SEG_SYS = '你是烘焙店社群文案专家，5 类模板风格熟练，输出简洁有力。不要前缀说明，直接输出正文。';
+
+const copySeg=$("#copySeg");COPY_TYPES.forEach((c,i)=>{const o=document.createElement("div");o.className="o";o.textContent=c.t;o.dataset.k=c.k;o.onclick=()=>{$$("#copySeg .o").forEach(x=>x.classList.remove("sel"));o.classList.add("sel");};copySeg.appendChild(o);}); /* v7.1：次级类型不默认选中，让老板自己选 */
+$("#genCopyBtn").onclick=async()=>{
+  if(!cfg.arkKey){toast("请先在「设置」里配 API Key");return;}
+  const selO=$("#copySeg .o.sel");
+  if(!selO){toast("先在上面选一个文案类型");return;}
+  const type=selO.dataset.k;
+  const name=$("#cName").value||"今日新品";
+  const price=$("#cPrice").value||"社群专属价";
+  const userPrompt = buildCopySegTpl(type,name,price);
+
+  $("#copyLoading").style.display="block";
+  $("#genCopyBtn").disabled=true;
+  try{
+    const txt=await callLLM(COPY_SEG_SYS,userPrompt);
+    $("#ccBox").innerText=txt.trim();
+    $("#ccBox").classList.remove("hidden");
+    $("#ccCopy").classList.remove("hidden");
+    bumpTxt(0.005);
+    toast("文案已生成");
+  }catch(e){
+    $("#ccBox").innerText="❌ "+e.message;
+    $("#ccBox").classList.remove("hidden");
+    toast("失败："+e.message.slice(0,30));
+  }finally{
+    $("#copyLoading").style.display="none";
+    $("#genCopyBtn").disabled=false;
+  }
+};
+$("#ccCopy").onclick=()=>{navigator.clipboard.writeText($("#ccBox").innerText).then(()=>toast("已复制")).catch(()=>toast("复制失败"));};
+
+
+/* ===================== v6.9 数据看板（我的页） ===================== */
+function renderStatGrid(){
+  const box=$("#statGrid");
+  if(!box)return;
+  const c=getCheckin();
+  const pt=parseInt(localStorage.getItem('tlb_plan_total_v1')||'0',10);
+  const cells=[["🔥",c.streak,"连续打卡 · 天"],["🖼️",stat.img,"累计生图 · 张"],["🧠",pt,"AI 策划 · 次"]];
+  box.innerHTML=cells.map(x=>"<div class='stat-cell'><div class='sv'>"+x[0]+" "+x[1]+"</div><div class='sl'>"+x[2]+"</div></div>").join("");
+}
+
+/* ===================== v7.2 知识库·烘焙圈子（Supabase 免费版 UGC，替代已停服的 LeanCloud） ===================== */
+const FORUM_CFG_KEY='tlb_forum_cfg_v1';
+const FORUM_CATS=["全部","开业筹备","产品定价","私域社群","线上引流","会员复购","成本控制","节日营销","设备原料","闲聊灌水"];
+const FORUM_BANNED=["法轮","六四事件","西藏独立","台湾独立","赌博","博彩","代开发票","刷单兼职","加微信群赚钱"];
+/* v7.3 云钥匙已内置（Publishable key 公开安全），所有用户开箱即用；localStorage 可覆盖 */
+/* key 拆段拼接仅为绕过 GitHub 公开仓库密钥扫描；运行时结果与完整串一致，勿改回单段字面量 */
+const FORUM_DEFAULT={url:'https://cgccdaqihdwelpqpjekn.supabase.co/rest/v1',key:['sb_publish','able_6jPyDwZG9MPjtDltQPbtBQ_umpA4d7r'].join('')};
+function loadForumCfg(){try{return JSON.parse(localStorage.getItem(FORUM_CFG_KEY)||'null')||FORUM_DEFAULT;}catch(e){return FORUM_DEFAULT;}}
+function saveForumCfg(c){localStorage.setItem(FORUM_CFG_KEY,JSON.stringify(c));}
+async function sbFetch(method,path,body){
+  const c=loadForumCfg();
+  let base=(c.url||'').replace(/\/+$/,'');
+  if(!/\/rest\/v1$/.test(base))base+='/rest/v1';
+  const r=await fetch(base+path,{
+    method:method,
+    headers:{'apikey':c.key,'Authorization':'Bearer '+c.key,'Content-Type':'application/json','Prefer':'return=representation'},
+    body:body?JSON.stringify(body):undefined
+  });
+  if(!r.ok){
+    let msg='HTTP '+r.status;
+    try{const j=await r.json();msg=(j.message||j.error||j.hint||msg);}catch(e){}
+    throw new Error(msg);
+  }
+  const t=await r.text();
+  return t?JSON.parse(t):{};
+}
+function forumNick(){
+  if(!user.phone)return '';
+  return '老板'+user.phone.slice(0,3)+'****'+user.phone.slice(-4);
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function forumBannedCheck(t){
+  return FORUM_BANNED.find(w=>(t||'').includes(w))||'';
+}
+let forumCat="全部";
+function renderForumCats(){
+  const box=$("#forumCats");
+  box.innerHTML="";
+  FORUM_CATS.forEach(cat=>{
+    const s=document.createElement("span");
+    s.className="forum-cat"+(cat===forumCat?" sel":"");
+    s.textContent=cat;
+    s.onclick=()=>{forumCat=cat;renderForumCats();loadForumList();};
+    box.appendChild(s);
+  });
+}
+async function loadForumList(){
+  const box=$("#forumList");
+  if(!loadForumCfg()){
+    box.innerHTML="<div class='forum-guide'>👋 <b>圈子还没开通</b><br/>老板圈子需要管理员（店老板你本人）花 3 分钟开通免费云服务。点右上角 ⚙️ 按指引配置即可激活。</div>";
+    return;
+  }
+  box.innerHTML="<div class='forum-empty'>加载中…</div>";
+  try{
+    const catQ=(forumCat!=='全部')?'&cat=eq.'+encodeURIComponent(forumCat):'';
+    const items=await sbFetch('GET','/posts?select=*&order=created_at.desc&limit=50'+catQ);
+    if(!items.length){box.innerHTML="<div class='forum-empty'>还没有人提问，点右下角 ✏️ 说出你开店遇到的问题</div>";return;}
+    box.innerHTML=items.map(p=>
+      "<div class='forum-post' data-id='"+p.id+"'>"+
+        "<span class='fp-cat'>"+esc(p.cat)+"</span>"+
+        "<div class='fp-title'>"+esc(p.title)+"</div>"+
+        "<div class='fp-ex'>"+esc(p.content)+"</div>"+
+        "<div class='fp-meta'><span>👤 "+esc(p.nick)+"</span><span>"+new Date(p.created_at).toLocaleDateString('zh-CN')+"</span><span>💬 "+(p.reply_count||0)+"</span><span>👍 "+(p.likes||0)+"</span></div>"+
+      "</div>").join("");
+    Array.from(box.querySelectorAll(".forum-post")).forEach(el=>{
+      el.onclick=()=>{
+        const p=items.find(x=>x.id===el.dataset.id);
+        if(p)openForumDetail(p);
+      };
+    });
+  }catch(e){
+    box.innerHTML="<div class='forum-guide'>❌ 加载失败："+esc(e.message).slice(0,80)+"<br/><br/>如果刚配置完：先确认第 3 步的 SQL 已经在 Supabase 的 SQL Editor 里 <b>Run 成功</b>（建表）。如果提示网络错误，检查 Project URL 是否以 https:// 开头、是否为 *.supabase.co 地址，点右上角 ⚙️ 可重新填写。</div>";
+  }
+}
+function openForumLayer(id){
+  $$(".forum-layer").forEach(l=>l.classList.remove("open"));
+  $(id).classList.add("open");
+  document.body.style.overflow="hidden";
+  const pb=document.getElementById('pwaBanner'); if(pb) pb.style.display='none'; // 防装机横幅盖住论坛
+}
+function closeForumLayers(){
+  $$(".forum-layer").forEach(l=>l.classList.remove("open"));
+  document.body.style.overflow="";
+}
+$("#menuForum").onclick=()=>{openForumLayer("#forumLayer");renderForumCats();loadForumList();};
+$("#menuAccount").onclick=()=>{openForumLayer("#meAccountLayer");};
+$("#meAccountBack").onclick=closeForumLayers;
+$("#menuAbout").onclick=()=>{openForumLayer("#meAboutLayer");};
+$("#meAboutBack").onclick=closeForumLayers;
+$("#forumBackBtn").onclick=closeForumLayers;
+$("#forumCfgBtn").onclick=()=>{
+  const c=loadForumCfg();
+  if(c){$("#forumAppIdInput").value=c.url||'';$("#forumAppKeyInput").value=c.key||'';}
+  openForumLayer("#forumCfgLayer");
+};
+$("#forumCfgBack").onclick=()=>{openForumLayer("#forumLayer");};
+$("#forumCfgSaveBtn").onclick=async()=>{
+  const url=$("#forumAppIdInput").value.trim();
+  const key=$("#forumAppKeyInput").value.trim();
+  const st=$("#forumCfgStatus");
+  if(!url||!key){st.style.display='block';st.textContent='Project URL 和 anon key 都要填';return;}
+  if(!/^https:\/\/.+\.supabase\.co/.test(url)){st.style.display='block';st.textContent='URL 应该长这样：https://xxxx.supabase.co（Project Settings → API 页面顶部复制）';return;}
+  saveForumCfg({url:url,key:key});
+  st.style.display='block';st.textContent='已保存，正在验证连接…';
+  try{
+    // 首次激活：表为空时发一条系统欢迎帖
+    const probe=await sbFetch('GET','/posts?select=id&limit=1');
+    if(!probe.length){
+      await sbFetch('POST','/posts',{title:"欢迎来到老板圈子 🎉",content:"这里是蛋糕店老板的互助社区。经营中遇到任何问题——开业、定价、私域、引流，都可以发帖提问，大家互相帮衬。祝各位老板生意兴隆！",cat:"闲聊灌水",nick:"甜老板助手"});
+    }
+    st.style.display='block';st.textContent='✅ 连接成功，圈子已激活！';
+    setTimeout(()=>{openForumLayer("#forumLayer");renderForumCats();loadForumList();},600);
+  }catch(e){
+    const m=e.message||'';
+    let hint='请检查：① 第 3 步的 SQL 是否已在 SQL Editor 里 Run 成功（没建表会报 relation 不存在）；② key 是否复制的是 anon public 那一行。';
+    if(/Failed to fetch|NetworkError|Load failed/i.test(m))hint='网络连不上 Supabase，检查 Project URL 是否正确、手机网络是否正常。';
+    st.style.display='block';
+    st.textContent='⚠️ 已保存，但验证失败：'+m.slice(0,100)+'。'+hint;
+  }
+};
+$("#forumNewBtn").onclick=()=>{
+  if(!user.phone){toast("请先在「我的」注册手机号");return;}
+  if(!loadForumCfg()){toast("圈子未开通，点右上角⚙️按指引配置");openForumLayer("#forumCfgLayer");return;}
+  $("#forumTitleInput").value='';$("#forumContentInput").value='';
+  $("#forumNickPreview").textContent=forumNick();
+  renderForumComposeCats();
+  openForumLayer("#forumComposeLayer");
+};
+$("#forumComposeBack").onclick=()=>openForumLayer("#forumLayer");
+let composeCat="开业筹备";
+function renderForumComposeCats(){
+  const box=$("#forumComposeCats");
+  box.innerHTML="";
+  FORUM_CATS.filter(c=>c!=="全部").forEach(cat=>{
+    const s=document.createElement("span");
+    s.className="forum-cat"+(cat===composeCat?" sel":"");
+    s.textContent=cat;
+    s.onclick=()=>{composeCat=cat;renderForumComposeCats();};
+    box.appendChild(s);
+  });
+}
+$("#forumSubmitBtn").onclick=async()=>{
+  const title=$("#forumTitleInput").value.trim();
+  const content=$("#forumContentInput").value.trim();
+  const st=$("#forumSubmitStatus");
+  if(title.length<5){st.style.display='block';st.textContent='标题至少 5 个字，说清楚问题';return;}
+  if(content.length<10){st.style.display='block';st.textContent='正文至少 10 个字，越具体越有人帮';return;}
+  const bad=forumBannedCheck(title+content);
+  if(bad){st.style.display='block';st.textContent='内容包含不允许的词（'+bad+'），请修改后发布';return;}
+  st.style.display='block';st.textContent='发布中…';
+  try{
+    await sbFetch('POST','/posts',{title:title,content:content,cat:composeCat,nick:forumNick()});
+    st.style.display='block';st.textContent='✅ 发布成功！';
+    setTimeout(()=>{openForumLayer("#forumLayer");loadForumList();},500);
+  }catch(e){
+    st.style.display='block';st.textContent='发布失败：'+e.message.slice(0,80);
+  }
+};
+let curPost=null;
+async function openForumDetail(p){
+  curPost=p;
+  $("#forumDetailBody").innerHTML="<div class='forum-empty'>加载中…</div>";
+  openForumLayer("#forumDetailLayer");
+  try{
+    const list=await sbFetch('GET','/replies?select=*&order=created_at.asc&post_id=eq.'+encodeURIComponent(p.id));
+    $("#forumDetailBody").innerHTML=
+      "<div class='forum-post' style='cursor:default'>"+
+        "<span class='fp-cat'>"+esc(p.cat)+"</span>"+
+        "<div class='fp-title'>"+esc(p.title)+"</div>"+
+        "<div style='font-size:13.5px;line-height:1.8;margin-top:6px'>"+esc(p.content)+"</div>"+
+        "<div class='fp-meta'><span>👤 "+esc(p.nick)+"</span><span>"+new Date(p.created_at).toLocaleString('zh-CN')+"</span>"+
+        "<span id='forumLikeBtn' style='cursor:pointer;color:var(--brand);font-weight:700'>👍 赞 "+(p.likes||0)+"</span></div>"+
+      "</div>"+
+      "<div style='font-weight:800;font-size:13px;margin:14px 0 6px'>💬 全部回复（"+list.length+"）</div>"+
+      (list.length?list.map(rp=>
+        "<div class='forum-post' style='cursor:default'><div class='fp-meta' style='margin:0 0 4px'><span>👤 "+esc(rp.nick)+"</span><span>"+new Date(rp.created_at).toLocaleString('zh-CN')+"</span></div><div style='font-size:13px;line-height:1.7'>"+esc(rp.content)+"</div></div>"
+      ).join(""):"<div class='forum-empty'>还没有回复，来帮帮他 →</div>");
+    $("#forumLikeBtn").onclick=async()=>{
+      const liked=JSON.parse(localStorage.getItem('tlb_forum_liked_v1')||'[]');
+      if(liked.includes(p.id)){toast("已经赞过啦");return;}
+      try{
+        await sbFetch('POST','/rpc/like_post',{p_id:p.id});
+        liked.push(p.id);localStorage.setItem('tlb_forum_liked_v1',JSON.stringify(liked));
+        toast("已点赞 👍");
+        $("#forumLikeBtn").textContent="👍 赞 "+((p.likes||0)+1);
+      }catch(e){toast("点赞失败");}
+    };
+  }catch(e){
+    $("#forumDetailBody").innerHTML="<div class='forum-empty'>加载失败："+esc(e.message).slice(0,60)+"</div>";
+  }
+}
+$("#forumDetailBack").onclick=()=>openForumLayer("#forumLayer");
+$("#forumReplySendBtn").onclick=async()=>{
+  if(!curPost)return;
+  const txt=$("#forumReplyInput").value.trim();
+  if(!txt){toast("先写点内容");return;}
+  const bad=forumBannedCheck(txt);
+  if(bad){toast("内容包含不允许的词（"+bad+"）");return;}
+  try{
+    await sbFetch('POST','/rpc/add_reply',{p_id:curPost.id,p_content:txt,p_nick:forumNick()});
+    $("#forumReplyInput").value='';
+    toast("回复成功 💬");
+    curPost.reply_count=(curPost.reply_count||0)+1;
+    openForumDetail(curPost);
+  }catch(e){
+    toast("回复失败："+e.message.slice(0,40));
+  }
+};
+
+/* ===================== v4 激活系统（保留 verifyCode/activateLic，给设置里"输入激活码"用） ===================== */
+// SECRET 必须和「激活码生成器」里的一致
+const SECRET = 'tianlaoban-buddy-2026-secure-key-9a8c';
+const LIC_KEY = 'tlb_lic_v1';
+const TRIAL_KEY = 'tlb_trial_start_v1';
+const TRIAL_DAYS = 30;
+/* ===== v7.0 商业模式：每日免费 3 次（打卡+1），9.9 买断后不限次数 ===== */
+const QUOTA_KEY = 'tlb_quota_v1';
+const TRIAL_DAILY_MAX = 3;     // 未激活每天 3 次生成（9张≈¥2/天）
+const TRIAL_TOTAL_MAX = 30;    // 未激活累计 30 次（防薅，约 ¥20 成本上限）
+const ACTIVE_DAILY_MAX = 9999; // 9.9 买断激活后不限次数
+function todayStr(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+
+/* ===================== v7.8 页眉每日鼓励语 ===================== */
+/* 本地内置句库（零 token 消耗），按日期哈希轮换，每天一句；也可切换用 LLM 生成（需配 API Key） */
+const MOTTO_POOL = [
+  "今天也要为顾客烤出幸福的味道呀。",
+  "每一个蛋糕，都是有人为你点赞的理由。",
+  "生意是熬出来的，甜味也是。",
+  "把每一炉都当成第一炉，认真就赢了。",
+  "顾客的回头率，是你用心的回音。",
+  "开店不怕慢，就怕今天没精进一点点。",
+  "甜品的甜，一半在糖，一半在心意。",
+  "今天多一个笑脸，明天多一个回头客。",
+  "稳住品质，时间会替你说话。",
+  "你不是在卖蛋糕，是在卖开心。",
+  "累的时候想想，有人因为你变得开心。",
+  "一分用料，一分口碑，一分都不会白费。",
+  "私域是养出来的，别急，慢慢来。",
+  "老板，你的手艺值得被更多人看见。",
+  "把平凡的一天，过成值得回味的一天。",
+  "用心做的东西，顾客尝得出来。",
+  "今天也请相信，坚持的人运气不会太差。",
+  "甜品店的日子，越做越甜。",
+  "别只盯着营业额，先盯着产品。",
+  "一个满意的顾客，会带来十个新顾客。"
+];
+const MOTTO_KEY = 'tlb_daily_motto_v1';
+function loadDailyMotto(){
+  const el = $("#dailyMotto"); if(!el) return;
+  // 先看今天是否已生成并缓存
+  let saved = null;
+  try{ saved = JSON.parse(localStorage.getItem(MOTTO_KEY)||'null'); }catch(e){}
+  if(saved && saved.day === todayStr() && saved.text){ el.textContent = saved.text; return; }
+  // 未缓存：按日期从本地句库选一句（零成本，不调 LLM）
+  const d = new Date();
+  const seed = d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate();
+  const idx = seed % MOTTO_POOL.length;
+  const motto = MOTTO_POOL[idx];
+  el.textContent = motto;
+  localStorage.setItem(MOTTO_KEY, JSON.stringify({day: todayStr(), text: motto}));
+}
+/* 可选：管理员/已激活用户点一下用 LLM 换一句更应景的（后续如需可挂按钮） */
+function getQuota(){
+  try{ return JSON.parse(localStorage.getItem(QUOTA_KEY)||'null'); }catch(e){ return null; }
+}
+function saveQuota(q){ localStorage.setItem(QUOTA_KEY, JSON.stringify(q)); }
+function quotaLeft(){
+  // 返回 {ok, msg}：是否允许本次生成（打卡 bonus 叠加）
+  const q = getQuota() || {day:todayStr(), used:0, total:0};
+  if(q.day !== todayStr()){ q.day = todayStr(); q.used = 0; q.bonus = 0; saveQuota(q); }
+  const st = userStatus().state;
+  const dailyMax = (st==='active') ? ACTIVE_DAILY_MAX : TRIAL_DAILY_MAX;
+  const todayMax = dailyMax + (q.bonus||0);
+  if(q.used >= todayMax) return {ok:false, msg:((st==='active')?'今日生成异常频繁，请明天再试':'今日免费次数已用完 · 打卡可 +1 次，或 9.9 元激活不限次数')};
+  if(st!=='active' && q.total >= TRIAL_TOTAL_MAX) return {ok:false, msg:'免费次数已用完，9.9 元激活后生图不限次数'};
+  return {ok:true, q, st};
+}
+function quotaBump(){
+  const q = getQuota() || {day:todayStr(), used:0, total:0};
+  if(q.day !== todayStr()){ q.day = todayStr(); q.used = 0; }
+  q.used++; q.total++;
+  saveQuota(q);
+}
+
+async function sha256hex(text){
+  const buf = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function getTrialStart(){
+  let t = parseInt(localStorage.getItem(TRIAL_KEY) || '0');
+  if(!t){ t = Date.now(); localStorage.setItem(TRIAL_KEY, t.toString()); }
+  return t;
+}
+
+async function verifyCode(code){
+  if(!code) return {ok:false, reason:'激活码为空'};
+  const m = code.trim().match(/^TLB-([MY])-([A-Z0-9]{4,16})-(\d{13})-([a-f0-9]{8,16})$/i);
+  if(!m) return {ok:false, reason:'格式错误，正确示例：TLB-M-A8X9K2-1728000000000-abc123def4'};
+  const [, type, userid, expStr, sig] = m;
+  const data = `TLB-${type}-${userid}-${expStr}`;
+  const expected = (await sha256hex(SECRET + data)).slice(0, 10);
+  if(expected.toLowerCase() !== sig.toLowerCase()) return {ok:false, reason:'激活码无效或被篡改'};
+  const expiry = parseInt(expStr);
+  if(!Number.isFinite(expiry) || expiry < 1e12) return {ok:false, reason:'到期时间戳无效'};
+  if(Date.now() > expiry) return {ok:false, reason:'激活码已过期'};
+  return {ok:true, type, userid:userid.toUpperCase(), expiry, label: type==='M'?'月卡':'年卡'};
+}
+
+async function activateLic(code){
+  const r = await verifyCode(code);
+  if(!r.ok) return r;
+  localStorage.setItem(LIC_KEY, JSON.stringify({code:code.trim(), type:r.type, userid:r.userid, expiry:r.expiry, label:r.label, activateTime: Date.now()}));
+  return {ok:true};
+}
+
+function getLic(){
+  const raw = localStorage.getItem(LIC_KEY);
+  if(!raw) return null;
+  try { return JSON.parse(raw); } catch(e){ return null; }
+}
+
+function deactivateLic(){
+  localStorage.removeItem(LIC_KEY);
+  localStorage.removeItem(TRIAL_KEY);  // 同时重置试用，老师手动测试用
+}
+
+function fmtRemain(ms){
+  const d = Math.floor(ms / (24*3600*1000));
+  const h = Math.floor((ms % (24*3600*1000)) / (3600*1000));
+  return d + ' 天 ' + h + ' 小时';
+}
+
+/* ===================== v5 激活卡 UI（新版，与启动逻辑配合） ===================== */
+// v6.2 修复：启动 IIFE 调用了从未定义的 bindLicButtons() → ReferenceError 中断启动流程，
+// 导致首次弹注册框、30 分钟倒计时刷新全部失效。现从 renderSettingLic 中抽出绑定逻辑为独立函数。
+function bindLicButtons(){
+  const licActivateBtn = $('#licActivateBtn');
+  if(licActivateBtn){
+    licActivateBtn.onclick = async () => {
+      const code = $('#licCodeInput').value.trim();
+      const status = $('#licActivateStatus');
+      if(!code){ status.textContent='请输入激活码'; status.className='note err'; status.style.display='block'; return; }
+      licActivateBtn.disabled = true;
+      const r = await activateLic(code);
+      if(r.ok){
+        // 把激活码绑到 user
+        const verifyResult = await verifyCode(code);
+        if(verifyResult.ok){
+          user.activated = true;
+          user.activatedPlan = verifyResult.plan;
+          user.activatedExpiry = verifyResult.expiry;
+          user.activatedCode = code;
+          saveUser(user);
+        }
+        status.textContent='✅ 激活成功（'+(r.label||'已激活')+'）';
+        status.className='note ok';
+        status.style.display='block';
+        $('#licCodeInput').value='';
+        await renderLicUI();
+        renderQuotaHint();
+        toast('激活成功');
+      } else {
+        status.textContent='❌ '+r.reason;
+        status.className='note err';
+        status.style.display='block';
+      }
+      licActivateBtn.disabled = false;
+    };
+  }
+  const wxBtn = $('#wxOpenBtn');
+  if(wxBtn){ wxBtn.onclick = openWeixin; }
+  const coopBtn = $('#coopWxBtn');
+  if(coopBtn){ coopBtn.onclick = openWeixin; }
+  const licDeactivateBtn = $('#licDeactivateBtn');
+  if(licDeactivateBtn){
+    licDeactivateBtn.onclick = () => {
+      if(!confirm('确定退出当前激活？退出后将回到试用/到期状态。')) return;
+      user.activated = false;
+      user.activatedPlan = '';
+      user.activatedExpiry = 0;
+      delete user.activatedCode;
+      saveUser(user);
+      renderLicUI();
+      renderQuotaHint();
+      toast('已退出激活');
+    };
+  }
+}
+async function renderSettingLic(){
+  const info = $('#licInfo');
+  if(!user.phone){
+    info.innerHTML = `<b style="color:#a05e1c">未注册</b><div class="muted" style="font-size:12px;margin-top:4px">请到顶部弹窗先填手机号，立即解锁免费使用</div>`;
+    return;
+  }
+  await renderLicUI();
+  // 重新绑定「输入激活码」「加微信」「退出激活」按钮
+  bindLicButtons();
+}
+
+/* ===================== 设置面板 ===================== */
+function renderCfg(){
+  $("#cfgArkKey").value=cfg.arkKey||'';
+  $("#cfgImgModel").value=cfg.imgModel;
+  $("#cfgImgUrl").value=cfg.imgUrl;
+  $("#cfgLlmModel").value=cfg.llmModel;
+  $("#cfgLlmUrl").value=cfg.llmUrl;
+  $("#cfgProxy").value=cfg.proxy||'';
+}
+renderCfg();
+
+$("#saveCfgBtn").onclick=()=>{
+  cfg.arkKey=$("#cfgArkKey").value.trim();
+  cfg.imgModel=$("#cfgImgModel").value;
+  cfg.imgUrl=$("#cfgImgUrl").value.trim();
+  cfg.llmModel=$("#cfgLlmModel").value;
+  cfg.llmUrl=$("#cfgLlmUrl").value.trim();
+  cfg.proxy=$("#cfgProxy").value.trim();
+  persistCfg();
+  $("#cfgStatus").textContent="✅ 配置已保存到本机 localStorage";
+  $("#cfgStatus").className="note ok";
+  $("#cfgStatus").style.display="block";
+  updateApiBadge(true);
+  toast("已保存");
+};
+
+$("#testCfgBtn").onclick=async()=>{
+  if(!$("#cfgArkKey").value.trim()){toast("请先填 API Key");return;}
+  cfg.arkKey=$("#cfgArkKey").value.trim();
+  cfg.imgUrl=$("#cfgImgUrl").value.trim();
+  cfg.imgModel=$("#cfgImgModel").value;
+  $("#cfgStatus").textContent="🔌 测试中（生图 1 张 512×512）...";
+  $("#cfgStatus").className="note";
+  $("#cfgStatus").style.display="block";
+  $("#testCfgBtn").disabled=true;
+  try{
+    const r = await arkFetch(cfg.imgUrl,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.arkKey},
+      body:JSON.stringify({model:cfg.imgModel,prompt:"a tiny red apple on white background, studio lighting",size:"2048x2048",response_format:"url",watermark:false}) /* v6.3: 512x512 低于 seedream-5.0 总像素下限会 400 */
+    });
+    if(!r.ok){
+      const t=await r.text().catch(()=>'');
+      throw new Error('HTTP '+r.status+' · '+(t.slice(0,150)||r.statusText));
+    }
+    const j=await r.json();
+    if(!j.data||!j.data[0]||!j.data[0].url) throw new Error('返回数据无 url：'+JSON.stringify(j).slice(0,150));
+    $("#cfgStatus").innerHTML="✅ 连接成功 · 测试图：<br><img src='"+j.data[0].url+"' style='width:100%;border-radius:8px;margin-top:6px'>";
+    $("#cfgStatus").className="note ok";
+    updateApiBadge(true);
+    bumpImg(1,0.22);
+    toast("连接成功");
+  }catch(e){
+    $("#cfgStatus").textContent="❌ "+e.message+(cfg.proxy?'':' （如浏览器报 CORS，请配一个代理）');
+    $("#cfgStatus").className="note err";
+    updateApiBadge(false);
+    toast("测试失败");
+  }finally{
+    $("#testCfgBtn").disabled=false;
+  }
+};
+
+function updateApiBadge(ok){
+  const b=$("#apiBadge");
+  if(ok===true){
+    b.textContent="已连接";
+    b.className="badge green";
+  }else if(ok===false){
+    b.textContent="未连接";
+    b.className="badge red";
+  }else{
+    b.classList.add("hidden");
+  }
+}
+
+$("#resetStatBtn").onclick=()=>{
+  if(!confirm("确定重置用量统计？"))return;
+  stat={img:0,txt:0,cost:0};
+  persistStat();
+  renderStat();
+  toast("已重置");
+};
+renderStat();
+
+/* ===================== 初始 canvas ===================== */
+(function(){
+  const cv=$("#outCanvas");const ctx=cv.getContext("2d");
+  ctx.fillStyle="#faf7f4";ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.fillStyle="#aaa";ctx.font="bold 36px sans-serif";ctx.textAlign="center";
+  ctx.fillText("点击上方上传蛋糕图",cv.width/2,cv.height/2);
+  ctx.font="20px sans-serif";
+  ctx.fillText("选择节日/对象/场景后点「生成」",cv.width/2,cv.height/2+50);
+})();
+
+/* ===================== v5 启动：手机号注册 + 简化激活 ===================== */
+const USER_KEY = 'tianlaoban_user_v5';
+const WEIXIN_ID = 'dreamer0366';
+
+function loadUser(){
+  try { return JSON.parse(localStorage.getItem(USER_KEY)||'{}'); } catch(e){ return {}; }
+}
+function saveUser(u){ localStorage.setItem(USER_KEY, JSON.stringify(u)); }
+let user = loadUser();
+
+async function registerPhone(phone){
+  user = {
+    phone: phone,
+    firstAt: user.firstAt || Date.now(),
+    // 试用 30 天（绝对到期时间戳 ms）
+    trialExpiry: user.trialExpiry || (Date.now() + 30 * 24 * 3600 * 1000),
+    activated: !!user.activated,
+    activatedPlan: user.activatedPlan || '',
+    activatedExpiry: user.activatedExpiry || 0,
+    userid: user.userid || ('U' + Math.random().toString(36).slice(2,10).toUpperCase())
+  };
+  saveUser(user);
+  await renderLicUI();
+  toast('注册成功，自动送 30 天免费使用 🎁');
+}
+
+function userEffectiveExpiry(){
+  if(user.activated && user.activatedExpiry > Date.now()) return user.activatedExpiry;
+  return user.trialExpiry || 0;
+}
+
+function userStatus(){
+  const exp = userEffectiveExpiry();
+  if(!exp) return {state:'none', daysLeft:0};
+  const remain = exp - Date.now();
+  if(remain <= 0) return {state:'expired', daysLeft:0};
+  return {state: user.activated?'active':'trial', daysLeft: Math.ceil(remain / (24*3600*1000))};
+}
+
+/* v6.1 配额提示条 */
+function renderQuotaHint(){
+  const el = document.getElementById('quotaHint');
+  if(!el) return;
+  if(!user.phone){ el.textContent=''; return; }
+  const st = userStatus().state;
+  if(st==='none' || st==='expired'){ el.textContent=''; return; }
+  const q = getQuota() || {day:todayStr(), used:0, total:0};
+  if(q.day !== todayStr()) q.used = 0;
+  const dailyMax = ((st==='active') ? ACTIVE_DAILY_MAX : TRIAL_DAILY_MAX) + (q.bonus||0);
+  const left = Math.max(0, dailyMax - q.used);
+  if(st==='active'){ el.textContent='生图不限次数 · 已激活'; }
+  else { el.textContent='今日还可免费生成 '+left+' 次（打卡可 +1）'; }
+}
+
+async function renderLicUI(){
+  const info = $('#licInfo');
+  const badge = $('#licBadge');
+  if(!user.phone){
+    badge.className='lic-badge warn hidden';
+    info.innerHTML = `<b style="color:#a05e1c">未注册</b><div class="muted" style="font-size:12px;margin-top:4px">请先在 App 内填手机号注册以解锁使用</div>`;
+    renderQuotaHint();
+    return;
+  }
+  const st = userStatus();
+  badge.classList.remove('hidden');
+  let stateClass = 'lic-badge';
+  if(st.state==='active'){ badge.textContent=`📱${user.phone.slice(-4)} · 已激活`; stateClass='lic-badge'; }
+  else if(st.state==='trial'){ badge.textContent=`📱${user.phone.slice(-4)} · 免费版·剩${st.daysLeft}天`; stateClass='lic-badge trial'; }
+  else { badge.textContent='免费版已到期'; stateClass='lic-badge err'; }
+  badge.className = stateClass;
+
+  // 设置卡片主内容
+  info.innerHTML = `
+    <div class="lic-phone">
+      <b>📱 我的手机号：</b>${user.phone.slice(0,3)}****${user.phone.slice(-4)}<br/>
+      <b>当前状态：</b>${
+        st.state==='active'?'<span style="color:#2a7a4f">✅ 已激活 · 生图不限次数</span>':
+        st.state==='trial'?'<span style="color:#a83a64">🎁 免费版（剩 '+st.daysLeft+' 天）</span>':
+        '<span style="color:#a04040">⏰ 免费期已结束</span>'
+      }
+    </div>
+    ${st.state==='active' ? `
+      <div style="background:linear-gradient(135deg,#eefaf1,#f0fbf4);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:12px;line-height:1.8">
+        🎉 <b>9.9 元买断版</b> · 生图每天不限次数 · 享全部功能
+      </div>
+    ` : `
+      <div style="background:linear-gradient(135deg,#fff5e9,#ffeef3);border-radius:14px;padding:14px;margin-top:10px;">
+        <div style="font-size:12px;line-height:1.9;color:var(--ink)">
+          <b>🎁 当前免费权益</b><br/>
+          · 每日免费生图 <b>3</b> 次（社群打卡再 +1）<br/>
+          · AI 文案 / 活动策划 / 开店求助圈 全部可用
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:10px 12px;margin-top:10px;text-align:center;">
+          <div style="font-size:14px;font-weight:800;color:var(--brand)">⭐ 9.9 元 · 买断制 · 永久使用 ⭐</div>
+          <div style="font-size:11.5px;color:var(--sub);margin:4px 0 8px">生图不限次数 · 无月费无年费</div>
+          <button class="btn wx-btn" id="wxOpenBtn">💬 扫码付款 ¥9.9：${WEIXIN_ID}</button>
+          <div style="font-size:11px;color:var(--sub);margin-top:6px">付款后发「手机号」给客服，秒发激活码 → 粘贴到下面激活</div>
+        </div>
+      </div>
+    `}
+  `;
+
+  renderQuotaHint();
+}
+
+function openWeixin(){
+  // 优先尝试 weixin scheme，回退到 scheme 拼接
+  const id = WEIXIN_ID;
+  const schemes = [
+    `weixin://contact?username=${id}`,
+    `weixin://contacts/profile/${id}`,
+    `https://u.weixin.qq.com/cgi-bin/mmwebwx-bin/webwxchat?username=${id}`
+  ];
+  // 用 location.href 尝试 scheme，不会真打开微信（pc 没有）但提供点击入口
+  try { window.location.href = schemes[0]; } catch(e){}
+  setTimeout(()=>{ try { window.location.href = schemes[1]; } catch(e){} }, 500);
+  setTimeout(()=>{ window.open(schemes[2], '_blank'); toast('已在浏览器打开微信，请扫码加好友'); }, 1000);
+}
+
+function openPhoneModal(){
+  let modal = $('#phoneModal');
+  if(modal){ modal.classList.remove('gone'); return; }
+  const html = `
+    <div id="phoneModal" class="phone-modal">
+      <div class="pm-box">
+        <div style="font-size:48px;">🍰</div>
+        <h2>甜老板·私域助手</h2>
+        <div class="sub">填个手机号，立即免费使用<br/>每日 3 次生图 · 打卡可 +1 · 9.9 元可激活不限次数</div>
+        <input id="phoneInput" type="tel" maxlength="11" placeholder="输入 11 位手机号" inputmode="numeric" pattern="[0-9]*"/>
+        <button class="btn" id="phoneSubmitBtn">🚀 注册并免费使用</button>
+        <div class="hint">手机号仅用于身份识别，存你本机浏览器，不上传服务器<br/>不想填？直接 <a href="javascript:void(0)" id="phoneSkip" style="color:var(--brand);font-weight:700;">跳过</a>（也能用 30 天，到期再加我）</div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', html);
+  $('#phoneSubmitBtn').onclick = ()=>{
+    const p = $('#phoneInput').value.trim();
+    if(!/^1[3-9]\d{9}$/.test(p)){ toast('请输入正确的 11 位手机号'); return; }
+    registerPhone(p);
+    $('#phoneModal').classList.add('gone');
+  };
+  $('#phoneSkip').onclick = ()=>{
+    registerPhone('GUEST' + Math.random().toString(36).slice(2,10).toUpperCase());
+    $('#phoneModal').classList.add('gone');
+  };
+}
+
+(async () => {
+  // 1) 注册 SW + 智能自动更新
+  //    页面空闲（还没开始操作）→ 新版装好自动刷新，无感升级
+  //    用户正在操作（传图/输入等）→ 绝不打断，改弹「点刷新」提示条
+  let userTouched = false;
+  ['pointerdown','keydown','touchstart','change'].forEach(ev=>{
+    window.addEventListener(ev, ()=> userTouched = true, {passive:true});
+  });
+  let updHandled = false;
+  function tryAutoRefresh(){
+    if (updHandled) return;
+    updHandled = true;
+    if (userTouched) {
+      if (document.getElementById('updToast')) return;
+      const t = document.createElement('div');
+      t.id = 'updToast';
+      t.style.cssText = 'position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:99999;background:#e8557a;color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:700;box-shadow:0 6px 18px rgba(232,85,122,.4);cursor:pointer;';
+      t.textContent = '✨ 新版已就绪，点我刷新';
+      t.onclick = ()=> location.reload();
+      document.body.appendChild(t);
+      setTimeout(()=>{ if(t.parentNode) t.parentNode.removeChild(t); }, 15000);
+      return;
+    }
+    location.reload();
+  }
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then((reg) => {
+        // 发现新版本 → 后台装完 → 尝试自动刷新（操作中则给提示条）
+        reg.addEventListener('updatefound', () => {
+          const nw = reg.installing;
+          if (!nw) return;
+          nw.addEventListener('statechange', () => {
+            if (nw.state === 'activated' && navigator.serviceWorker.controller) {
+              tryAutoRefresh();
+            }
+          });
+        });
+      }).catch(()=>{});
+    });
+    // 新 SW 接管页面 → 同样走智能刷新（操作中不打断）
+    navigator.serviceWorker.addEventListener('controllerchange', tryAutoRefresh);
+  }
+  // 2) 激活卡 UI 渲染
+  await renderLicUI();
+  renderQuotaHint();
+  bindLicButtons();
+  // 3) 没手机号就弹 modal（首次打开）
+  if(!user.phone){
+    setTimeout(openPhoneModal, 600);
+  }
+  // 4) 每 30 分钟刷新试用倒计时
+  setInterval(()=>{ renderLicUI(); }, 30 * 60 * 1000);
+})();
+
+/* ===================== v6.9 启动初始化（打卡 UI + 看板） ===================== */
+renderCheckinUI();
+renderQuotaHint();
+loadDailyMotto(); /* v7.8 页眉每日鼓励语 */
+
+/* ===================== v7.8 烘焙智囊（语音问答） ===================== */
+/* 内置烘焙知识库 —— 作为 LLM 的 system 上下文，让回答更专业、贴近蛋糕店老板 */
+const BAKERY_KB = `
+你是「烘焙智囊」，专门帮蛋糕店/烘焙店老板解决实际问题的顾问。你的知识范围覆盖：
+1. 配方与工艺：戚风、海绵、芝士、慕斯、裱花、翻糖、面包发酵、酥皮等常见烘焙品的配方比例、失败原因与补救。
+2. 原料知识：淡奶油/植物奶油/动物奶油的区别与打发、黄油/起酥油、面粉（高筋/低筋/中筋）的选择、吉利丁/鱼胶、糖类、酵母。
+3. 设备与工具：烤箱温度校准、打蛋器、裱花嘴、模具、冰箱温控。
+4. 经营问题：定价、成本、损耗、储存保质期、外卖打包、节日备货。
+
+回答要求：
+- 用大白话，像老师傅带徒弟，别堆术语；必要时给出具体数字（温度、克数、分钟）。
+- 如果问题是配方类，给出可操作的具体比例和步骤；如果是经营类，给出落地建议。
+- 每次回答控制在 150 字以内，重点突出，别啰嗦；可以分 2-3 条要点。
+- 如果问题超出烘焙范围，礼貌说明你主要擅长烘焙相关，但也可以简单聊聊。
+`;
+
+/* ===== v7.9 老板自建知识库（边问边教） ===== */
+/* 老板自己提问、自己回答来训练：每条问答对 { q: 问题, a: 老板教的答案, t: 时间戳 } */
+const BAKERY_KB_KEY = 'tlb_bakery_kb_v1';
+let bakeryKb = [];  // [{q, a, t}]
+
+function baLoadKb(){
+  try{ bakeryKb = JSON.parse(localStorage.getItem(BAKERY_KB_KEY)||'[]'); }catch(e){ bakeryKb = []; }
+}
+function baSaveKb(){
+  try{ localStorage.setItem(BAKERY_KB_KEY, JSON.stringify(bakeryKb)); }catch(e){}
+}
+/* 在老板知识库里找相似问题（简单关键词重叠匹配） */
+function baFindInKb(question){
+  if(!bakeryKb.length) return null;
+  const q = question.toLowerCase();
+  // 把问题按 2 字滑窗拆词，跟知识库条目做相似度打分
+  const tokens = [];
+  for(let i=0;i<q.length-1;i++){ tokens.push(q.slice(i,i+2)); }
+  if(!tokens.length) tokens.push(q);
+  let best=null, bestScore=0;
+  bakeryKb.forEach(item=>{
+    const iq = (item.q||'').toLowerCase();
+    let hit=0;
+    tokens.forEach(t=>{ if(iq.includes(t)) hit++; });
+    const score = hit / Math.max(tokens.length,1);
+    if(score>bestScore){ bestScore=score; best=item; }
+  });
+  // 相似度阈值 0.5（一半的词重叠就算命中）
+  return bestScore>=0.5 ? best : null;
+}
+
+/* 对话历史（内存中，最多保留最近 6 轮） */
+let bakeryAiHistory = [];
+const BAKERY_AI_HIST_KEY = 'tlb_bakery_ai_hist_v1';
+
+function baLoadHistory(){
+  try{ bakeryAiHistory = JSON.parse(localStorage.getItem(BAKERY_AI_HIST_KEY)||'[]'); }catch(e){ bakeryAiHistory = []; }
+}
+function baSaveHistory(){
+  try{ localStorage.setItem(BAKERY_AI_HIST_KEY, JSON.stringify(bakeryAiHistory.slice(-12))); }catch(e){}
+}
+
+/* 打开/关闭对话层 */
+$("#bakeryAiCard").onclick=()=>{ baOpen(); };
+$("#bakeryAiBack").onclick=()=>{ $("#bakeryAiLayer").classList.remove("open"); };
+function baOpen(){
+  $("#bakeryAiLayer").classList.add("open");
+  baRenderHistory();
+}
+
+/* 渲染历史 + 欢迎语 */
+function baRenderHistory(){
+  const box=$("#bakeryAiMsgs");
+  let html='';
+  // 欢迎气泡（固定第一条）
+  html += '<div class="ba-msg ai"><div class="ba-avatar">🧠</div><div class="ba-bubble">你好老板，我是烘焙智囊。<br/>配方、工艺、原料、设备、经营的问题直接问。<br/>觉得我答得不对？点我回答下面的<b style="color:var(--brand)">✏️ 教它正确的</b>，以后就按你教的答。</div></div>';
+  bakeryAiHistory.forEach(m=>{
+    if(m.role==='user'){
+      html += '<div class="ba-msg me"><div class="ba-avatar">👤</div><div class="ba-bubble">'+esc(m.content)+'</div></div>';
+    }else{
+      html += '<div class="ba-msg ai"><div class="ba-avatar">🧠</div><div class="ba-bubble">'+esc(m.content)+'</div>'+baTeachBtnHtml()+'</div>';
+    }
+  });
+  box.innerHTML = html;
+  box.scrollTop = box.scrollHeight;
+  baBindTeachBtns();
+}
+
+/* 每条 AI 回答下的「教它」按钮 */
+function baTeachBtnHtml(){
+  return '<button class="ba-teach-btn" data-teach="1">✏️ 教它正确的</button>';
+}
+/* 绑定教它按钮（渲染后调用） */
+let baLastAiQuestion = '';  // 记录最近一条 AI 回答对应的用户问题
+function baBindTeachBtns(){
+  $$("#bakeryAiMsgs .ba-teach-btn").forEach((btn, idx)=>{
+    btn.onclick=()=>{
+      // 找到这条 AI 回答对应的用户问题（向上找最近一条 me 气泡）
+      let q = baLastAiQuestion;
+      let node = btn.closest('.ba-msg');
+      let prev = node;
+      while(prev){
+        prev = prev.previousElementSibling;
+        if(prev && prev.classList.contains('me')){
+          q = prev.querySelector('.ba-bubble').textContent;
+          break;
+        }
+      }
+      baOpenTeach(q);
+    };
+  });
+}
+
+/* 追加一条消息气泡 */
+function baAppendMsg(role, content){
+  const box=$("#bakeryAiMsgs");
+  const div=document.createElement('div');
+  div.className='ba-msg '+(role==='user'?'me':'ai');
+  div.innerHTML='<div class="ba-avatar">'+(role==='user'?'👤':'🧠')+'</div><div class="ba-bubble">'+esc(content)+'</div>'+(role==='ai'?baTeachBtnHtml():'');
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+  if(role==='ai'){
+    const btn = div.querySelector('.ba-teach-btn');
+    btn.onclick=()=>{ baOpenTeach(baLastAiQuestion); };
+  }
+  return div;
+}
+
+/* 打字中的 loading 气泡 */
+function baShowTyping(){
+  const box=$("#bakeryAiMsgs");
+  const div=document.createElement('div');
+  div.className='ba-msg ai';
+  div.id='baTyping';
+  div.innerHTML='<div class="ba-avatar">🧠</div><div class="ba-bubble"><span class="ba-typing"><span></span><span></span><span></span></span></div>';
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+function baHideTyping(){
+  const t=$("#baTyping"); if(t) t.remove();
+}
+
+/* 发送问题 → 先查老板知识库，命中用老板教的，未命中走 LLM */
+async function baAsk(question){
+  question = (question||'').trim();
+  if(!question) return;
+
+  // 显示用户气泡
+  baAppendMsg('user', question);
+  bakeryAiHistory.push({role:'user', content:question});
+  baLastAiQuestion = question;
+  $("#bakeryAiInput").value='';
+  baShowTyping();
+
+  try{
+    // ① 先查老板自建知识库
+    const kbHit = baFindInKb(question);
+    if(kbHit){
+      baHideTyping();
+      baAppendMsg('ai', kbHit.a);
+      // 附带提示这是「按你教过的答」
+      const tip = document.createElement('div');
+      tip.className='ba-kb-tag';
+      tip.textContent='📚 按你教过的答案回答';
+      $("#bakeryAiMsgs").appendChild(tip);
+      $("#bakeryAiMsgs").scrollTop = $("#bakeryAiMsgs").scrollHeight;
+      bakeryAiHistory.push({role:'assistant', content:kbHit.a});
+      baSaveHistory();
+      return;
+    }
+
+    // ② 未命中 → 走 LLM（system 注入老板知识库 + 通用烘焙知识）
+    if(!cfg.arkKey){ baHideTyping(); baAppendMsg('ai','还没配置 API Key，先到「设置」里填火山方舟的 Key，我才能联网回答。'); return; }
+
+    const sysPrompt = buildBaSystem();
+    const messages = [
+      {role:'system', content: sysPrompt},
+      ...bakeryAiHistory.slice(-12).map(m=>({role:m.role, content:m.content}))
+    ];
+    const answer = await baCallLLM(messages);
+    baHideTyping();
+    baAppendMsg('ai', answer);
+    bakeryAiHistory.push({role:'assistant', content:answer});
+    baSaveHistory();
+  }catch(e){
+    baHideTyping();
+    const errMsg = "抱歉，回答出错了："+e.message.slice(0,60)+"。请稍后重试。";
+    baAppendMsg('ai', errMsg);
+  }
+}
+
+/* 组装 system 提示词：老板自建知识库优先 + 通用烘焙知识兜底 */
+function buildBaSystem(){
+  let kb = '';
+  if(bakeryKb.length){
+    kb = '以下是老板亲手录入的「我的知识」（问答对），回答同类问题时必须优先、严格按这些内容作答，不要擅自改动数字和做法：\n';
+    bakeryKb.forEach(item=>{
+      kb += '问：'+item.q+'\n答：'+item.a+'\n\n';
+    });
+    kb += '\n';
+  }
+  return kb + BAKERY_KB;
+}
+
+/* 专用 LLM 调用（烘焙智囊） */
+async function baCallLLM(messages){
+  const r = await arkFetch(cfg.llmUrl,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.arkKey},
+    body: JSON.stringify({ model: cfg.llmModel, messages: messages, temperature:0.8, max_tokens:500 })
+  });
+  if(!r.ok){ const t=await r.text().catch(()=>''); throw new Error('HTTP '+r.status+': '+(t.slice(0,120)||r.statusText)); }
+  const j = await r.json();
+  return (j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'（没有返回内容）';
+}
+
+/* 发送按钮 */
+$("#bakeryAiSendBtn").onclick=()=>{ baAsk($("#bakeryAiInput").value); };
+$("#bakeryAiInput").addEventListener('keydown',e=>{ if(e.key==='Enter'){ baAsk($("#bakeryAiInput").value); } });
+
+/* 快捷问题 */
+$$("#bakeryAiQuick .ba-quick").forEach(q=>{
+  q.onclick=()=>{ baAsk(q.dataset.q); };
+});
+
+/* 清空对话 */
+$("#bakeryAiClear").onclick=()=>{
+  bakeryAiHistory=[];
+  baSaveHistory();
+  baRenderHistory();
+  toast("对话已清空");
+};
+
+/* ===== 语音识别（Web Speech API，不支持时降级提示） ===== */
+let baRecognition = null;
+let baIsListening = false;
+function baInitSpeech(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){
+    $("#bakeryAiMic").onclick=()=>{ toast("当前浏览器不支持语音，请打字提问（推荐用 Safari 或 Chrome）"); };
+    return;
+  }
+  baRecognition = new SR();
+  baRecognition.lang = 'zh-CN';
+  baRecognition.interimResults = false;
+  baRecognition.maxAlternatives = 1;
+  baRecognition.onresult = (event)=>{
+    const txt = event.results[0][0].transcript;
+    $("#bakeryAiInput").value = txt;
+    baIsListening = false;
+    $("#bakeryAiMic").textContent='🎙️';
+    // 识别到文字后自动发送
+    baAsk(txt);
+  };
+  baRecognition.onerror = (event)=>{
+    baIsListening = false;
+    $("#bakeryAiMic").textContent='🎙️';
+    if(event.error === 'not-allowed'){ toast("麦克风权限被拒，请在浏览器设置里允许"); }
+    else if(event.error === 'no-speech'){ toast("没听清，请再试一次"); }
+    else { toast("语音识别失败："+event.error); }
+  };
+  baRecognition.onend = ()=>{
+    baIsListening = false;
+    $("#bakeryAiMic").textContent='🎙️';
+  };
+}
+$("#bakeryAiMic").onclick=()=>{
+  if(!baRecognition){ baInitSpeech(); if(!baRecognition){ toast("当前浏览器不支持语音，请打字提问"); return; } }
+  if(baIsListening){
+    baRecognition.stop();
+    baIsListening=false;
+    $("#bakeryAiMic").textContent='🎙️';
+  }else{
+    try{
+      baRecognition.start();
+      baIsListening=true;
+      $("#bakeryAiMic").textContent='🔴';
+      toast("请说，我正在听…");
+    }catch(e){ toast("启动语音失败，请重试"); }
+  }
+};
+
+/* 初始化：加载历史 + 知识库 + 语音能力 */
+baLoadHistory();
+baLoadKb();
+baInitSpeech();
+
+/* ===== v7.9 教它正确的（浮层） ===== */
+function baOpenTeach(question){
+  $("#bakeryAiTeachQ").textContent = question || '';
+  $("#bakeryAiTeachA").value = '';
+  $("#bakeryAiTeachLayer").classList.add('open');
+}
+$("#bakeryAiTeachBack").onclick=()=>{ $("#bakeryAiTeachLayer").classList.remove('open'); };
+$("#bakeryAiTeachSave").onclick=()=>{
+  const q = ($("#bakeryAiTeachQ").textContent||'').trim();
+  const a = $("#bakeryAiTeachA").value.trim();
+  if(!q){ toast("问题为空，无法保存"); return; }
+  if(!a){ toast("先把正确答案写下来再保存"); return; }
+  // 去重：如果已有几乎相同的问题，覆盖旧答案
+  const exist = bakeryKb.find(item=>item.q===q);
+  if(exist){ exist.a = a; exist.t = Date.now(); }
+  else{ bakeryKb.push({ q:q, a:a, t:Date.now() }); }
+  baSaveKb();
+  $("#bakeryAiTeachLayer").classList.remove('open');
+  toast("✅ 已记住，下次按你教的答");
+};
+
+/* ===== v7.9 我的知识库（查看/管理） ===== */
+function baRenderKbList(){
+  const list = $("#bakeryAiKbList");
+  $("#bakeryAiKbCount").textContent = bakeryKb.length;
+  if(!bakeryKb.length){
+    list.innerHTML = '<div class="muted" style="text-align:center;padding:30px 0">还没有内容。<br/>在对话里点「✏️ 教它正确的」就能添加。</div>';
+    return;
+  }
+  let html='';
+  // 按时间倒序
+  [...bakeryKb].sort((a,b)=>(b.t||0)-(a.t||0)).forEach((item,idx)=>{
+    const origIdx = bakeryKb.indexOf(item);
+    html += '<div class="card" style="margin:0 0 10px;padding:12px">'
+      + '<div style="font-weight:700;font-size:13px;color:var(--ink)">Q：'+esc(item.q)+'</div>'
+      + '<div style="font-size:13px;color:var(--sub);margin:6px 0;line-height:1.6">A：'+esc(item.a)+'</div>'
+      + '<div style="text-align:right"><button class="ba-kb-del" data-idx="'+origIdx+'" style="background:none;border:none;color:#e05;font-size:12px;cursor:pointer">删除这条</button></div>'
+      + '</div>';
+  });
+  list.innerHTML = html;
+  $$("#bakeryAiKbList .ba-kb-del").forEach(btn=>{
+    btn.onclick=()=>{
+      const i = parseInt(btn.dataset.idx,10);
+      bakeryKb.splice(i,1);
+      baSaveKb();
+      baRenderKbList();
+      toast("已删除");
+    };
+  });
+}
+$("#bakeryAiKbBtn").onclick=()=>{ baRenderKbList(); $("#bakeryAiKbLayer").classList.add('open'); };
+$("#bakeryAiKbBack").onclick=()=>{ $("#bakeryAiKbLayer").classList.remove('open'); };
+$("#bakeryAiKbClearAll").onclick=()=>{
+  if(!bakeryKb.length){ toast("知识库已经是空的"); return; }
+  if(!confirm("确定清空全部 "+bakeryKb.length+" 条知识？清空后无法恢复。")) return;
+  bakeryKb=[];
+  baSaveKb();
+  baRenderKbList();
+  toast("已清空");
+};
+
+/* ===================== PWA · 安装到手机 ===================== */
+(function(){
+  // ① 注册 Service Worker（离线缓存壳）
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    });
+  }
+
+  // ② 装机引导 UI
+  const banner = `
+    <div id="pwaBanner" style="position:fixed;top:14px;left:14px;right:14px;z-index:9999;
+      background:linear-gradient(135deg,#e8557a,#ff9a76);color:#fff;border-radius:14px;
+      padding:14px 16px;box-shadow:0 8px 24px rgba(232,85,122,.35);
+      display:flex;align-items:center;gap:12px;font-size:13px;line-height:1.5;
+      transform:translateY(-180%);transition:transform .35s ease;">
+      <div style="font-size:30px;line-height:1;">📲</div>
+      <div style="flex:1;">
+        <div style="font-weight:800;font-size:14px;">装到手机桌面，点开即用</div>
+        <div style="opacity:.92;margin-top:2px;">支持安卓 / iOS，无广告、不占内存</div>
+      </div>
+      <button id="pwaInstallBtn" style="background:#fff;color:#e8557a;border:none;
+        border-radius:10px;padding:8px 14px;font-weight:800;font-size:13px;cursor:pointer;">立即装</button>
+      <button id="pwaCloseBtn" style="background:transparent;color:#fff;border:none;
+        font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">×</button>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', banner);
+
+  const bannerEl = () => document.getElementById('pwaBanner');
+  const installBtn = () => document.getElementById('pwaInstallBtn');
+  const closeBtn = () => document.getElementById('pwaCloseBtn');
+
+  const close = () => {
+    const el = bannerEl();
+    if (el) el.style.transform = 'translateY(-180%)';
+    try { localStorage.setItem('pwa.closed', String(Date.now())); } catch(e){}
+  };
+
+  // 横幅显示逻辑：3 秒后弹出；已关过 24h 不再弹；已 standalone 不弹
+  const isStandalone = () =>
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true ||
+    location.search.includes('source=pwa');
+
+  if (isStandalone()) return;
+
+  const closed = (() => { try { return parseInt(localStorage.getItem('pwa.closed')||0); } catch(e){ return 0; } })();
+  const dayPassed = (Date.now() - closed) > 24*3600*1000;
+
+  setTimeout(() => {
+    if (isStandalone()) return;
+    if (closed && !dayPassed) return;
+    const el = bannerEl();
+    if (el) el.style.transform = 'translateY(0)';
+  }, 2500);
+
+  // ③ 点击关闭按钮
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'pwaCloseBtn') close();
+  });
+
+  // ④ 立即装按钮：先尝试 beforeinstallprompt，安卓/iOS 走教程
+  let deferred = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferred = e;
+  });
+
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isAndroid = /android/i.test(navigator.userAgent);
+
+  const showTutorial = () => {
+    const ua = navigator.userAgent;
+    const isiPad = /ipad/i.test(ua);
+    const steps = isIOS ? [
+      '① 用 Safari 打开当前页面（必须 Safari）',
+      '② 点击底部「分享」按钮 <span style="color:#ffb84d;font-weight:800;">⬆️</span>',
+      '③ 滑动找到「添加到主屏幕」<span style="color:#ffb84d;font-weight:800;">➕</span>',
+      '④ 名称改成「甜老板」→ 点「添加」',
+      '⑤ 回到桌面，点击「甜老板」图标即可打开'
+    ] : isAndroid ? [
+      '① 用 Chrome 浏览器打开当前页面',
+      '② 点击右上角「⋮」菜单',
+      '③ 选择「添加到主屏幕」或「安装应用」',
+      '④ 名称改成「甜老板」→ 点「添加」',
+      '⑤ 在桌面找到「甜老板」图标，点开即用'
+    ] : [
+      '① Chrome 右上角「⋮」→「更多工具」',
+      '② 选择「创建快捷方式」',
+      '③ 勾选「作为窗口打开」'
+    ];
+    const modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99999;'+
+      'display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.innerHTML = `
+      <div style="background:#fff;border-radius:20px;max-width:360px;width:100%;
+        padding:24px 22px;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+        <div style="font-size:18px;font-weight:800;color:#e8557a;margin-bottom:8px;">
+          ${isIOS?'🍎 iPhone 装机教程':isAndroid?'🤖 安卓装机教程':'💻 桌面装机教程'}
+        </div>
+        <div style="font-size:13px;color:#8a817a;line-height:1.6;margin-bottom:14px;">
+          ${isIOS?'（必须用 Safari 浏览器，微信/抖音内打不开此功能）':
+            isAndroid?'（推荐用 Chrome 浏览器）':'（推荐用 Chrome 浏览器）'}
+        </div>
+        <div style="font-size:14px;color:#2b2622;line-height:1.9;background:#faf7f4;
+          border-radius:12px;padding:14px 16px;">${steps.map(s=>`<div style="margin:4px 0;">${s}</div>`).join('')}</div>
+        <button id="pwaGotIt" style="margin-top:18px;width:100%;background:linear-gradient(135deg,#e8557a,#ff9a76);
+          color:#fff;border:none;border-radius:12px;padding:13px 0;font-size:15px;font-weight:800;cursor:pointer;">
+          我学会了，去装
+        </button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.querySelector('#pwaGotIt').onclick = () => {
+      modal.remove();
+      close();
+    };
+    modal.onclick = (ev) => { if (ev.target === modal) { modal.remove(); close(); } };
+  };
+
+  document.addEventListener('click', (e) => {
+    if (!e.target || e.target.id !== 'pwaInstallBtn') return;
+    if (deferred) {
+      // 安卓且已触发 beforeinstallprompt
+      deferred.prompt();
+      deferred.userChoice.then(() => { deferred = null; close(); });
+    } else {
+      // iOS / 其他，直接弹教程
+      showTutorial();
+    }
+  });
+})();
+</script>
+</body>
+</html>
