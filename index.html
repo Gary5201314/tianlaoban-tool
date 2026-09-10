@@ -368,6 +368,16 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
 .ba-chip{flex:0 0 auto;background:rgba(255,250,242,.96);color:#5f3d1e;border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:700;white-space:nowrap;
   box-shadow:0 4px 10px rgba(0,0,0,.14);border:none;cursor:pointer;}
 .ba-chip:active{transform:scale(.95);}
+/* v9.5 私域顶部子导航（大框底色区分） */
+.s1-subnav{display:flex;gap:6px;background:#f1e6d6;border:1px solid #e6d5bd;border-radius:16px;padding:6px;margin-bottom:12px;}
+.s1-sub{flex:1;text-align:center;padding:11px 4px;border-radius:12px;font-size:13px;font-weight:800;color:#9a7b55;cursor:pointer;transition:all .15s;letter-spacing:.3px;}
+.s1-sub.on{background:linear-gradient(135deg,#ffffff,#fbf3e6);color:#5f3d1e;box-shadow:0 3px 10px rgba(122,82,51,.16);}
+.s1-sub:active{transform:scale(.97);}
+/* v9.5 每日朋友圈文案列表 */
+.mm-item{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:8px;cursor:pointer;font-size:13.5px;line-height:1.7;color:var(--ink);}
+.mm-item:active{background:#fdf6ec;}
+.mm-copy{flex-shrink:0;font-size:11px;color:var(--brand);font-weight:700;padding-top:3px;white-space:nowrap;}
+.mm-meta{font-size:11.5px;color:#b08d5e;background:#fdf6ec;border-radius:8px;padding:6px 10px;margin:8px 0 2px;display:inline-block;}
 /* 开店工具全屏层内容排版 */
 #toolLayer .muted{color:#8a7560;}
 </style>
@@ -381,6 +391,12 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
 
   <!-- ============ 模块一：私域运营 ============ -->
   <div data-page-node-id="F1FPURVy3sRN591CpfFEaL" class="screen" id="s1">
+    <!-- v9.5 顶部子导航：AI图文 / 纯文案 -->
+    <div class="s1-subnav">
+      <div class="s1-sub on" id="s1SubImg">🖼️ AI 生成朋友圈图文</div>
+      <div class="s1-sub" id="s1SubText">✍️ 纯朋友圈文案</div>
+    </div>
+    <div id="s1TabImg">
     <!-- v9.1 烘焙智囊 · 首页首屏 hero 卡：用色彩/层级突出，不做角标 -->
     <div class="ba-hero" id="baHero">
       <div class="ba-hd">
@@ -430,6 +446,18 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
       <div data-page-node-id="9nL6zDnY0Ro7uUvI22FEcJ" class="row2">
         <button data-page-node-id="KKGO2dlPntzqigSCuWziyc" class="btn sm" id="dlAllBtn">📦 下载全部 3 张</button>
         <button data-page-node-id="Vk1JZMh5uI0ckABg6oChnT" class="btn sm ghost" id="regenBtn">🔄 重生成 3 张</button>
+      </div>
+    </div><!-- /resultCard -->
+    </div><!-- /s1TabImg -->
+
+    <!-- v9.5 纯朋友圈文案：每天自动 10 条，节日/周末智能匹配 -->
+    <div id="s1TabText" style="display:none">
+      <div class="card">
+        <h3><span class="em">✍️</span>今日朋友圈文案</h3>
+        <div class="mm-meta" id="momentsMeta">每天自动更新 10 条 · 点任意一条直接复制</div>
+        <div id="momentsLoading" class="loading-bar" style="display:none"></div>
+        <div id="momentsList" style="margin-top:10px"></div>
+        <button class="btn sm ghost" id="momentsRefreshBtn" style="margin-top:8px">🔄 换一批</button>
       </div>
     </div>
 
@@ -635,6 +663,28 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
     </div>
   </div>
 
+  <!-- ============ v9.3 知识库：内嵌屏（v9.4 移入 .app 容器修复空白；v9.4 顶端加"求助AI"智囊入口） ============ -->
+  <div class="screen hidden" id="s3">
+    <!-- 求助 AI：烘焙智囊（置于知识库顶端） -->
+    <div class="card" id="kbAiEntry" style="background:linear-gradient(135deg,#3d2b1f,#6f4a2b);border:none;margin-bottom:12px;cursor:pointer">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#f7d9a0,#e8b96f);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🧠</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:15.5px;font-weight:800;color:#fff7ea">烘焙智囊 · 求助 AI</div>
+          <div style="font-size:11.5px;color:#e6c795;margin-top:2px">配方翻车、经营难题，问 AI 老师傅，秒回答</div>
+        </div>
+        <span style="font-size:18px;color:#f7d9a0">›</span>
+      </div>
+    </div>
+    <div class="card" style="padding:14px 14px 16px">
+      <h3><span class="em">🆘</span>开店求助圈</h3>
+      <div class="muted" style="margin-bottom:2px">蛋糕店老板互助社区：经营难题发帖问，同行的经验直接抄。</div>
+      <div class="forum-cats" id="forumCats" style="position:static;background:transparent;padding:10px 0 0;z-index:auto"></div>
+      <div id="forumList" style="margin-top:8px"><div class="forum-empty">加载中…</div></div>
+      <button class="btn" id="forumNewBtn" style="margin-top:14px;width:100%">✏️ 发帖求助 / 分享</button>
+    </div>
+  </div>
+
   <div class="tabbar">
     <div class="tab on" data-s="s1"><span class="ti">📸</span><span class="t-lb">私域</span></div>
     <div class="tab" data-s="s2"><span class="ti">👥</span><span class="t-lb">社群</span></div>
@@ -658,16 +708,7 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
 </div>
 <div data-page-node-id="4Sz1M6SJZEcUFv7Hh3QMTv" class="toast" id="toast"></div>
 
-<!-- ============ v9.3 知识库：内嵌屏（不跳转，话题分类+帖子直接展示） ============ -->
-<div class="screen hidden" id="s3">
-  <div class="card" style="padding:14px 14px 16px">
-    <h3><span class="em">🆘</span>开店求助圈</h3>
-    <div class="muted" style="margin-bottom:2px">蛋糕店老板互助社区：经营难题发帖问，同行的经验直接抄。</div>
-    <div class="forum-cats" id="forumCats" style="position:static;background:transparent;padding:10px 0 0;z-index:auto"></div>
-    <div id="forumList" style="margin-top:8px"><div class="forum-empty">加载中…</div></div>
-    <button class="btn" id="forumNewBtn" style="margin-top:14px;width:100%">✏️ 发帖求助 / 分享</button>
-  </div>
-</div>
+<!-- v9.3 知识库内嵌屏已移入 .app 容器内（v9.4 修复：原位置在 .app 外导致 flex:1 失效、页面空白） -->
 
 <div class="forum-layer" id="forumComposeLayer">
   <div class="forum-hd">
@@ -1086,9 +1127,16 @@ $$(".tab").forEach(t=>t.onclick=()=>{
   $("#"+t.dataset.s).classList.remove("hidden");
   // 切到知识库：刷新分类+帖子（v9.3 内嵌展示）
   if(t.dataset.s === 's3'){ renderForumCats(); loadForumList(); }
+  // 切到私域：智囊推荐问题随机换一批（v9.5）
+  if(t.dataset.s === 's1' && window.__baRenderChips){ window.__baRenderChips(); }
   // 切到我的：刷新激活卡按钮绑定
   if(t.dataset.s === 's6'){ renderSettingLic(); }
 });
+
+/* v9.5 私域顶部子导航切换 */
+$("#s1SubImg").onclick=()=>setS1Tab('img');
+$("#s1SubText").onclick=()=>setS1Tab('text');
+$("#momentsRefreshBtn").onclick=()=>{ toast('正在生成新一批…'); ensureMoments(true); };
 
 /* ---- v9.3：开发者模式入口已移除（版本号连点彩蛋删除，管理员面板永久隐藏） ---- */
 
@@ -1362,8 +1410,9 @@ function renderCheckinUI(){
   $("#ring").textContent=c.streak;
   $("#ring").style.background="conic-gradient(var(--brand) "+(Math.min(c.streak,10)*36)+"deg, #f0e9e3 0deg)";
   const done=c.lastDay===todayStr();
-  $("#checkSub").textContent=done?"今日已打卡 ✓":"点一下打卡，今日生图 +1";
+  $("#checkSub").textContent=done?"今日已打卡 ✓ · 连续 "+c.streak+" 天":"点一下打卡，记录开店每一天";
   $("#checkReward").style.display=done?'block':'none';
+  if(done)$("#checkReward").textContent="✅ 今日已打卡 · 已连续坚持 "+c.streak+" 天";
   $("#checkBtn").textContent=done?'今日已打卡':'打卡';
   $("#checkBtn").disabled=done;
   if(done)$("#checkBtn").style.opacity=.55;
@@ -1375,14 +1424,10 @@ $("#checkBtn").onclick=()=>{
   c.streak=isYesterday(c.lastDay)?c.streak+1:1;
   c.lastDay=todayStr();
   localStorage.setItem(CHECK_KEY,JSON.stringify(c));
-  // 生图次数 +1（写进当日配额 bonus）
-  const q=getQuota()||{day:todayStr(),used:0,total:0};
-  if(q.day!==todayStr()){q.day=todayStr();q.used=0;}
-  q.bonus=(q.bonus||0)+1;
-  saveQuota(q);
+  /* v9.5：打卡不再累加生图次数（防集中刷量触发豆包风控），仅作坚持记录 */
   renderCheckinUI();
   renderQuotaHint();
-  toast('🎁 打卡成功！今日生图次数 +1');
+  toast('📅 打卡成功！已连续 '+c.streak+' 天');
 };
 
 /* v7.6 每周节奏表已删（用户：打卡就简单打卡，不要方案指导） */
@@ -1876,18 +1921,118 @@ function loadDailyMotto(){
   localStorage.setItem(MOTTO_KEY, JSON.stringify({day: todayStr(), text: motto}));
 }
 /* 可选：管理员/已激活用户点一下用 LLM 换一句更应景的（后续如需可挂按钮） */
+
+/* ===================== v9.5 纯朋友圈文案：每日 10 条（节日提前5天/周末智能匹配，免费链路生成） ===================== */
+const MOMENTS_KEY='tlb_moments_v2';
+const MOMENTS_FALLBACK=[
+"Cake 配 coffee，是成年人最体面的续命方式 ☕","今天也要做个甜甜的人，像刚出炉的面包一样柔软 🍞",
+"生活有点苦？没关系，奶油是甜的 🍰","生日快乐这件事，交给蛋糕来大声说 🎂",
+"下午三点，胃说它想吃点甜的 🧁","刚出炉的温柔，趁热吃 🥐",
+"把日子过成甜品，慢慢品，别着急 🍮","一块蛋糕的幸福，比想象中简单 🍰",
+"周末的意义，就是有一整个下午可以慢慢吃甜点 ✨","周一再难，也要给自己留一块蛋糕的位置 🍰",
+"面包会有的，奶油也会有的一切都会有的 🥖","甜一点，再甜一点，日子就顺了 🍯"
+];
+function momentsDayContext(){
+  const d=new Date();
+  const weekend=(d.getDay()===0||d.getDay()===6);
+  const h=detectHoliday();
+  const holiday=(h.h&&h.diff>=0&&h.diff<=5)?{name:h.h.n,diff:h.diff}:null;
+  return {weekend:weekend,holiday:holiday};
+}
+/* 免费链路：智谱 → Agnes → 豆包（前两个免费，尽量不烧钱） */
+async function callFreeText(sys,user,maxTokens){
+  const msgs=[{role:'system',content:sys},{role:'user',content:user}];
+  const zk=(cfg.zhipuKey||'').trim();
+  if(zk){
+    try{
+      const r=await arkFetch(cfg.zhipuUrl||'https://open.bigmodel.cn/api/paas/v4/chat/completions',{
+        method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+zk},
+        body:JSON.stringify({model:cfg.zhipuModel||'glm-4-flash',messages:msgs,temperature:0.95,max_tokens:maxTokens||800})});
+      if(r.ok){const j=await r.json();const c=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;if(c)return c;}
+    }catch(e){}
+  }
+  const ak=(cfg.agnesKey||'').trim();
+  if(ak){
+    try{
+      const r=await arkFetch(cfg.agnesLlmUrl||'https://api.agnes-ai.cn/v1/chat/completions',{
+        method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ak},
+        body:JSON.stringify({model:cfg.agnesLlmModel||'agnes-2.0-flash',messages:msgs,temperature:0.95,max_tokens:maxTokens||800})});
+      if(r.ok){const j=await r.json();const c=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;if(c)return c;}
+    }catch(e){}
+  }
+  try{ return await callLLM(sys,user,maxTokens||800); }catch(e){}
+  return null;
+}
+function parseMomentsJson(txt){
+  if(!txt) return null;
+  let t=txt.replace(/```json|```/g,'').trim();
+  const s=t.indexOf('['),e2=t.lastIndexOf(']');
+  if(s<0||e2<=s) return null;
+  try{ const arr=JSON.parse(t.slice(s,e2+1)); return Array.isArray(arr)?arr.map(String).filter(x=>x.trim()):null; }catch(e){ return null; }
+}
+async function ensureMoments(force){
+  const box=$("#momentsList"); if(!box) return;
+  let saved=null; try{ saved=JSON.parse(localStorage.getItem(MOMENTS_KEY)||'null'); }catch(e){}
+  if(!force&&saved&&saved.day===todayStr()&&Array.isArray(saved.items)&&saved.items.length){ renderMoments(saved.items); return; }
+  $("#momentsLoading").style.display='block'; box.innerHTML='';
+  const ctx=momentsDayContext();
+  const wdChar='日一二三四五六'.charAt(new Date().getDay());
+  let ctxTxt='今天是'+todayStr()+'，星期'+wdChar+'。';
+  if(ctx.weekend) ctxTxt+='是周末，至少4条要贴合周末场景（周末下午茶、家庭聚会、给周末留一份甜、慵懒的周末早餐）。';
+  else ctxTxt+='是工作日，侧重打工人慰藉、下午茶续命场景。';
+  if(ctx.holiday) ctxTxt+=(ctx.holiday.diff===0?'今天就是':('再过'+ctx.holiday.diff+'天就是'))+'「'+ctx.holiday.name+'」，至少4条结合该节日场景（提前预订、节日送礼、节日聚会）。';
+  const sys='你是蛋糕店老板的朋友圈文案写手。写10条简短朋友圈文案：治愈系、口语化、每条带1-2个emoji、不超过38个字、不要话题标签、不要序号。内容围绕蛋糕、面包、甜品、生日、下午茶、开店日常。';
+  let items=null;
+  try{
+    const txt=await callFreeText(sys,ctxTxt+'直接输出JSON数组，格式 ["文案1","文案2",...]，只要JSON，不要任何解释。',900);
+    items=parseMomentsJson(txt);
+  }catch(e){}
+  if(!items||items.length<5){ items=MOMENTS_FALLBACK.slice(); for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=items[i];items[i]=items[j];items[j]=t;} }
+  items=items.slice(0,10);
+  localStorage.setItem(MOMENTS_KEY,JSON.stringify({day:todayStr(),items:items}));
+  $("#momentsLoading").style.display='none';
+  renderMoments(items);
+}
+function renderMoments(items){
+  const ctx=momentsDayContext();
+  const meta=$("#momentsMeta");
+  let tag=ctx.weekend?'🎉 周末场景模式':'☀️ 工作日治愈模式';
+  if(ctx.holiday) tag='🍂 节日模式：「'+ctx.holiday.name+'」'+(ctx.holiday.diff===0?'就是今天':('还有 '+ctx.holiday.diff+' 天'))+'，文案已带上节日氛围';
+  meta.textContent=tag+' · 每天 10 条零点自动更新 · 点任意一条直接复制';
+  const box=$("#momentsList");
+  box.innerHTML=items.map((t,i)=>
+    "<div class='mm-item' data-i='"+i+"'><div style='flex:1'>"+esc(t)+"</div><span class='mm-copy'>复制</span></div>").join("");
+  Array.from(box.querySelectorAll('.mm-item')).forEach(el=>{
+    el.onclick=()=>{
+      const txt=items[parseInt(el.dataset.i)];
+      const done=()=>toast('已复制，去朋友圈粘贴吧 📋');
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(()=>{fallbackCopy(txt);done();}); }
+      else{ fallbackCopy(txt); done(); }
+    };
+  });
+}
+function fallbackCopy(txt){
+  const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+  ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta);
+}
+function setS1Tab(w){
+  $("#s1SubImg").classList.toggle('on',w==='img');
+  $("#s1SubText").classList.toggle('on',w==='text');
+  $("#s1TabImg").style.display=(w==='img')?'':'none';
+  $("#s1TabText").style.display=(w==='text')?'':'none';
+  if(w==='text'){ ensureMoments(false); }
+}
 function getQuota(){
   try{ return JSON.parse(localStorage.getItem(QUOTA_KEY)||'null'); }catch(e){ return null; }
 }
 function saveQuota(q){ localStorage.setItem(QUOTA_KEY, JSON.stringify(q)); }
 function quotaLeft(){
-  // 返回 {ok, msg}：是否允许本次生成（打卡 bonus 叠加）
+  // 返回 {ok, msg}：是否允许本次生成（v9.5：打卡不再加次数，每天固定额度 0 点重置）
   const q = getQuota() || {day:todayStr(), used:0, total:0};
   if(q.day !== todayStr()){ q.day = todayStr(); q.used = 0; q.bonus = 0; saveQuota(q); }
   const st = userStatus().state;
-  const dailyMax = (st==='active') ? ACTIVE_DAILY_MAX : TRIAL_DAILY_MAX;
-  const todayMax = dailyMax + (q.bonus||0);
-  if(q.used >= todayMax) return {ok:false, msg:((st==='active')?'今日生成异常频繁，请明天再试':'今日免费次数已用完 · 打卡可 +1 次，或 9.9 元激活不限次数')};
+  const todayMax = (st==='active') ? ACTIVE_DAILY_MAX : TRIAL_DAILY_MAX;
+  if(q.used >= todayMax) return {ok:false, msg:((st==='active')?'今日生成异常频繁，请明天再试':'今日免费次数已用完 · 每天零点重置，或 9.9 元激活不限次数')};
   if(st!=='active' && q.total >= TRIAL_TOTAL_MAX) return {ok:false, msg:'免费次数已用完，9.9 元激活后生图不限次数'};
   return {ok:true, q, st};
 }
@@ -1924,9 +2069,32 @@ async function verifyCode(code){
   return {ok:true, type, userid:userid.toUpperCase(), expiry, label: type==='M'?'月卡':'年卡'};
 }
 
+/* v9.5 设备指纹：一码一设备 + 1 次换绑机会（防一号多用） */
+const DEVICE_KEY='tlb_device_v1';
+function getDeviceId(){
+  let d=localStorage.getItem(DEVICE_KEY);
+  if(!d){ d='D'+Date.now().toString(36)+Math.random().toString(36).slice(2,10); localStorage.setItem(DEVICE_KEY,d); }
+  return d;
+}
 async function activateLic(code){
   const r = await verifyCode(code);
   if(!r.ok) return r;
+  /* v9.5 云端设备绑定：码已绑其他设备时需用换绑机会（仅 1 次）；云端校验失败不阻断（表未建时仍走本地签名） */
+  try{
+    const dev=getDeviceId();
+    const q=encodeURIComponent(code.trim());
+    const rows=await sbFetch('GET','/code_bindings?code=eq.'+q);
+    if(!rows.length){
+      await sbFetch('POST','/code_bindings',{code:code.trim(),device_id:dev,swap_count:0});
+    }else{
+      const b=rows[0];
+      if(b.device_id!==dev){
+        if((b.swap_count||0)>=1) return {ok:false,reason:'该激活码已绑定其他设备，换绑机会已用完（疑问加微信 vipcake996）'};
+        if(!confirm('该激活码已在其他设备激活过。\n\n换绑到本机使用？（每个码只有 1 次换绑机会）')) return {ok:false,reason:'已取消激活'};
+        await sbFetch('PATCH','/code_bindings?code=eq.'+q,{device_id:dev,swap_count:(b.swap_count||0)+1,updated_at:new Date().toISOString()});
+      }
+    }
+  }catch(e){ console.warn('[lic] 云端设备校验不可用，按本地签名激活', e.message); }
   localStorage.setItem(LIC_KEY, JSON.stringify({code:code.trim(), type:r.type, userid:r.userid, expiry:r.expiry, label:r.label, activateTime: Date.now()}));
   return {ok:true};
 }
@@ -2132,7 +2300,7 @@ renderStat();
 const USER_KEY = 'tianlaoban_user_v5';
 const WEIXIN_ID = 'dreamer0366';
 /* v9.3 激活码自动发货：发卡店铺链接（付款后平台自动发卡密，收款可提现）；为空时只显示微信引导 */
-const SHOP_URL = '';  /* 例：'https://你的店铺.faka.com/buy?gid=1'，配好发卡店后填到这里 */
+const SHOP_URL = 'https://tianlaoban-card.onrender.com';  /* 自建发卡站（Render），付款成功自动发激活码 */
 const WEIXIN_BUY = 'vipcake996';  /* 激活/付款疑问微信 */
 
 function loadUser(){
@@ -2179,10 +2347,10 @@ function renderQuotaHint(){
   if(st==='none' || st==='expired'){ el.textContent=''; return; }
   const q = getQuota() || {day:todayStr(), used:0, total:0};
   if(q.day !== todayStr()) q.used = 0;
-  const dailyMax = ((st==='active') ? ACTIVE_DAILY_MAX : TRIAL_DAILY_MAX) + (q.bonus||0);
+  const dailyMax = (st==='active') ? ACTIVE_DAILY_MAX : TRIAL_DAILY_MAX;
   const left = Math.max(0, dailyMax - q.used);
   if(st==='active'){ el.textContent='生图不限次数 · 已激活'; }
-  else { el.textContent='今日还可免费生成 '+left+' 次（打卡可 +1）'; }
+  else { el.textContent='今日还可免费生成 '+left+' 次（每天零点重置）'; }
 }
 
 async function renderLicUI(){
@@ -2220,7 +2388,7 @@ async function renderLicUI(){
       <div style="background:linear-gradient(135deg,#fff5e9,#ffeef3);border-radius:14px;padding:14px;margin-top:10px;">
         <div style="font-size:12px;line-height:1.9;color:var(--ink)">
           <b>🎁 当前免费权益</b><br/>
-          · 每日免费生图 <b>3</b> 次（社群打卡再 +1）<br/>
+          · 每日免费生图 <b>3</b> 次（每天零点重置）<br/>
           · AI 文案 / 活动策划 / 开店求助圈 全部可用
         </div>
         <div style="background:#fff;border-radius:10px;padding:10px 12px;margin-top:10px;text-align:center;">
@@ -2262,7 +2430,7 @@ function openPhoneModal(){
       <div class="pm-box">
         <div style="font-size:48px;">🍰</div>
         <h2>甜老板·私域助手</h2>
-        <div class="sub">填个手机号，立即免费使用<br/>每日 3 次生图 · 打卡可 +1 · 9.9 元可激活不限次数</div>
+        <div class="sub">填个手机号，立即免费使用<br/>每日 3 次生图 · 每天零点重置 · 9.9 元激活不限次数</div>
         <input id="phoneInput" type="tel" maxlength="11" placeholder="输入 11 位手机号" inputmode="numeric" pattern="[0-9]*"/>
         <button class="btn" id="phoneSubmitBtn">🚀 注册并免费使用</button>
         <div class="hint">手机号仅用于身份识别，存你本机浏览器，不上传服务器<br/>不想填？直接 <a href="javascript:void(0)" id="phoneSkip" style="color:var(--brand);font-weight:700;">跳过</a>（也能用 30 天，到期再加我）</div>
@@ -2402,23 +2570,28 @@ function baSaveHistory(){
 
 /* 打开/关闭对话层 */
 $("#baHero").onclick=()=>{ baOpen(); };
-/* v9.1 智囊 hero 卡：快捷提问 chips（点击即问，突出但不打扰） */
+/* v9.1 智囊 hero 卡：快捷提问 chips（v9.5：每次打开随机换一批，从 70 条高频池抽取） */
 (function(){
   const box=document.getElementById('baHeroChips');
   if(!box) return;
-  const qs=[
-    ['戚风蛋糕为什么会塌陷回缩？','戚风塌陷怎么办'],
-    ['淡奶油打不发是怎么回事？','淡奶油打不发'],
-    ['蛋糕怎么定价？','蛋糕怎么定价'],
-    ['私房烘焙需要办什么证？','私房要办什么证']
-  ];
-  qs.forEach(([q,lb])=>{
-    const b=document.createElement('button');
-    b.className='ba-chip'; b.textContent=lb;
-    b.addEventListener('click',ev=>{ ev.stopPropagation(); baOpen(); const inp=$("#bakeryAiInput"); if(inp) inp.value=q; baAsk(q); });
-    box.appendChild(b);
-  });
+  window.__baRenderChips=function(){
+    box.innerHTML='';
+    let pool;
+    try{ pool=(typeof BAKERY_SUGGEST_Q!=='undefined'&&BAKERY_SUGGEST_Q.length)?BAKERY_SUGGEST_Q.slice():null; }catch(e){ pool=null; }
+    if(!pool) pool=['戚风蛋糕为什么会塌陷回缩？','淡奶油打不发是怎么回事？','蛋糕怎么定价？','私房烘焙需要办什么证？'];
+    for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=pool[i];pool[i]=pool[j];pool[j]=t;}
+    pool.slice(0,4).forEach(q=>{
+      const b=document.createElement('button');
+      b.className='ba-chip'; b.textContent=(q.length>10?q.slice(0,10):q);
+      b.addEventListener('click',ev=>{ ev.stopPropagation(); baOpen(); const inp=$("#bakeryAiInput"); if(inp) inp.value=q; baAsk(q); });
+      box.appendChild(b);
+    });
+  };
+  window.__baRenderChips();
 })();
+/* v9.5：知识库顶端的「求助AI」入口 → 打开烘焙智囊 */
+const kbAiEntry=document.getElementById('kbAiEntry');
+if(kbAiEntry) kbAiEntry.onclick=()=>{ baOpen(); };
 $("#bakeryAiBack").onclick=()=>{ $("#bakeryAiLayer").classList.remove("open"); };
 function baOpen(){
   $("#bakeryAiLayer").classList.add("open");
