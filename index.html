@@ -3022,11 +3022,19 @@ $("#bakeryAiKbClearAll").onclick=()=>{
     try { localStorage.setItem('pwa.closed', String(Date.now())); } catch(e){}
   };
 
-  // 横幅显示逻辑：3 秒后弹出；已关过 24h 不再弹；已 standalone 不弹
+  // 横幅显示逻辑：3 秒后弹出；已关过 24h 不再弹；已 standalone 不弹；APK 内置壳(WebView)不弹
   const isStandalone = () =>
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true ||
     location.search.includes('source=pwa');
+
+  // Android WebView（APK 壳）特征：UA 含 "; wv)" —— 已经是 App，绝不再提示"装到桌面"
+  const isAppShell = /\bwv\b/.test(navigator.userAgent);
+  if (isAppShell) {
+    const pb0 = document.getElementById('pwaBanner');
+    if (pb0) pb0.remove();
+    return;
+  }
 
   if (isStandalone()) return;
 
