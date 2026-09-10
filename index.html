@@ -856,10 +856,33 @@ select:focus,input[type=text]:focus,input[type=password]:focus,textarea:focus,in
           <b style="font-size:13px">🔵 抖音外卖 · 让店被看见</b><br/>
           <span style="font-size:12px;color:var(--sub)">短视频+直播卖套餐。帮你设计抖音爆款套餐、对接本地达人探店、投放大流量的同城推荐，蛋糕店也能在抖音爆单。</span>
         </div>
+        <button class="btn" id="coopSlidesBtn" style="background:linear-gradient(135deg,#c2554f,#e07b3f);margin-top:6px">📖 查看合作方案 · 9 页图文详解</button>
         <button class="btn wx-btn" id="coopWxBtn" style="margin-top:2px">💬 咨询代运营合作：dreamer0366</button>
         <div style="font-size:11px;color:var(--sub);margin-top:6px">免费诊断你的店适合上哪个平台，不合适不推销</div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ============ v9.7 代运营合作 · 9页方案层 ============ -->
+<div class="forum-layer" id="coopSlidesLayer">
+  <div class="forum-hd">
+    <span class="bk" id="coopSlidesBack">←</span>
+    <span class="ft">🤝 外卖代运营 · 合作方案</span>
+  </div>
+  <div style="padding:0 0 96px">
+    <img src="coop/01.jpg" style="width:100%;display:block" alt="封面：保姆托管"/>
+    <img src="coop/02.jpg" loading="lazy" style="width:100%;display:block" alt="为什么要代运营"/>
+    <img src="coop/03.jpg" loading="lazy" style="width:100%;display:block" alt="保姆托管服务清单"/>
+    <img src="coop/04.jpg" loading="lazy" style="width:100%;display:block" alt="全托管纯佣合作"/>
+    <img src="coop/05.jpg" loading="lazy" style="width:100%;display:block" alt="合作流程"/>
+    <img src="coop/06.jpg" loading="lazy" style="width:100%;display:block" alt="上线节奏"/>
+    <img src="coop/07.jpg" loading="lazy" style="width:100%;display:block" alt="案例"/>
+    <img src="coop/08.jpg" loading="lazy" style="width:100%;display:block" alt="服务保障"/>
+    <img src="coop/09.jpg" loading="lazy" style="width:100%;display:block" alt="联系我们"/>
+  </div>
+  <div style="position:fixed;bottom:0;left:0;right:0;padding:10px 14px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(250,245,238,0),#faf5ee 40%);z-index:81">
+    <button class="btn wx-btn" onclick="openWeixin('dreamer0366')">💬 微信咨询合作：dreamer0366</button>
   </div>
 </div>
 
@@ -1780,6 +1803,9 @@ $("#menuAccount").onclick=()=>{openForumLayer("#meAccountLayer");};
 $("#meAccountBack").onclick=closeForumLayers;
 $("#menuAbout").onclick=()=>{openForumLayer("#meAboutLayer");};
 $("#meAboutBack").onclick=closeForumLayers;
+/* v9.7 代运营合作 9 页方案层 */
+$("#coopSlidesBtn").onclick=()=>{openForumLayer("#coopSlidesLayer");};
+$("#coopSlidesBack").onclick=closeForumLayers;
 $("#forumNewBtn").onclick=()=>{
   if(!user.phone){toast("请先在「我的」注册手机号");return;}
   $("#forumTitleInput").value='';$("#forumContentInput").value='';
