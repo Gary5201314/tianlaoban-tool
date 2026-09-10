@@ -2383,6 +2383,7 @@ async function renderLicUI(){
     ${st.state==='active' ? `
       <div style="background:linear-gradient(135deg,#eefaf1,#f0fbf4);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:12px;line-height:1.8">
         🎉 <b>9.9 元买断版</b> · 生图每天不限次数 · 享全部功能
+        <div style="text-align:right;margin-top:2px"><a href="javascript:void(0)" id="licDeactivate" style="font-size:10.5px;color:#b9b3ac">解除激活（换设备用）</a></div>
       </div>
     ` : `
       <div style="background:linear-gradient(135deg,#fff5e9,#ffeef3);border-radius:14px;padding:14px;margin-top:10px;">
@@ -2404,6 +2405,16 @@ async function renderLicUI(){
       </div>
     `}
   `;
+
+  /* 解除激活（换设备/测试用）：清本地激活标记，云端绑定保留（换绑额度不消耗） */
+  const deBtn = $('#licDeactivate');
+  if(deBtn) deBtn.onclick = () => {
+    if(!confirm('确定解除本机的激活状态？\\n\\n· 激活码仍有效，换新手机后可重新激活\\n· 主要用于换设备或测试')) return;
+    deactivateLic();
+    delete user.activated; delete user.activatedPlan; delete user.activatedExpiry; delete user.activatedCode;
+    saveUser(user);
+    renderLicUI();
+  };
 
   renderQuotaHint();
 }
