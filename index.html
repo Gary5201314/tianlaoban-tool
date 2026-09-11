@@ -2215,26 +2215,41 @@ async function renderSettingLic(){
 }
 
 /* v9.8 发卡站「一键去激活」直达：付款成功点 🚀 带 ?autocode= 跳回本工具
-   → 自动切「我的」→ 自动填激活码 → 自动点激活，全程零手动输入 */
+   → 自动切「我的」→ 自动填激活码 → 自动点激活，全程零手动输入。
+   未注册手机号时先存 localStorage，注册完成后自动补填（20 秒内轮询） */
 (function(){
   try{
     const m=location.search.match(/[?&]autocode=([^&]+)/);
     if(!m) return;
     const code=decodeURIComponent(m[1]);
     history.replaceState(null,'',location.pathname);  // 立即从地址栏抹掉，防止刷新重复触发
-    setTimeout(()=>{
-      const tab=document.querySelector('.tab[data-s="s6"]');
-      if(tab) tab.click();
-      setTimeout(async()=>{
-        try{ if(getLic()){ toast('当前设备已激活，如需更换请先解除激活'); return; } }catch(e){}
-        try{ if(typeof renderSettingLic==='function') await renderSettingLic(); }catch(e){}
-        const inp=$('#licCodeInput');
-        if(inp && !inp.value) inp.value=code;
-        try{ toast('激活码已自动填入，正在激活…'); }catch(e){}
+    localStorage.setItem('tlb_autocode', code);
+    let tries=0;
+    const iv=setInterval(async()=>{
+      tries++;
+      let pending=false;
+      try{ pending=!!localStorage.getItem('tlb_autocode'); }catch(e){}
+      if(!pending){ clearInterval(iv); return; }
+      let licensed=false;
+      try{ licensed=!!getLic(); }catch(e){}
+      if(licensed){ localStorage.removeItem('tlb_autocode'); clearInterval(iv); toast('当前设备已激活，如需更换请先解除激活'); return; }
+      const inp=$('#licCodeInput');
+      if(inp && inp.offsetParent){
+        if(!inp.value) inp.value=code;
+        localStorage.removeItem('tlb_autocode');
+        toast('激活码已自动填入，正在激活…');
         const btn=$('#licActivateBtn');
         if(btn) setTimeout(()=>btn.click(),700);
-      },700);
-    },400);
+        clearInterval(iv);
+        return;
+      }
+      if(tries%3===1){
+        const tab=document.querySelector('.tab[data-s="s6"]');
+        if(tab) tab.click();
+        try{ if(typeof renderSettingLic==='function') await renderSettingLic(); }catch(e){}
+      }
+      if(tries>15){ clearInterval(iv); toast('激活码已保存，完成注册后到「我的 · 激活」粘贴'); }
+    },1200);
   }catch(e){}
 })();
 
