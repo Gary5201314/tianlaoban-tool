@@ -2214,6 +2214,30 @@ async function renderSettingLic(){
   bindLicButtons();
 }
 
+/* v9.8 发卡站「一键去激活」直达：付款成功点 🚀 带 ?autocode= 跳回本工具
+   → 自动切「我的」→ 自动填激活码 → 自动点激活，全程零手动输入 */
+(function(){
+  try{
+    const m=location.search.match(/[?&]autocode=([^&]+)/);
+    if(!m) return;
+    const code=decodeURIComponent(m[1]);
+    history.replaceState(null,'',location.pathname);  // 立即从地址栏抹掉，防止刷新重复触发
+    setTimeout(()=>{
+      const tab=document.querySelector('.tab[data-s="s6"]');
+      if(tab) tab.click();
+      setTimeout(async()=>{
+        try{ if(getLic()){ toast('当前设备已激活，如需更换请先解除激活'); return; } }catch(e){}
+        try{ if(typeof renderSettingLic==='function') await renderSettingLic(); }catch(e){}
+        const inp=$('#licCodeInput');
+        if(inp && !inp.value) inp.value=code;
+        try{ toast('激活码已自动填入，正在激活…'); }catch(e){}
+        const btn=$('#licActivateBtn');
+        if(btn) setTimeout(()=>btn.click(),700);
+      },700);
+    },400);
+  }catch(e){}
+})();
+
 /* ===================== 设置面板 ===================== */
 function renderCfg(){
   $("#cfgArkKey").value=cfg.arkKey||'';
